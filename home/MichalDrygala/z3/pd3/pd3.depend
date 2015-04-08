@@ -11,3 +11,15 @@
 1427287176 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\z3\pd3\point.cpp
 	"point.h"
 
+1428519495 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z3\pd3\area.cpp
+	<iostream>
+	<math.h>
+	"point.h"
+
+1428517372 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z3\pd3\point.h
+	<iostream>
+	<math.h>
+
+1428517372 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z3\pd3\point.cpp
+	"point.h"
+
