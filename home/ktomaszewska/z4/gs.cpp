@@ -1,4 +1,4 @@
-// #include<iostream>
+#include<iostream>
 using namespace std;
 
 #include "vect.h"
@@ -20,7 +20,7 @@ int main()
     d = z - (z * a) * a - (z * b) * b - (z * c) * c;
     d.normalize();
 
-    cout << endl << "UkÅ‚ad po ortogonalizacji." << endl << endl;
+    cout << endl << "Uk³ad po ortogonalizacji." << endl << endl;
 
     cout << "a = " << a << endl;
     cout << "b = " << b << endl;
