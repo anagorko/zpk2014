@@ -1,0 +1,53 @@
+# depslib dependency file v1.0
+1428048266 source:c:\users\kalba_000\desktop\nowy folder\gram-schmidt.cpp
+	<iostream>
+	"point.h"
+
+1428048258 c:\users\kalba_000\desktop\nowy folder\point.h
+	<iostream>
+	<math.h>
+
+1428357376 source:c:\users\kalba_000\desktop\nowy folder\gs.cpp
+	<iostream>
+	"vect.h"
+
+1428438365 c:\users\kalba_000\desktop\nowy folder\vect.h
+	<iostream>
+	<math.h>
+	<initializer_list>
+	<vector>
+
+1428096209 source:c:\users\kalba_000\desktop\nowy folder\point.cpp
+	"point.h"
+	<cassert>
+
+1428438353 source:c:\users\kalba_000\desktop\nowy folder\vect.cpp
+	<iostream>
+	"vect.h"
+	<math.h>
+	<assert.h>
+
+1428357376 source:c:\users\kalba_000\desktop\z4\ort.cpp
+	<iostream>
+	"vect.h"
+
+1428438821 c:\users\kalba_000\desktop\z4\vect.h
+	<iostream>
+	<math.h>
+	<initializer_list>
+	<vector>
+
+1428096209 source:c:\users\kalba_000\desktop\z4\point.cpp
+	"point.h"
+	<cassert>
+
+1428048258 c:\users\kalba_000\desktop\z4\point.h
+	<iostream>
+	<math.h>
+
+1428438353 source:c:\users\kalba_000\desktop\z4\vect.cpp
+	<iostream>
+	"vect.h"
+	<math.h>
+	<assert.h>
+

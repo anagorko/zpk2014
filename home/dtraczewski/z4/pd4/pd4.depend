@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1428321120 source:d:\studia\iv rok\ii semestr\zpk\zpk2014\home\dtraczewski\z4\pd4\ortogonalizacja.cpp
+	<iostream>
+	"vect.h"
+
+1428319777 d:\studia\iv rok\ii semestr\zpk\zpk2014\home\dtraczewski\z4\pd4\vect.h
+	<iostream>
+	<math.h>
+	<initializer_list>
+	<assert.h>
+
+1428320972 source:d:\studia\iv rok\ii semestr\zpk\zpk2014\home\dtraczewski\z4\pd4\vect.cpp
+	<iostream>
+	<math.h>
+	<assert.h>
+	"vect.h"
+
