@@ -37,7 +37,9 @@ Vect::Vect( const Vect &w )
 // Operator podstawienia
 Vect& Vect::operator = ( const Vect &w )
 {
-    assert( w.getDimension() == getDimension() );
+    if ( w.getDimension() != getDimension() ){
+        delete[] v;
+    }
     for( int i = 0; i < w.getDimension(); i++)
         setCoordinate( i, w.getCoordinate( i ) );
     return *this;
