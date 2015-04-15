@@ -32,7 +32,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="spr.cpp" />
+		<Unit filename="main.cpp" />
 		<Unit filename="vect.cpp" />
 		<Unit filename="vect.h" />
 		<Extensions>

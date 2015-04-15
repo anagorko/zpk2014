@@ -1,6 +1,6 @@
 #include <iostream>
 #include <math.h>
-#define M_PI 3.14159265358979323846
+#define M_PI  3.141592653589793238462643383279502884
 using namespace std;
 
 class Figure
@@ -127,58 +127,54 @@ public:
     }
 };
 
-class Circle : public Figure{
-
+class Circle: public Figure{
     Point o;
-
     double r;
 
     virtual ostream& output(ostream& os) const {
-        return os << "{" << o << "," << r <<"}";}
+        return os << "[" << o << ";" << r << "]";
+    }
 
 public:
 
-    Circle() : Circle(Point(), 1)
-    {
+    Circle() : Circle(Point(), 1.0) {
     }
 
-    Circle(Point _o, double _r){
-        o = _o;
-        r = _r;
+    Circle(Point _o, double _r) {
+        o = _o; r = _r;
     }
 
-    virtual double area(){
+    virtual double area() {
         return M_PI*pow(r,2);
     }
 
-    virtual Figure* scale(double k){
+    virtual Figure* scale(double k) {
         o.scale(k);
-        r*=k;
+        r = k * r;
+
+        return this;
+    };
+
+        virtual Figure* translate(double dx, double dy) {
+        o.translate(dx, dy);
 
         return this;
     }
 
-    virtual Figure* translate(double dx, double dy){
-        o.translate(dx,dy);
-
-        return this;
-    }
-
-    virtual Figure* rotate(double alpha){
+      virtual Figure* rotate(double alpha) {
         o.rotate(alpha);
         return this;
     }
-
 };
 
 int main(int argc, char ** argv)
 {
     Figure* f = new Square(Point(10.0, 20.0), 30.0);
     Figure* g = new Point(-5.0, 15.0);
-    Figure* h = new Circle(Point(8.0,15.0), 5.0);
-
+    Figure *h = new Circle(Point(8.0, 12.0), 5.0);
 
     cout << *f << " ma pole " << f -> area() << endl;
     cout << *g << " ma pole " << g -> area() << endl;
     cout << *h << " ma pole " << h -> area() << endl;
+
 }
