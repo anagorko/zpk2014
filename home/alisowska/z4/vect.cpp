@@ -1,61 +1,74 @@
 #include "vect.h"
 using namespace std;
 
-    // konstruktor kopiuj¹cy
-    Vect::Vect(const Vect &w){
+    // konstruktor kopiujÄ…cy
+   Vect::Vect(const Vect &w)
+{
     dim = w.getDimension();
     v = new double[dim];
-    for (int i = 0; i<dim; i++){
+
+    for (int i = 0; i < getDimension(); i++) {
         setCoordinate(i, w.getCoordinate(i));
-    }}
+    }
+}
 
     // Operator podstawienia
-    Vect& Vect::operator = (const Vect &w){
-    assert (getDimension() == w.getDimension());
-    for (int i = 0; i<w.getDimension(); i++){
-        setCoordinate(i, w.getCoordinate(i));}
-    return *this;}
+    Vect& Vect::operator=(const Vect &w)
+{
+    dim = w.getDimension();
 
-    // Metoda ustawiaj¹ca wartoœæ wspó³rzêdnej
+    if (v == w.v) return *this;
+
+    delete[] v;
+    v = new double[dim];
+
+    for (int i = 0; i < getDimension(); i++) {
+        setCoordinate(i, w.getCoordinate(i));
+    }
+
+    return *this;
+}
+
+    // Metoda ustawiajaca wartosc wspÃ³lrzednej
     void Vect::setCoordinate(int n, double c){
         assert(n >= 0 && n < getDimension());
         v[n] = c;}
 
-    // Metoda pobieraj¹ca wartoœæ wspó³rzêdnej
+    // Metoda pobierajaca wartosc wspÃ³lrzednej
     double Vect::getCoordinate(int n) const{
     assert(n >= 0 && n < getDimension());
     return v[n];}
 
-    // Metoda zwracaj¹ca wymiar przestrzeni
+    // Metoda zwracajaca wymiar przestrzeni
     int Vect::getDimension() const{
     return dim;}
 
     // Operatory dodawania i odejmowania od danego wektora
     Vect& Vect::operator+=(const Vect& p){
     assert (getDimension()==p.getDimension());
-    for (int i=0; i<p.getDimension();i++}{
-        setCoordinate(i, getCoordinate(i)+p.getCoordinate(i))}
+    for (int i=0; i<p.getDimension();i++){
+        setCoordinate(i, getCoordinate(i)+p.getCoordinate(i));}
     return *this;}
 
     Vect& Vect::operator-=(const Vect& p){
     assert (getDimension()==p.getDimension());
-    for (int i=0; i<p.getDimension();i++}{
-        setCoordinate(i, getCoordinate(i)-p.getCoordinate(i))}
+    for (int i=0; i<p.getDimension();i++){
+        setCoordinate(i, getCoordinate(i)-p.getCoordinate(i));}
     return *this;}
 
-    // Metoda obliczaj¹ca normê tego wektora
+    // Metoda obliczajaca norme tego wektora
     double Vect::norm() const{
     return sqrt(*this * *this);}
 
-    // Metoda normalizuj¹ca wektor
+    // Metoda normalizujaca wektor
     void Vect::normalize(){
     assert (norm()!=0);
     double n=norm();
     for (int i=0; i<getDimension(); i++){
-        setCoordinate(i, getCoordinate(i)/n);)}}
+        setCoordinate(i, getCoordinate(i)/n);}}
 
 
-    // Dodawanie i odejmowanie wektorów
+    // Dodawanie i odejmowanie wektorÃ³w
     Vect operator+(const Vect &p1, const Vect &p2){
     assert (p1.getDimension() == p2.getDimension());
     Vect w(p1.getDimension());
@@ -72,18 +85,18 @@ using namespace std;
 
     // Iloczyn skalarny
     double operator*(const Vect &p1, const Vect &p2){
-    assert (p1.getDimension() == p2.getDimension();
+    assert (p1.getDimension() == p2.getDimension());
     double skalar=0;
     for (int i=0; i<p1.getDimension();i++){
         skalar=skalar+p1.getCoordinate(i)*p2.getCoordinate(i);}
         return skalar;}
 
-    // Mno¿enie wektora przez skalar
+    // Mnozenie wektora przez skalar
     Vect operator*(const Vect &p, double d){
-    Vect x(p.getDimension());
+    Vect x(p);
     x=p;
-    for(int i =0; i<p.getDimension(); i++){
-        p.setCoordinate(i, d*p.getCoordinate(i));}
+    for(int i=0; i<p.getDimension(); i++)
+        x.setCoordinate(i, d* p.getCoordinate(i));
     return x;}
 
     Vect operator*(double d, const Vect& p){
@@ -91,9 +104,9 @@ using namespace std;
 
     // Wypisywanie i odczytywanie wektora ze strumieni
     ostream& operator<<(ostream &ost, const Vect w){
-    osr<<"(";
+    ost<<"(";
     for(int i=0; i<w.getDimension(); i++)
-        ost<<<","<<w.getCoordinate(i);
+        ost<<","<<w.getCoordinate(i);
         ost<<")";
     return ost;}
 
