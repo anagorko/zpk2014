@@ -165,7 +165,7 @@ public:
     }
 
     virtual Figure* rotate(double alpha){
-
+        o.rotate(alpha);
         return this;
     }
 
