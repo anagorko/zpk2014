@@ -10,23 +10,29 @@ using namespace std;
     // konstruktor kopiujacy
     Vect::Vect(const Vect &w)
     {
-        dim=w.getDimension();
-        v= new double[dim];
-        for(int i=0; i < dim; i++)
-        {
-            setCoordinate(i, w.getCoordinate(i));
-        }
+    dim = w.getDimension();
+    v = new double[dim];
 
-    };
+    for (int i = 0; i < getDimension(); i++) {
+        setCoordinate(i, w.getCoordinate(i));
+    }
+    }
 
     // Operator podstawienia
     Vect& Vect::operator=(const Vect &w)
     {
-        assert(getDimension()==w.getDimension());
-        for (int i = 0; i < w.getDimension(); i++)
-            setCoordinate(i, w.getCoordinate(i));
+    dim = w.getDimension();
 
-        return *this;
+    if (v == w.v) return *this;
+
+    delete[] v;
+    v = new double[dim];
+
+    for (int i = 0; i < getDimension(); i++) {
+        setCoordinate(i, w.getCoordinate(i));
+    }
+
+    return *this;
     }
 
     // Metoda ustawiaj¹ca wartoœæ wspó³rzêdnej
@@ -67,8 +73,8 @@ using namespace std;
     // Iloczyn skalarny, by obliczyc norme wektora
     double operator*(const Vect &p1, const Vect &p2)
     {
+        assert(p1.getDimension() == p2.getDimension()); //gdy wymiary wektorow sa rozne to zatrzymuje program
         double iskalar=0;
-        assert(p1.getDimension() == p2.getDimesion()); //gdy wymiary wektorow sa rozne to zatrzymuje program
         for(int i=0; i < p1.getDimension(); i++)
             iskalar = iskalar + p1.getCoordinate(i) * p2.getCoordinate(i);
 
@@ -77,7 +83,7 @@ using namespace std;
 
 
     // Operatory dodawania i odejmowania od danego wektora
-    Vect& Vect::operator+=(const Vect& p)
+    Vect& Vect::operator+=(const Vect &p)
     {
         assert(getDimension()==p.getDimension());
         for (int i = 0; i < p.getDimension(); i++)
@@ -86,7 +92,7 @@ using namespace std;
         return *this;
     }
 
-    Vect& Vect::operator-=(const Vect& p)
+    Vect& Vect::operator-=(const Vect &p)
     {
         assert(getDimension()==p.getDimension());
         for (int i = 0; i < p.getDimension(); i++)
