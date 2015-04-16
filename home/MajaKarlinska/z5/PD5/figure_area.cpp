@@ -2,16 +2,6 @@
 #include <math.h>
 using namespace std;
 
-//#include "display.h"
-
-/*
-class Shape
-{
-public:
-    virtual void draw(Display) = 0;
-};
-*/
-
 class Figure
 {
     virtual ostream& output(ostream&) const = 0;
@@ -31,7 +21,7 @@ ostream& operator<<(ostream& os, const Figure& f)
     return f.output(os);
 }
 
-class Point : public Figure//, public Shape
+class Point : public Figure
 {
     double x, y;
 
@@ -40,13 +30,13 @@ class Point : public Figure//, public Shape
     }
 
 public:
-    Point() : Point(0.0, 0.0) {
+    Point() : Point(0.0, 0.0) { //konstruktor domyslny, ustawia x i y na 0
     }
     Point(double _x, double _y) {
         x = _x; y = _y;
     }
 
-    virtual double area() {
+    virtual double area() { //bez 0, oznacza to zatem, ze bedzie zadeklarowana
         return 0;
     }
 
@@ -84,16 +74,10 @@ public:
 
     double getX() const { return x; }
     double getY() const { return y; }
-/*
-    void draw(Display d)
-    {
-        d.drawPoint(x,y);
-    }
-*/
 };
 
 
-class Square : public Figure//, public Shape
+class Square : public Figure
 {
     Point a,b,c,d;
 
@@ -119,6 +103,8 @@ public:
         b.scale(k);
         c.scale(k);
         d.scale(k);
+
+        return this;
     }
 
     virtual Figure* translate(double dx, double dy) {
@@ -126,6 +112,8 @@ public:
         b.translate(dx, dy);
         c.translate(dx, dy);
         d.translate(dx, dy);
+
+        return this;
     }
 
     virtual Figure* rotate(double alpha) {
@@ -136,110 +124,59 @@ public:
 
         return this;
     }
-
-/*    void draw(Display disp)
-    {
-        disp.drawLine(a.getX(),a.getY(),b.getX(),b.getY());
-        disp.drawLine(b.getX(),b.getY(),c.getX(),c.getY());
-        disp.drawLine(c.getX(),c.getY(),d.getX(),d.getY());
-        disp.drawLine(d.getX(),d.getY(),a.getX(),a.getY());
-    }
-*/
 };
+
 
 class Circle : public Figure
 {
-    Point s;
+    Point o;
     double r;
 
-    virtual ostream& output( ostream& os ) const{
-        return os << "[" << s << ", " << r << "]";
+    virtual ostream& output(ostream& os) const {
+        return os << "[" << o << ";" << r << "]";
     }
 
 public:
-
-    Circle() : Circle( Point(), 1 )
+    Circle() : Circle(Point(), 1)
     {
     }
 
-    Circle( Point _s, double _r )
-    {
-        s = _s;
+    Circle(Point _o, double _r) {
+        o = _o;
         r = _r;
     }
-    virtual double area()
-    {
-        double pi = 3.14159265359;
-        return pi * r * r;
+
+    virtual double area() {
+        return r*r*3.14159265358979323846;
     }
 
-    virtual Figure* scale( double k )
-    {
-        r = r * k;
+    virtual Figure* scale(double k) {
+        o.scale(k);
+        k = k*r;
+
         return this;
     }
 
-    virtual Figure* translate( double dx, double dy )
-    {
-        s.translate( dx, dy );
+    virtual Figure* translate(double dx, double dy) {
+        o.translate(dx, dy);
+
         return this;
     }
-    virtual Figure* rotate( double alpha )
-    {
+
+    virtual Figure* rotate(double alpha) {
+
         return this;
     }
 };
 
 
-
 int main(int argc, char ** argv)
 {
-    //Figure *p = new Point( 2.2, 3.3 );
-    //Figure *kw = new Square( Point( 1.1, 4.4), 1.1 );
-    Figure *h = new Circle( Point( 8, 12 ), 5 ); // zamiast ... wpisz parametry swojego konstruktora opisuj¹ce
-                                 // okr¹g o œrodku w punkcie 8.0, 12.0 i promieniu 5.0
-    //cout << *p << " ma pole " << p -> area() << endl;
-    //cout << *kw << " ma pole " << kw -> area() << endl;
+    Figure* f = new Square(Point(10.0, 20.0), 30.0);
+    Figure* g = new Point(-5.0, 15.0);
+    Figure* h = new Circle(Point(8.00, 12.00), 5.0);
+
+    cout << *f << " ma pole " << f -> area() << endl;
+    cout << *g << " ma pole " << g -> area() << endl;
     cout << *h << " ma pole " << h -> area() << endl;
 }
-
-/*
-const int n = 5;
-
-int main(int argc, char ** argv)
-{
-    Figure* f[n];
-
-    f[0] = new Square(Point(), 20.0);
-    f[0] -> translate(-10.0, -10.0);
-
-    f[1] = new Square(*static_cast<Square*>(f[0]));
-    f[1] -> scale(2.0);
-
-    f[2] = new Square(*static_cast<Square*>(f[0]));
-    f[2] -> scale(4.0);
-
-    f[3] = new Point(50.0, 50.0);
-
-    f[4] = new Point(70.0, 70.0);
-
-    Display d;
-    d.init();
-
-    while (true) {
-        d.clear();
-        for (int i = 0; i < n; i++) {
-            dynamic_cast<Shape*>(f[i]) -> draw(d);
-        }
-        d.show();
-
-        usleep(10000);
-
-        double m = 1.0;
-        for (int i = 0; i < n; i++) {
-            f[i] -> rotate(m * 0.02);
-            m = -m;
-        }
-    }
-}
-*/

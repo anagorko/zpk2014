@@ -2,15 +2,13 @@
 #include <math.h>
 using namespace std;
 
-//#include "display.h"
+#include "display.h"
 
-/*
 class Shape
 {
 public:
     virtual void draw(Display) = 0;
 };
-*/
 
 class Figure
 {
@@ -31,7 +29,7 @@ ostream& operator<<(ostream& os, const Figure& f)
     return f.output(os);
 }
 
-class Point : public Figure//, public Shape
+class Point : public Figure, public Shape
 {
     double x, y;
 
@@ -84,16 +82,15 @@ public:
 
     double getX() const { return x; }
     double getY() const { return y; }
-/*
+
     void draw(Display d)
     {
         d.drawPoint(x,y);
     }
-*/
 };
 
 
-class Square : public Figure//, public Shape
+class Square : public Figure, public Shape
 {
     Point a,b,c,d;
 
@@ -137,73 +134,16 @@ public:
         return this;
     }
 
-/*    void draw(Display disp)
+    void draw(Display disp)
     {
         disp.drawLine(a.getX(),a.getY(),b.getX(),b.getY());
         disp.drawLine(b.getX(),b.getY(),c.getX(),c.getY());
         disp.drawLine(c.getX(),c.getY(),d.getX(),d.getY());
         disp.drawLine(d.getX(),d.getY(),a.getX(),a.getY());
     }
-*/
+
 };
 
-class Circle : public Figure
-{
-    Point s;
-    double r;
-
-    virtual ostream& output( ostream& os ) const{
-        return os << "[" << s << ", " << r << "]";
-    }
-
-public:
-
-    Circle() : Circle( Point(), 1 )
-    {
-    }
-
-    Circle( Point _s, double _r )
-    {
-        s = _s;
-        r = _r;
-    }
-    virtual double area()
-    {
-        double pi = 3.14159265359;
-        return pi * r * r;
-    }
-
-    virtual Figure* scale( double k )
-    {
-        r = r * k;
-        return this;
-    }
-
-    virtual Figure* translate( double dx, double dy )
-    {
-        s.translate( dx, dy );
-        return this;
-    }
-    virtual Figure* rotate( double alpha )
-    {
-        return this;
-    }
-};
-
-
-
-int main(int argc, char ** argv)
-{
-    //Figure *p = new Point( 2.2, 3.3 );
-    //Figure *kw = new Square( Point( 1.1, 4.4), 1.1 );
-    Figure *h = new Circle( Point( 8, 12 ), 5 ); // zamiast ... wpisz parametry swojego konstruktora opisuj¹ce
-                                 // okr¹g o œrodku w punkcie 8.0, 12.0 i promieniu 5.0
-    //cout << *p << " ma pole " << p -> area() << endl;
-    //cout << *kw << " ma pole " << kw -> area() << endl;
-    cout << *h << " ma pole " << h -> area() << endl;
-}
-
-/*
 const int n = 5;
 
 int main(int argc, char ** argv)
@@ -242,4 +182,3 @@ int main(int argc, char ** argv)
         }
     }
 }
-*/
