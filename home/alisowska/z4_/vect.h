@@ -4,7 +4,7 @@
 #include<iostream>
 #include<math.h>
 #include <assert.h>
-#include<initializer_list>
+
 
 using namespace std;
 
@@ -21,7 +21,7 @@ public:
         v = new double[_dim];
     }
 
-    // Konstruktor inicjalizuj¹cy wspó³rzêdne wektora
+    // Konstruktor inicjalizuj¹cy wspólrzedne wektora
     Vect (int _dim, initializer_list<double> _v) : Vect(_dim)
     {
         int i = 0;

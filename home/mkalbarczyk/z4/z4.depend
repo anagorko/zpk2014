@@ -51,3 +51,21 @@
 	<math.h>
 	<assert.h>
 
+1429116423 source:c:\users\mk324540\documents\github\zpk2014\home\mkalbarczyk\z4\ort.cpp
+	<iostream>
+	"vect.h"
+
+1429116423 c:\users\mk324540\documents\github\zpk2014\home\mkalbarczyk\z4\vect.h
+	<iostream>
+	<math.h>
+	<initializer_list>
+	<vector>
+
+1429116423 source:c:\users\mk324540\documents\github\zpk2014\home\mkalbarczyk\z4\point.cpp
+	"point.h"
+	<cassert>
+
+1429116423 c:\users\mk324540\documents\github\zpk2014\home\mkalbarczyk\z4\point.h
+	<iostream>
+	<math.h>
+

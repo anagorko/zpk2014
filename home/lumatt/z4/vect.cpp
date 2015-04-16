@@ -13,8 +13,14 @@ Vect::Vect(const Vect &w){
 
 Vect& Vect::operator=(const Vect &w){
 
-    assert(getDimension()==w.getDimension());
-    for(int i = 1; i <= w.getDimension(); i++){
+    dim = w.getDimension();
+
+    if (v == w.v) return *this;
+
+    delete[] v;
+    v = new double[dim];
+
+    for(int i = 1; i <= dim; i++){
         setCoordinate(i,w.getCoordinate(i));
     }
 

@@ -25,17 +25,20 @@ using namespace std;
 
     Vect::Vect(const Vect &w){
     dim = w.getDimension();
-    v = new double[w.getDimension()];
+    v = new double[dim];
     for (int i = 0; i < w.getDimension(); ++i) {
         setCoordinate(i, w.getCoordinate(i));
     }
     }
 
     Vect& Vect::operator=(const Vect &w) {
-    assert (getDimension() == w.getDimension());
-    for (int i = 0; i < w.getDimension(); ++i) {
-        setCoordinate(i, w.getCoordinate(i));
-    }
+        dim = w.getDimension();
+        if(v==w.v) return *this;
+        delete[] v;
+        v=new double[dim];
+        for (int i = 0; i < w.getDimension(); ++i) {
+            setCoordinate(i, w.getCoordinate(i));
+        }
     return *this;
 }
 

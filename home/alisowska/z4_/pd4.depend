@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1428529227 source:c:\users\ania\desktop\nowy folder (2)\programowanieani\pd4\spr.cpp
+	<iostream>
+	<assert.h>
+	"vect.h"
+
+1429115136 c:\users\ania\desktop\nowy folder (2)\programowanieani\pd4\vect.h
+	<iostream>
+	<math.h>
+	<assert.h>
+
