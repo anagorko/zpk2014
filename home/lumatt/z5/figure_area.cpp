@@ -2,7 +2,6 @@
 #include <math.h>
 #define M_PI 3.14159265358979323846
 
-
 using namespace std;
 
 class Figure
@@ -129,49 +128,49 @@ public:
     }
 };
 
-class Circle : public Figure
-{
-    Point o;
+class Circle : public Figure{
+
+    Point a;
     double r;
 
-    virtual ostream& output(ostream& os) const {
-        return os << "[" << o << ";" << r << "]";
+    ostream& output(ostream& os) const {
+        return os << "[" << a << ";" << r << "]";
     }
 
 public:
-    Circle() : Circle(Point(), 1)
-    {
+
+    Circle(): Circle(Point(),1){
     }
 
-    Circle(Point _o, double _r) {
-            o = _o;
-            r = _r;
+    Circle(Point p, double x) {
+        a = p;
+        r = x;
     }
 
-    virtual double area() {
-        return r*r*M_PI;
+    double area() {
+        return M_PI * r * r;
     }
 
-    virtual Figure* scale(double k) {
-        o.scale(k);
-        r = r*k;
+    Figure* scale(double k) {
+        a.scale(k);
+        r = r * k;
 
         return this;
     }
 
-    virtual Figure* translate(double dx, double dy) {
-        o.translate(dx, dy);
+    Figure* translate(double dx, double dy) {
+        a.translate(dx, dy);
 
         return this;
     }
 
-    virtual Figure* rotate(double alpha) {
-        o.rotate(alpha);
+    Figure* rotate(double alpha) {
+        a.rotate(alpha);
 
         return this;
     }
+
 };
-
 
 int main(int argc, char ** argv)
 {

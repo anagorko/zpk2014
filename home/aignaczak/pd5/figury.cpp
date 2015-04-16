@@ -1,8 +1,5 @@
 #include <iostream>
 #include <math.h>
-#define M_PI 3.14159265358979323846
-
-
 using namespace std;
 
 class Figure
@@ -129,57 +126,53 @@ public:
     }
 };
 
-class Circle : public Figure
-{
-    Point o;
+class Circle : public Figure {
+    Point a;
     double r;
 
     virtual ostream& output(ostream& os) const {
-        return os << "[" << o << ";" << r << "]";
+        return os << "[" << a << ";" << r << "]";
     }
 
 public:
-    Circle() : Circle(Point(), 1)
-    {
-    }
-
-    Circle(Point _o, double _r) {
-            o = _o;
-            r = _r;
+    Circle(Point srodek, double promien) {
+        a = srodek;
+        r = promien;
     }
 
     virtual double area() {
-        return r*r*M_PI;
+        return 3.14 * r * r;
     }
 
     virtual Figure* scale(double k) {
-        o.scale(k);
-        r = r*k;
+        a.scale(k);
+        r = r * k;
 
         return this;
     }
 
     virtual Figure* translate(double dx, double dy) {
-        o.translate(dx, dy);
+        a.translate(dx, dy);
 
         return this;
     }
 
     virtual Figure* rotate(double alpha) {
-        o.rotate(alpha);
+        a.rotate(alpha);
 
         return this;
     }
 };
 
-
 int main(int argc, char ** argv)
 {
     Figure* f = new Square(Point(10.0, 20.0), 30.0);
     Figure* g = new Point(-5.0, 15.0);
-    Figure* h = new Circle(Point(8.0, 12.0), 5.0);
 
     cout << *f << " ma pole " << f -> area() << endl;
     cout << *g << " ma pole " << g -> area() << endl;
+
+    Figure *h = new Circle(Point(8.0, 12.0), 5.0); // zamiast ... wpisz parametry swojego konstruktora opisuj¹ce
+                                                    // okr¹g o œrodku w punkcie 8.0, 12.0 i promieniu 5.0
     cout << *h << " ma pole " << h -> area() << endl;
 }

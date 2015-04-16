@@ -1,7 +1,9 @@
 #include <iostream>
 #include <math.h>
-#define M_PI 3.14159265358979323846
 
+#ifndef M_PI
+#define M_PI 3.14159265359
+#endif // M_PI
 
 using namespace std;
 
@@ -58,13 +60,17 @@ public:
     }
 
     virtual Figure* rotate(double alpha) {
-        double nx = cos(alpha) * x - sin(alpha) * y;
-        double ny = sin(alpha) * x + cos(alpha) * y;
+        if( x == 0 && y == 0){
+            return this;
+        } else{
+            double nx = cos(alpha) * x - sin(alpha) * y;
+            double ny = sin(alpha) * x + cos(alpha) * y;
 
-        x = nx;
-        y = ny;
+            x = nx;
+            y = ny;
 
-        return this;
+            return this;
+        }
     }
 
     double distanceTo(Point p)
@@ -129,57 +135,52 @@ public:
     }
 };
 
-class Circle : public Figure
-{
-    Point o;
-    double r;
+class Circle : public Figure{
+    Point _centerCirle;
+    double _radius;
 
-    virtual ostream& output(ostream& os) const {
-        return os << "[" << o << ";" << r << "]";
+    virtual ostream& output(ostream& os) const{
+        return os << "[" << _centerCirle << ";" << _radius << "]";
     }
 
 public:
-    Circle() : Circle(Point(), 1)
-    {
+    Circle(Point center, double radius){
+        this->_centerCirle = center;
+        this->_radius = radius;
     }
 
-    Circle(Point _o, double _r) {
-            o = _o;
-            r = _r;
+    Circle() : Circle(Point(), 1){
     }
 
-    virtual double area() {
-        return r*r*M_PI;
+    virtual double area(){
+        return M_PI * _radius * _radius;
     }
 
-    virtual Figure* scale(double k) {
-        o.scale(k);
-        r = r*k;
-
+    virtual Figure* scale(double scaleValue){
+        _radius *= scaleValue;
         return this;
     }
 
-    virtual Figure* translate(double dx, double dy) {
-        o.translate(dx, dy);
-
+    virtual Figure* translate(double x_translate, double y_translate){
+        _centerCirle.translate(x_translate, y_translate);
         return this;
     }
 
-    virtual Figure* rotate(double alpha) {
-        o.rotate(alpha);
-
+    virtual Figure* rotate(double alphaValue){
+        _centerCirle.rotate(alphaValue);
         return this;
     }
 };
-
 
 int main(int argc, char ** argv)
 {
     Figure* f = new Square(Point(10.0, 20.0), 30.0);
     Figure* g = new Point(-5.0, 15.0);
-    Figure* h = new Circle(Point(8.0, 12.0), 5.0);
+    Figure* h = new Circle(Point(0,0), 12);
+
 
     cout << *f << " ma pole " << f -> area() << endl;
     cout << *g << " ma pole " << g -> area() << endl;
-    cout << *h << " ma pole " << h -> area() << endl;
+    cout << *h << " ma pole " << h->area() << endl;
+
 }

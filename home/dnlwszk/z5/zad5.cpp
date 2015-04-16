@@ -1,10 +1,7 @@
 #include <iostream>
 #include <math.h>
-#define M_PI 3.14159265358979323846
-
-
 using namespace std;
-
+static double PI = 3.14;
 class Figure
 {
     virtual ostream& output(ostream&) const = 0;
@@ -131,53 +128,49 @@ public:
 
 class Circle : public Figure
 {
-    Point o;
+    Point s;
     double r;
 
     virtual ostream& output(ostream& os) const {
-        return os << "[" << o << ";" << r << "]";
+        return os << "[" << s << ";" << r << "]";
     }
 
 public:
-    Circle() : Circle(Point(), 1)
-    {
-    }
-
-    Circle(Point _o, double _r) {
-            o = _o;
-            r = _r;
+    Circle(Point p, double x) {
+        s = p;
+        r = x;
     }
 
     virtual double area() {
-        return r*r*M_PI;
+        return PI * r * r;
     }
 
     virtual Figure* scale(double k) {
-        o.scale(k);
-        r = r*k;
+        s.scale(k);
+        r = r * k;
 
         return this;
     }
 
     virtual Figure* translate(double dx, double dy) {
-        o.translate(dx, dy);
+        s.translate(dx, dy);
 
         return this;
     }
 
     virtual Figure* rotate(double alpha) {
-        o.rotate(alpha);
+        s.rotate(alpha);
+
 
         return this;
     }
 };
 
-
 int main(int argc, char ** argv)
 {
     Figure* f = new Square(Point(10.0, 20.0), 30.0);
     Figure* g = new Point(-5.0, 15.0);
-    Figure* h = new Circle(Point(8.0, 12.0), 5.0);
+    Figure* h = new Circle(Point(8.0, 12.0),5.0);
 
     cout << *f << " ma pole " << f -> area() << endl;
     cout << *g << " ma pole " << g -> area() << endl;
