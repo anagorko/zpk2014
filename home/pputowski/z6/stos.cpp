@@ -1,9 +1,10 @@
 #include<iostream>
+#include<string>
 using namespace std;
 
 /*
- * Obiekty klas implementujÄ…cych interfejs ElementStosu moÅ¼na
- * przechowywaÄ‡ w niÅ¼ej okreÅ›lonej strukturze Stos.
+ * Obiekty klas implementuj¹cych interfejs ElementStosu mo¿na
+ * przechowywaæ w ni¿ej okreœlonej strukturze Stos.
  */
 
 class ElementStosu
@@ -25,7 +26,7 @@ ostream& operator<<(ostream& os, ElementStosu& el)
 }
 
 /*
- * Obiekty klasy Stos mogÄ… przechowywaÄ‡ dowolne obiekty implementujÄ…ce interfejs
+ * Obiekty klasy Stos mog¹ przechowywaæ dowolne obiekty implementuj¹ce interfejs
  * ElementStosu.
  */
  
@@ -58,20 +59,44 @@ class Stos
         ElementStosu    *dane;
         Link            *poprzedni;
     };
-    
+    int i;
     Link* wierzcholek;
     
 public:
     Stos() {
         wierzcholek = NULL;
+        i = 0;
     }
     
     ~Stos() {
         while (wierzcholek != NULL) {
             delete pop();
         }
+        i = 0;
     }
 
+	int size()
+	{
+		return i;
+		/*Link *poprz = new Link;
+		poprz -> poprzedni = wierzcholek;
+		int i = 0;
+		while( poprz -> poprzedni != NULL )
+		{
+			poprz -> poprzedni = poprz -> wierzcholek -> poprzedni;
+			i++;
+		}
+		return i;*/
+	}
+	
+	bool empty()
+	{
+		if( i == 0 )
+			return true;
+		else
+			return false;
+	}
+	
     void push(ElementStosu* el) {
         Link *nowy = new Link;
         
@@ -79,6 +104,7 @@ public:
         nowy -> dane = el;
 
         wierzcholek = nowy;
+        i++;
     }
         
     ElementStosu* pop() {
@@ -88,7 +114,7 @@ public:
         Link* poprzedni = wierzcholek -> poprzedni;
         delete wierzcholek;        
         wierzcholek = poprzedni;
-
+		i--;
         return wynik;
     }
     
@@ -124,13 +150,12 @@ int main()
             cout << "Bye" << endl;
             return 0;
         }
-        
-        if (komenda == "+" || komenda == "*" || komenda == "-" || komenda == "/") {
+        if ( komenda == "+" || komenda == "*" || komenda == "-" || komenda == "/" || komenda == "%" ) {
             Liczba *l2 = static_cast<Liczba*>(s.pop());
             Liczba *l1 = static_cast<Liczba*>(s.pop());
             
             if (l1 == NULL || l2 == NULL) {
-                cout << "Brak elementÃ³w na stosie." << endl; continue;
+                cout << "Brak elementów na stosie." << endl; continue;
             }
             
             Liczba *wynik;
@@ -141,9 +166,11 @@ int main()
                 wynik = new Liczba(l1 -> get() * l2 -> get());
             } else if (komenda == "-") {
                 wynik = new Liczba(l1 -> get() - l2 -> get());
+            } else if (komenda == "%") {
+                wynik = new Liczba(l1 -> get() % l2 -> get());
             } else if (komenda == "/") {
                 if (l2 -> get() == 0) {
-                    cout << "Nie umiem dzieliÄ‡ przez zero." << endl; 
+                    cout << "Nie umiem dzieliæ przez zero." << endl; 
 
                     wynik = new Liczba();
                 } else {
@@ -158,14 +185,16 @@ int main()
             
             continue;
         }
-        
         try {
             int l = stoi(komenda);
-            
+            cout << "Czy tablica byla pusta: " << s.empty() << endl;
             s.push(new Liczba(l));
+            cout << "Nowa wielkosc stosu: " << s.size() << endl;
         } catch (string ex) {
             cout << "Nieznana komenda: " << komenda << endl;
         }        
+
     }
 }
+
 
