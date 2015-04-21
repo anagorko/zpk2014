@@ -59,30 +59,37 @@ class Stos
         ElementStosu    *dane;
         Link            *poprzedni;
     };
-    int i;
     Link* wierzcholek;
     
 public:
     Stos() {
         wierzcholek = NULL;
-        i = 0;
     }
     
     ~Stos() {
         while (wierzcholek != NULL) {
             delete pop();
         }
-        i = 0;
     }
 
 	int size()
 	{
-		return i;
+		int w = 0;
+		if( wierzcholek != NULL ){
+			w = 1;
+			Link *poprz = new Link;
+			poprz = wierzcholek -> poprzedni;
+			while( poprz != NULL ){
+				poprz = poprz -> poprzedni;
+				w++;
+			}
+		}
+		return w;
 	}
 	
 	bool empty()
 	{
-		if( i == 0 )
+		if( size() == 0 )
 			return true;
 		else
 			return false;
@@ -95,7 +102,6 @@ public:
         nowy -> dane = el;
 
         wierzcholek = nowy;
-        i++;
     }
         
     ElementStosu* pop() {
@@ -105,7 +111,6 @@ public:
         Link* poprzedni = wierzcholek -> poprzedni;
         delete wierzcholek;        
         wierzcholek = poprzedni;
-		i--;
         return wynik;
     }
     
@@ -179,7 +184,8 @@ int main()
         try {
             int l = stoi(komenda);
             cout << "Czy tablica byla pusta: " << s.empty() << endl;
-            s.push(new Liczba(l));
+            cout << "Stara wielkosc stosu: " << s.size() << endl;
+			s.push(new Liczba(l));
             cout << "Nowa wielkosc stosu: " << s.size() << endl;
         } catch (string ex) {
             cout << "Nieznana komenda: " << komenda << endl;
@@ -187,5 +193,4 @@ int main()
 
     }
 }
-
 
