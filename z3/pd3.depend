@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1427316585 source:c:\users\piotrek\desktop\pd3\area.cpp
+	<iostream>
+	<math.h>
+	"point.h"
+
+1427240322 c:\users\piotrek\desktop\pd3\point.h
+	<iostream>
+	<math.h>
+
+1427316630 source:c:\users\piotrek\desktop\pd3\point.cpp
+	"point.h"
+
+1427316630 source:c:\users\piotrek\documents\github\zpk2014\z3\point.cpp
+	"point.h"
+
+1427240322 c:\users\piotrek\documents\github\zpk2014\z3\point.h
+	<iostream>
+	<math.h>
+

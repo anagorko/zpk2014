@@ -4,24 +4,31 @@ using namespace std;
 
 #include "point.h"
 
-double area_under(Point a, Point b)
+double odcinek(Point a, Point b)
 {
-    return (b.getX() - a.getX()) * (a.getY() + b.getY()) / 2.0;
+    return sqrt((a.getX() - b.getX()) * (a.getX() - b.getX()) + (a.getY() - b.getY()) * (a.getY() - b.getY()) + (a.getZ() - b.getZ()) * (a.getZ() - b.getZ()));
 }
 
 double area(Point a, Point b, Point c)
 {
-    return fabs(area_under(a,b) + area_under(b,c) + area_under(c,a));
+    double p;
+    p=(odcinek(a,b)+odcinek(a,c)+odcinek(b,c))/2;
+
+    return sqrt(p*(p-odcinek(a,b))*(p-odcinek(a,c))*(p-odcinek(b,c)));
 }
 
 int main()
 {
     Point p;
-    Point q(2.0, 2.0);
-    Point r(0.0, 3.0);
+    Point q;
+    Point r;
 
     cout << "Podaj wspolrzedne punktu p: ";
     cin >> p;
+    cout << "Podaj wspolrzedne punktu q: ";
+    cin >> q;
+    cout << "Podaj wspolrzedne punktu r: ";
+    cin >> r;
 
     cout << "Punkty: " << p << " " << q << " " << r << endl;
     cout << "Pole: " << area(p,q,r) << endl;

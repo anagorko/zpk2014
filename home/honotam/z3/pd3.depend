@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1427323039 source:d:\wne\studia magisterskie\v\zaaw. programowanie komputerowe\z3\area.cpp
+	<iostream>
+	<math.h>
+	"point.h"
+
+1427322968 d:\wne\studia magisterskie\v\zaaw. programowanie komputerowe\z3\point.h
+	<iostream>
+	<math.h>
+
+1427323051 source:d:\wne\studia magisterskie\v\zaaw. programowanie komputerowe\z3\point.cpp
+	"point.h"
+

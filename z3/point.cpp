@@ -1,4 +1,4 @@
- #include "point.h"
+#include "point.h"
 
 Point::Point()
 {
@@ -26,7 +26,6 @@ void Point::setY(double _y)
     y = _y;
 }
 
-
 double Point::getX()
 {
     return x;
@@ -41,14 +40,7 @@ double Point::getY()
 ostream& operator<<(ostream &o, Point p)
 {
     o << "(" << p.getX() << "," << p.getY() << ")";
-
+    
     return o;
 }
 
-istream& operator>>(istream &i, Point &p)
-{
-    i >> p.x;
-    i >> p.y;
-
-    return i;
-}

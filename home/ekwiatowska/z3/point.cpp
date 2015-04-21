@@ -30,7 +30,7 @@ void Point::setY(double _y)
 
 void Point::setZ(double _z)
 {
-    y = _z;
+    z = _z;
 }
 
 double Point::getX()

@@ -4,27 +4,49 @@ using namespace std;
 
 #include "point.h"
 
-double area_under(Point a, Point b)
+double pole(Point d, Point e, Point f)
 {
-    return (b.getX() - a.getX()) * (a.getY() + b.getY()) / 2.0;
-}
+    //definiujemy zmienne (jak we wzorze Herona)
+    double p, a, b, c;
 
-double area(Point a, Point b, Point c)
-{
-    return fabs(area_under(a,b) + area_under(b,c) + area_under(c,a));
+    // kolejno obliczamy d³ugoœci odcinków |AB|, |BC| i |CA|
+
+    // w 2D
+    // Jeœli mamy dane dwa punkty A(xa , ya ) i B(xb , yb ) to d³ugoœæ odcinka |AB| jest dana wzorem
+    // d = sqrt[ (xb-xa)^2 + (yb-ya)^2 ]
+
+    // w 3D obliczone poni¿ej
+
+    // funckcja pow, z math.h - podnoszenie liczby do dowolnej potêgi
+    // double pow( double podstawa, double potega )
+    a = sqrt(pow(e.getX() - f.getX(), 2) + pow(e.getY() - f.getY(), 2) + pow(e.getZ() - f.getZ(), 2));
+    b = sqrt(pow(d.getX() - f.getX(), 2) + pow(d.getY() - f.getY(), 2) + pow(d.getZ() - f.getZ(), 2));
+    c = sqrt(pow(d.getX() - e.getX(), 2) + pow(d.getY() - e.getY(), 2) + pow(d.getZ() - e.getZ(), 2));
+
+    //wzór na p ze wzoru Herona (p jest po³ow¹ obwodu trójk¹ta)
+    p = (a + b + c)/2;
+
+    //zwracamy pole obliczone stosuj¹c wzór Herona
+    return sqrt(p * (p - a) * (p - b) * (p - c));
 }
 
 int main()
 {
-    Point p;
-    Point q(2.0, 2.0);
-    Point r(0.0, 3.0);
+    Point A;
+    Point B;
+    Point C;
 
-    cout << "Podaj wspolrzedne punktu p: ";
-    cin >> p;
+    cout << "Podaj wspolrzedne punktu A: ";
+    cin >> A;
 
-    cout << "Punkty: " << p << " " << q << " " << r << endl;
-    cout << "Pole: " << area(p,q,r) << endl;
+    cout << "Podaj wspolrzedne punktu B: ";
+    cin >> B;
+
+    cout << "Podaj wspolrzedne punktu C: ";
+    cin >> C;
+
+    cout << endl << "Punkty: " << A << " " << B << " " << C << endl;
+    cout << "Pole: " << pole(A, B, C) << endl;
 
     return 0;
 }

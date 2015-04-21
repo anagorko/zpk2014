@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1428497827 source:c:\users\matt\desktop\v rok\inne\zpk\tydzien 4\pd4\check.cpp
+	<iostream>
+	"vect.h"
+
+1428497480 c:\users\matt\desktop\v rok\inne\zpk\tydzien 4\pd4\vect.h
+	<iostream>
+	<math.h>
+	<assert.h>
+
+1428497886 source:c:\users\matt\desktop\v rok\inne\zpk\tydzien 4\pd4\vect.cpp
+	"vect.h"
+
