@@ -78,15 +78,6 @@ public:
 	int size()
 	{
 		return i;
-		/*Link *poprz = new Link;
-		poprz -> poprzedni = wierzcholek;
-		int i = 0;
-		while( poprz -> poprzedni != NULL )
-		{
-			poprz -> poprzedni = poprz -> wierzcholek -> poprzedni;
-			i++;
-		}
-		return i;*/
 	}
 	
 	bool empty()
