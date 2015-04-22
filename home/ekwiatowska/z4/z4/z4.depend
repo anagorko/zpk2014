@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1429368845 source:c:\users\ewa_2.lenovo-ewa\desktop\programowanie\z4\z4\main.cpp
+	<iostream>
+	"vect.h"
+
+1429368905 c:\users\ewa_2.lenovo-ewa\desktop\programowanie\z4\z4\include\vect.h
+	<iostream>
+	<math.h>
+
+1429368823 source:c:\users\ewa_2.lenovo-ewa\desktop\programowanie\z4\z4\src\vect.cpp
+	"vect.h"
+	<cassert>
+
