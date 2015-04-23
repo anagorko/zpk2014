@@ -1,5 +1,5 @@
 //
-// Klon gry DynaBlaster. (C) Kółko Informatyczne Szkoły Żagle
+// Klon gry DynaBlaster. Zajecia ZPK 2014
 //
 
 #include <allegro5/allegro.h>
