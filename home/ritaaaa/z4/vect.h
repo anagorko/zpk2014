@@ -3,29 +3,29 @@
 
 #include<iostream>
 #include<math.h>
-#include<assert.h>
 #include<initializer_list>
+#include<assert.h>
 using namespace std;
 
 class Vect
 {
     int dim;       // wymiar przestrzeni
-    double* v;     // tablica wspó³rzêdnych
+    double* v;     // tablica współrzędnych
 
 public:
-    // Konstruktor domyœlnie przyjmuje wymiar = 3
+    // Konstruktor domyślnie przyjmuje wymiar = 3
     Vect(int _dim = 3)
     {
         dim = _dim;
         v = new double[_dim];
     }
 
-    // Konstruktor inicjalizuj¹cy wspó³rzêdne wektora
+    // Konstruktor inicjalizujący współrzędne wektora
     Vect (int _dim, initializer_list<double> _v) : Vect(_dim)
     {
         int i = 0;
         for (const double & d: _v) {
-            assert(i < dim);
+          //  assert(i + 1 < dim);
             v[i++] = d;
         }
     }
@@ -36,44 +36,44 @@ public:
         delete[] v;
     }
 
-    // konstruktor kopiuj¹cy
+    // konstruktor kopiujący
     Vect(const Vect &w);
 
     // Operator podstawienia
     Vect& operator=(const Vect &w);
 
-    // Metoda ustawiaj¹ca wartoœæ wspó³rzêdnej
+    // Metoda ustawiająca wartość współrzędnej
     void setCoordinate(int,double);
 
-    // Metoda pobieraj¹ca wartoœæ wspó³rzêdnej
+    // Metoda pobierająca wartość współrzędnej
     double getCoordinate(int) const;
 
-    // Metoda zwracaj¹ca wymiar przestrzeni
+    // Metoda zwracająca wymiar przestrzeni
     int getDimension() const;
 
     friend istream& operator>>(istream&, Vect&);
 
     // Operatory dodawania i odejmowania od danego wektora
-    Vect& operator+=(const Vect& w);
-    Vect& operator-=(const Vect& w);
+    Vect& operator+=(const Vect& p);
+    Vect& operator-=(const Vect& p);
 
-    // Metoda obliczaj¹ca normê tego wektora
+    // Metoda obliczająca normę tego wektora
     double norm() const;
 
-    // Metoda normalizuj¹ca wektor
+    // Metoda normalizująca wektor
     void normalize();
 };
 
 // Dodawanie i odejmowanie wektorów
-Vect operator+(const Vect &w1, const Vect &w2);
-Vect operator-(const Vect &w1, const Vect &w2);
+Vect operator+(const Vect &p1, const Vect &p2);
+Vect operator-(const Vect &p1, const Vect &p2);
 
 // Iloczyn skalarny
-double operator*(const Vect &w1, const Vect &w2);
+double operator*(const Vect &p1, const Vect &p2);
 
-// Mno¿enie wektora przez skalar
-Vect operator*(const Vect &w, double d);
-Vect operator*(double d, const Vect& w);
+// Mnożenie wektora przez skalar
+Vect operator*(const Vect &p, double d);
+Vect operator*(double d, const Vect& p);
 
 // Wypisywanie i odczytywanie wektora ze strumieni
 ostream& operator<<(ostream &, const Vect);
