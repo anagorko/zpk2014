@@ -2,7 +2,7 @@
 #include<math.h>
 using namespace std;
 
-#include "point.h"
+#include "point.cpp"
 
 double area(Point a, Point b, Point c)
 {
