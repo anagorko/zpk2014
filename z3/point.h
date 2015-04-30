@@ -1,5 +1,5 @@
-#ifndef __POINT_H__
-#define __POINT_H__
+#ifndef POINT_H
+#define POINT_H
 
 #include<iostream>
 #include<math.h>
@@ -12,15 +12,15 @@ class Point
 public:
     Point();
     Point(double, double);
-    
+
     ~Point();
-    
+
     void setX(double);
     void setY(double);
-    
+
     double getX();
     double getY();
-    
+
 };
 
 ostream& operator<<(ostream &, Point);
