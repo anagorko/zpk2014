@@ -13,10 +13,10 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="../../allegro/allegro-5.0.10-mingw-4.7.0/include" />
+					<Add directory="L:/ALLEGRO/allegro-5.0.10-mingw-4.7.0/include" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\allegro\allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-mt-debug.a" />
+					<Add library="L:\ALLEGRO\allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-mt-debug.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -36,7 +36,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="z7.cpp" />
+		<Unit filename="../z8/galactic_mail.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
