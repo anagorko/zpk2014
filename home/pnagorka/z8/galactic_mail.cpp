@@ -1,14 +1,19 @@
-#include<iomanip>
-#include<iostream>
-#include<vector>
-#include<math.h>
+#include <iomanip>
+#include <iostream>
+#include <vector>
+#include <math.h>
+
 using namespace std;
 
-#include<allegro5/allegro.h>
-#include<allegro5/allegro_image.h>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 
 const int screen_w = 800;
 const int screen_h = 600;
+const int exit_screen_w = 350;
+const int exit_screen_h = 250;
 const float FPS = 60.0;
 
 class Vect
@@ -16,9 +21,11 @@ class Vect
     float x, y;
 
 public:
-    Vect() : Vect(0.0, 0.0) {
-    }
-    Vect(float _x, float _y) {
+
+    Vect() : Vect(0.0, 0.0) {}
+
+    Vect(float _x, float _y)
+    {
         setX(_x);
         setY(_y);
     }
@@ -27,7 +34,6 @@ public:
     {
         float dx = x - p.x;
         float dy = y - p.y;
-
         return sqrt(dx*dx + dy*dy);
     }
 
@@ -37,12 +43,18 @@ public:
     void setX(float _x) { x = _x; }
     void setY(float _y) { y = _y; }
 
-    Vect& operator*=(float f) {
-        x *= f; y *= f; return *this;
+    Vect& operator*=(float f)
+    {
+        x *= f;
+        y *= f;
+        return *this;
     }
 
-    Vect& operator+=(Vect v) {
-        x += v.x; y += v.y; return *this;
+    Vect& operator+=(Vect v)
+    {
+        x += v.x;
+        y += v.y;
+        return *this;
     }
 };
 
@@ -51,6 +63,7 @@ Vect operator*(Vect v, float f)
     v *= f;
     return v;
 }
+
 Vect operator+(Vect v1, Vect v2)
 {
     v1 += v2;
@@ -60,12 +73,14 @@ Vect operator+(Vect v1, Vect v2)
 class Flying
 {
 protected:
+
     ALLEGRO_BITMAP* bitmap;
 
     Vect p, v;
     float a, r;
 
 public:
+
     Flying()
     {
         bitmap = al_load_bitmap("asteroid.png");
@@ -83,13 +98,18 @@ public:
     float getAngle() const { return a; }
     void setAngle(float _a) { a = _a; }
 
-    virtual void move(float time) {
+    virtual void move(float time)
+    {
         Vect p = getPosition();
         p += getVelocity() * time;
-        if (p.getX() > screen_w) { p.setX(p.getX() - screen_w); }
-        if (p.getY() > screen_h) { p.setY(p.getY() - screen_h); }
-        if (p.getX() < 0) { p.setX(p.getX() + screen_w); }
-        if (p.getY() < 0) { p.setY(p.getY() + screen_h); }
+        if (p.getX() > screen_w)
+            p.setX(p.getX() - screen_w);
+        if (p.getY() > screen_h)
+            p.setY(p.getY() - screen_h);
+        if (p.getX() < 0)
+            p.setX(p.getX() + screen_w);
+        if (p.getY() < 0)
+            p.setY(p.getY() + screen_h);
         setPosition(p);
 
         float a = getAngle();
@@ -99,8 +119,7 @@ public:
 
     bool collidesWith(Flying* f) const
     {
-        return getPosition().distanceTo(f -> getPosition()) <
-                (diameter() + f -> diameter()) / 2;
+        return getPosition().distanceTo(f -> getPosition()) < (diameter() + f -> diameter()) / 2;
     }
 
     virtual float diameter() const { return 0; }
@@ -114,25 +133,26 @@ class Controlled : public Flying
     bool forw;
 
 public:
+
     Controlled()
     {
-        left = false; right = false; forw = false;
+        left = false;
+        right = false;
+        forw = false;
     }
 
     void turnLeft(bool l) { left = l; }
     void turnRight(bool r) { right = r; }
     void forward(bool f) { forw = f; }
 
-    virtual void move(float time) {
-        if (left) {
+    virtual void move(float time)
+    {
+        if (left)
             setRotation(getRotation() - 0.1);
-        }
-        if (right) {
+        if (right)
             setRotation(getRotation() + 0.1);
-        }
-        if (forw) {
+        if (forw)
             setVelocity(getVelocity() + Vect(cos(getAngle()), sin(getAngle())));
-        }
         Flying::move(time);
     }
 };
@@ -140,6 +160,7 @@ public:
 class Spaceship : public Controlled
 {
 public:
+
     Spaceship()
     {
         bitmap = al_load_bitmap("spaceship.png");
@@ -151,6 +172,7 @@ public:
 class Asteroid : public Flying
 {
 public:
+
     Asteroid()
     {
         bitmap = al_load_bitmap("asteroid.png");
@@ -165,7 +187,8 @@ void create_asteroid()
 {
     Asteroid *a = new Asteroid();
 
-    do {
+    do
+    {
         a -> setPosition(Vect(rand() % screen_w, rand() % screen_h));
     } while (a -> getPosition().distanceTo(objects[0] -> getPosition()) < 200);
 
@@ -178,7 +201,8 @@ void create_asteroid()
 
 int main(int, char**)
 {
-    if (!al_init() || !al_install_keyboard() || !al_init_image_addon()) {
+    if (!al_init() || !al_install_keyboard() || !al_init_image_addon())
+    {
         cout << "Błąd inicjalizacji." << endl;
         return 1;
     }
@@ -187,7 +211,8 @@ int main(int, char**)
     ALLEGRO_TIMER *timer = al_create_timer(1.0 / FPS);
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
-    if (display == NULL || timer == NULL || event_queue == NULL) {
+    if (display == NULL || timer == NULL || event_queue == NULL)
+    {
         cout << "Błąd inicjalizacji." << endl;
         return 2;
     }
@@ -209,18 +234,20 @@ int main(int, char**)
 
     objects.push_back(s);
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++)
         create_asteroid();
-    }
 
-    for (Flying* f: objects) {
-        if (f -> getBitmap() == NULL) {
+    for (Flying* f: objects)
+    {
+        if (f -> getBitmap() == NULL)
+        {
             cout << "Nie udało się załadować bitmapy." << endl;
             return 3;
         }
     }
 
     float time = 0.0;
+    float game_time = 0.0;
 
     while (true)
     {
@@ -228,21 +255,24 @@ int main(int, char**)
         ALLEGRO_EVENT ev;
         al_wait_for_event(event_queue, &ev);
 
-
-        if(ev.type == ALLEGRO_EVENT_TIMER) {
+        if(ev.type == ALLEGRO_EVENT_TIMER)
+        {
             // move objects
-            for (Flying* f: objects) {
+            for (Flying* f: objects)
                 f -> move(1.0 / FPS);
-            }
-            time = time + 1.0 / FPS;
 
-            if (time > 15.0) {
+            time = time + 1.0 / FPS;
+            game_time = game_time + 1.0 / FPS;
+
+            if (time > 15.0)
                 create_asteroid(); time = 0.0;
-            }
-        } else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+        }
+        else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
             break;
-        } else if(ev.type == ALLEGRO_EVENT_KEY_DOWN) {
-             switch(ev.keyboard.keycode) {
+        else if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
+        {
+             switch(ev.keyboard.keycode)
+             {
                  case ALLEGRO_KEY_UP:
                     static_cast<Controlled*>(objects[0]) -> forward(true);
                     break;
@@ -252,12 +282,12 @@ int main(int, char**)
                  case ALLEGRO_KEY_RIGHT:
                     static_cast<Controlled*>(objects[0]) -> turnRight(true);
                     break;
-                 case ALLEGRO_KEY_ESCAPE:
-                    goto exit_program;
-                    break;
             }
-        } else if(ev.type == ALLEGRO_EVENT_KEY_UP) {
-             switch(ev.keyboard.keycode) {
+        }
+        else if(ev.type == ALLEGRO_EVENT_KEY_UP)
+        {
+             switch(ev.keyboard.keycode)
+             {
                  case ALLEGRO_KEY_UP:
                     static_cast<Controlled*>(objects[0]) -> forward(false);
                     break;
@@ -278,18 +308,46 @@ int main(int, char**)
         int coll = 0;
         for (Flying *f: objects)
         {
-            if (f -> collidesWith(objects[0])) {
+            if (f -> collidesWith(objects[0]))
                 coll++;
-            }
         }
+
         if (coll > 1)
         {
+            ALLEGRO_DISPLAY *exit_window = al_create_display(exit_screen_w, exit_screen_h);
+            al_register_event_source(event_queue, al_get_display_event_source(exit_window));
+
+            al_init_font_addon();
+            al_init_ttf_addon();
+
+            ALLEGRO_FONT *head_font = al_load_font("arial.ttf", 40, 0);
+            ALLEGRO_FONT *body_font = al_load_font("arial.ttf", 24, 0);
+            ALLEGRO_FONT *time_font = al_load_font("arial.ttf", 30, 0);
+
+            al_clear_to_color(al_map_rgb(255, 255, 255));
+
+            al_draw_text(head_font, al_map_rgb(0, 0, 100), exit_screen_w / 2, exit_screen_h / 9, ALLEGRO_ALIGN_CENTRE, "GAME OVER!");
+            al_draw_text(body_font, al_map_rgb(0, 0, 100), exit_screen_w / 2, exit_screen_h / 2 - 0, ALLEGRO_ALIGN_CENTRE, "Przetrwałeś w kosmosie:");
+            al_draw_textf(time_font, al_map_rgb(0, 0, 100), exit_screen_w / 2, exit_screen_h / 2 + 40, ALLEGRO_ALIGN_CENTRE, "%.2f sekund(y)", game_time);
+
+            al_flip_display();
+
+            while(true)
+            {
+                ALLEGRO_EVENT ev;
+                al_wait_for_event(event_queue, &ev);
+                if((ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) | (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE))
+                    break;
+            }
+
             goto exit_program;
         }
 
         // draw objects
         al_clear_to_color(al_map_rgb(0,0,0));
-        for (Flying* f: objects) {
+
+        for (Flying* f: objects)
+        {
             al_draw_rotated_bitmap(f -> getBitmap(),
                                    al_get_bitmap_width(f -> getBitmap()) / 2,
                                    al_get_bitmap_height(f -> getBitmap()) / 2,
@@ -336,6 +394,7 @@ int main(int, char**)
 
     exit_program:
 
-    cout << "Przetrwales w przestrzeni kosmicznej " << setprecision(2) << time << " sekund(y)." << endl;
+    cout << "Koniec gry!" << endl;
+    cout << "Przetrwales w przestrzeni kosmicznej " << setprecision(2) << game_time << " sekund(y)." << endl;
     return 0;
 }
