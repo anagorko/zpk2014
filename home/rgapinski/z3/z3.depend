@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1427308242 source:c:\users\gap\desktop\programowanie\area.cpp
+	<iostream>
+	<math.h>
+	"point.h"
+
+1427312423 c:\users\gap\desktop\programowanie\point.h
+	<iostream>
+	<math.h>
+
+1427312058 source:c:\users\gap\desktop\programowanie\point.cpp
+	"point.h"
+
+1427312604 source:c:\users\gap\desktop\programowanie\z3\area.cpp
+	<iostream>
+	<math.h>
+	"point.h"
+
+1427312423 c:\users\gap\desktop\programowanie\z3\point.h
+	<iostream>
+	<math.h>
+
+1427312058 source:c:\users\gap\desktop\programowanie\z3\point.cpp
+	"point.h"
+
