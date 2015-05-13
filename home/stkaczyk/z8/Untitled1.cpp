@@ -324,7 +324,7 @@ int main(int, char**)
         al_flip_display();
     };
 
-    al_stop_timer(timer); //zatrzymanie zegarka
+    al_stop_timer(timer);
     float life_time = al_get_timer_count(timer) / FPS;
     cout << "GAME OVER!" << endl << "Your score: " << life_time << " seconds!" << endl;
 
