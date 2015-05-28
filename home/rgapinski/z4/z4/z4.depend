@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1428525827 source:c:\users\gap\desktop\programowanie\z4\z4\spr.cpp
+	<iostream>
+	"vect.h"
+
+1428530778 c:\users\gap\desktop\programowanie\z4\z4\vect.h
+	<iostream>
+	<math.h>
+	<assert.h>
+
+1428533381 source:c:\users\gap\desktop\programowanie\z4\z4\vect.cpp
+	<iostream>
+	<math.h>
+	<assert.h>
+	"vect.h"
+
+1428518507 source:c:\users\gap\desktop\programowanie\z4\z4\test.cpp
+	<iostream>
+	"vect.h"
+
