@@ -47,6 +47,12 @@ public:
         y += v.y;
         return *this;
     }
+
+    bool operator<(const Point &a) const
+    {
+        return getX() < a.getX() || (getX() == a.getX() && getY() < a.getY());
+    }
+
 };
 
 Point operator*(Point v, float f) {
@@ -95,33 +101,43 @@ public:
     bool collidesWith(Ant _ant) const;
 };
 
-vector<Point> czarne;
+set<Point> czarne;
 vector<Ant> mrowki;
 
-void rysuj_pole (Point p, float rozmiar) {
-    al_draw_filled_rectangle(p.getX(), p.getY(), p.getX() + rozmiar , p.getY() + rozmiar ,al_map_rgb(0,0,0));
+void rysuj_pole (Point lg, Point p, float rozmiar) {
+    al_draw_filled_rectangle(rozmiar * (p.getX() - lg.getX()), rozmiar * (p.getY()  - lg.getY()), rozmiar * (p.getX()  - lg.getX()) + rozmiar, rozmiar * (p.getY() - lg.getY()) + rozmiar ,al_map_rgb(0,0,0));
 };
 void rysuj_ant (Ant a, float rozmiar) {
     al_draw_ellipse(a.getPosition().getX(), a.getPosition().getY() , rozmiar / 4, rozmiar / 5, al_map_rgb(0,0,0), 5);
     al_draw_ellipse(a.getPosition().getX() + rozmiar / 2, a.getPosition().getY() , rozmiar / 4, rozmiar / 5, al_map_rgb(0,0,0), 5);
 };
 
-void rysuj (vector<Point> czarne, vector<Ant> mrowki, float rozmiar) {
+void rysuj (set<Point> czarne, vector<Ant> mrowki) {
 
-    int x_min = czarne.front().getX();
-    int y_min = czarne.front().getY();
+    int x_min = 1000000000; //czarne.front().getX();
+    int y_min = 1000000000; // czarne.front().getY();
+    int x_max = -1000000000; //czarne.front().getX();
+    int y_max = -1000000000; // czarne.front().getY();
 
     for (Point p: czarne) {
         if (p.getX() < x_min)
             x_min = p.getX();
         if (p.getY() < y_min)
             y_min = p.getY();
+        if (p.getX() > x_max)
+            x_max = p.getX();
+        if (p.getY() > y_max)
+            y_max = p.getY();
     }
     for (Ant a: mrowki) {
         if (a.getPosition().getX() < x_min)
             x_min = a.getPosition().getX();
         if (a.getPosition().getY() < y_min)
             y_min = a.getPosition().getY();
+        if (a.getPosition().getX() > x_max)
+            x_max = a.getPosition().getX();
+        if (a.getPosition().getY() > y_max)
+            y_max = a.getPosition().getY();
     }
 
     ALLEGRO_DISPLAY *display = al_create_display(screen_w, screen_h);
@@ -133,8 +149,19 @@ void rysuj (vector<Point> czarne, vector<Ant> mrowki, float rozmiar) {
 
     al_clear_to_color(al_map_rgb(255,255,255));
 
+    float rozmiar = 1000.0;
+    
+    if (screen_w / (x_max - x_min + 1) < rozmiar) {
+        rozmiar = (float) screen_w / (x_max - x_min + 1);
+    }
+    if (screen_h / (y_max - y_min + 1) < rozmiar) {
+        rozmiar = (float) screen_h / (y_max - y_min + 1);
+    }
+
+    cout << "rozmiar= " << rozmiar << endl;
+    
     for(Point p: czarne) {
-        rysuj_pole(p, rozmiar);
+        rysuj_pole(Point(x_min, y_min), p, rozmiar);
     }
     for(Ant a: mrowki) {
         rysuj_ant(a, rozmiar);
@@ -146,17 +173,19 @@ void rysuj (vector<Point> czarne, vector<Ant> mrowki, float rozmiar) {
     al_destroy_display(display);
 };
 
-int main() {
+int main(int, char**) {
     al_init();
     al_init_primitives_addon();
 
     Ant mrowka = Ant(200, 200);
-    mrowki.push_back(mrowka);
+    //mrowki.push_back(mrowka);
 
-    Point czarny = Point (200, 200);
-    czarne.push_back(czarny);
+    czarne.insert(Point(3,4));
+    czarne.insert(Point(4,6));
+    czarne.insert(Point(2,5));
+    czarne.insert(Point(8,8));
 
-    rysuj(czarne, mrowki, 20);
+    rysuj(czarne, mrowki);
 
 }
 
