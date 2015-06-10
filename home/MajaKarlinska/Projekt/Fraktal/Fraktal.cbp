@@ -36,7 +36,8 @@
 			<Add option="-Wall" />
 			<Add directory="../../../../../Allegro/allegro-5.0.10-mingw-4.7.0/include" />
 		</Compiler>
-		<Unit filename="../fraktal.cpp" />
+		<Unit filename="../../z5/display.h" />
+		<Unit filename="../fraktal_v7.cpp" />
 		<Unit filename="bitmap_image.hpp" />
 		<Extensions>
 			<code_completion />
