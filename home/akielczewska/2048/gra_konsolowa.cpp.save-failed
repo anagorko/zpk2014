@@ -398,21 +398,23 @@ bool Plansza::koniecGry() {
     return k;
 }
 
+int Plansza::pobierzKierunek() {
+    int t;
+    cin >> t;
+}
+
 int main() {
     Plansza gra;
     gra.wyswietlWKonsoli();
     srand( time( NULL ) ); // zeby losowanie bylo losowe
     gra.ustawPozycjePoczatkowa();
     gra.wyswietlWKonsoli();
+    int k;
     while (gra.koniecGry() == false) {
-        gra.wykonajRuchWGore();
-        gra.wyswietlWKonsoli();
-        gra.ustawLosowaLiczbe();
-        gra.wyswietlWKonsoli();
-        gra.wykonajRuchWLewo();
-        gra.wyswietlWKonsoli();
-        gra.ustawLosowaLiczbe();
-        gra.wyswietlWKonsoli();
+        //k = gra.pobierzKierunek();
+        //if (k == 1) { gra.wykonajRuchWGore(); }
+        //if (k == 2) { gra.wykonajRuchWLewo(); }
+        //gra.wyswietlWKonsoli();
+        //gra.ustawLosowaLiczbe();
     }
-
 }

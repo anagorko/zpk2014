@@ -47,7 +47,7 @@ public:
 };
 
 void Plansza::przesunWGore() {
-    // przesuniecie do pierwszego g髍nego wiersza:
+    // przesuniecie do pierwszego g贸rnego wiersza:
     for (int j=0; j<4; j++) {
         if (t[0][j] == 0) {
             if (t[1][j] != 0) {
@@ -111,7 +111,7 @@ void Plansza::sklejWGore() {
 }
 
 void Plansza::przesunWDol() {
-    // przesuniecie do pierwszego g髍nego wiersza:
+    // przesuniecie do pierwszego g贸rnego wiersza:
     for (int j=0; j<4; j++) {
         if (t[3][j] == 0) {
             if (t[2][j] != 0) {
@@ -175,7 +175,7 @@ void Plansza::sklejWDol() {
 }
 
 void Plansza::przesunWLewo() {
-    // przesuniecie do pierwszego g髍nego wiersza:
+    // przesuniecie do pierwszego g贸rnego wiersza:
     for (int i=0; i<4; i++) {
         if (t[i][0] == 0) {
             if (t[i][1] != 0) {
@@ -239,7 +239,7 @@ void Plansza::sklejWLewo() {
 }
 
 void Plansza::przesunWPrawo() {
-    // przesuniecie do pierwszego g髍nego wiersza:
+    // przesuniecie do pierwszego g贸rnego wiersza:
     for (int i=0; i<4; i++) {
         if (t[i][3] == 0) {
             if (t[i][2] != 0) {
@@ -398,21 +398,36 @@ bool Plansza::koniecGry() {
     return k;
 }
 
+int Plansza::pobierzKierunek() {
+    char t;
+    cin >> t;
+    int s;
+    if (t == 'w') s = 1;
+        else if (t == 'a') s = 2;
+        else if (t == 's') s = 3;
+        else if (t == 'd') s = 4;
+    return s;
+}
+
 int main() {
     Plansza gra;
     gra.wyswietlWKonsoli();
     srand( time( NULL ) ); // zeby losowanie bylo losowe
     gra.ustawPozycjePoczatkowa();
     gra.wyswietlWKonsoli();
+    int k;
     while (gra.koniecGry() == false) {
-        gra.wykonajRuchWGore();
-        gra.wyswietlWKonsoli();
-        gra.ustawLosowaLiczbe();
-        gra.wyswietlWKonsoli();
-        gra.wykonajRuchWLewo();
+        k = gra.pobierzKierunek();
+        if (k == 1) gra.wykonajRuchWGore();
+            else if (k == 2) gra.wykonajRuchWLewo();
+            else if (k == 3) gra.wykonajRuchWDol();
+            else if (k == 4) gra.wykonajRuchWPrawo();
+            else {
+                cout << "B艂臋dny przycisk" << endl;
+                break;
+            }
         gra.wyswietlWKonsoli();
         gra.ustawLosowaLiczbe();
         gra.wyswietlWKonsoli();
     }
-
 }
