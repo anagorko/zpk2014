@@ -8,10 +8,106 @@ using namespace std;
 
 #include<allegro5/allegro.h>
 #include<allegro5/allegro_image.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_primitives.h>
 
 const int screen_w = 800;
 const int screen_h = 600;
-const float FPS = 60.0;
+const float FPS = 4;
+
+struct wynik {  //Trzyma highscores
+    int punkty;
+    string imie;
+};
+
+const int n = 10;
+
+wynik wyniki[n];
+
+void czytaj_wyniki() //czyta wyniki z pliku (lub wczytuje domyslne w przypadku braku pliku)
+{
+    string dane;
+    fstream plik;
+    plik.open("wyniki.txt", ios::in);
+
+    if(!plik.good()){
+        wyniki[0].punkty = 100;
+        wyniki[0].imie = "MK";
+        wyniki[1].punkty = 90;
+        wyniki[1].imie = "EC";
+        wyniki[2].punkty = 80;
+        wyniki[2].imie = "BS";
+        wyniki[3].punkty = 70;
+        wyniki[3].imie = "BD";
+        wyniki[4].punkty = 60;
+        wyniki[4].imie = "RJD";
+        wyniki[5].punkty = 50;
+        wyniki[5].imie = "JBJ";
+        wyniki[6].punkty = 40;
+        wyniki[6].imie = "LU";
+        wyniki[7].punkty = 30;
+        wyniki[7].imie = "JH";
+        wyniki[8].punkty = 20;
+        wyniki[8].imie = "PT";
+        wyniki[9].punkty = 10;
+        wyniki[9].imie = "FM";
+    }
+    else {
+        for(int i=0; i<n; i++){
+            getline(plik, dane);
+            wyniki[i].imie = dane;
+            getline(plik, dane);
+            wyniki[i].punkty = atoi(dane.c_str());
+        }
+    }
+    plik.close();
+}
+
+
+void zapisz_wyniki() //zapisuje do pliku
+{
+    fstream plik;
+    plik.open("wyniki.txt", ios::out);
+
+    for(int i=0; i<n; i++){
+        plik << wyniki[i].imie << endl << wyniki[i].punkty << endl;
+    }
+    plik.close();
+}
+
+void wypisz_wyniki() //wypisuje wyniki na ekranie
+{
+    const int x = 175;
+    const int y = 150;
+    const int czcionka = 36;
+    ALLEGRO_FONT *font = al_load_ttf_font("pixelart.ttf",czcionka,0 );
+    for (int i = 0; i < n; i++) {
+        al_draw_textf(font, al_map_rgb(0,0,0), x, (y + czcionka*i),ALLEGRO_ALIGN_CENTRE, "%d", i+1);
+        al_draw_text(font, al_map_rgb(0,0,0), x + 100, (y + czcionka*i),ALLEGRO_ALIGN_CENTRE, wyniki[i].imie.c_str());
+        al_draw_textf(font, al_map_rgb(0,0,0), x + 400, (y + czcionka*i),ALLEGRO_ALIGN_CENTRE, "%d", wyniki[i].punkty);
+    }
+}
+
+void dodaj_wynik(wynik w) //dodaje wynik i sortuje
+{
+    int i;
+
+    for (i = 0; i < n; i++) {
+        if (w.punkty > wyniki[i].punkty) {
+            break;
+        }
+    }
+
+    if (i == n) return;
+
+    for (int j = n-1; j > i; j--) {
+        wyniki[j] = wyniki[j-1];
+    }
+
+    wyniki[i] = w;
+}
+
 
 class ElementKolejki
 {
@@ -21,6 +117,7 @@ public:
     virtual ~ElementKolejki() = 0;
 
     friend ostream& operator<<(ostream& os, ElementKolejki& el);
+    virtual bool czy_rowne(ElementKolejki& inny_punkt) = 0;
 };
 
 ElementKolejki::~ElementKolejki() {}
@@ -52,6 +149,11 @@ public:
 
     int getX() { return x; }
     int getY() { return y; }
+
+    bool czy_rowne(ElementKolejki& inny_punkt){
+        Punkt* inny = (Punkt*)&inny_punkt;
+        return x==inny->x && y==inny->y;
+    }
 };
 
 class Kolejka
@@ -120,10 +222,37 @@ public:
             return false;
     };
 
-    int size()
+    int size()  //zwraca dlugosc kolejki
     {
         return dlugosc;
-    };
+    }
+
+    Link* get_ostatni(){  //zwraca ostatni element kolejki
+        return ostatni;
+    }
+
+    bool czy_zawiera(ElementKolejki *p){  //sprawdza, czy dany punkt nalezy do kolejki
+        Link *aktualny = pierwszy;
+        while(aktualny != NULL){
+            if((aktualny -> dane)->czy_rowne(*p)){
+                return true;
+            }
+            aktualny = aktualny -> nastepny;
+        }
+        return false;
+    }
+
+    int ile_zawiera(ElementKolejki *p){  //sprawdza, ile razy dany punkt wystepuje w kolejce (potrzebne do sprawdzania zapetlenia weza)
+        int licznik = 0;
+        Link *aktualny = pierwszy;
+        while(aktualny != NULL){
+            if((aktualny -> dane)->czy_rowne(*p)){
+                licznik++;
+            }
+            aktualny = aktualny -> nastepny;
+        }
+        return licznik;
+    }
 
     friend ostream& operator<<(ostream&, Kolejka &);
 };
@@ -145,28 +274,79 @@ ostream& operator<<(ostream& os, Kolejka &s) {
 class Waz
 {
     Kolejka pola; //Kolejne pola zajmowane przez weza na planszy
-    int kierunek; //Samoczynny ruch weza: 0 - prawo, 1 - lewo, 2 - dół, 3 - góra
+    int kierunek; //Samoczynny ruch weza: 1 - prawo, -1 - lewo, -2 - dół, 2 - góra
 
 public:
-    void zmien_kierunek(int kierunek); //Zmienia kierunek weza
+    Waz() {
+        kierunek = 1;
+        for(int i=0; i<6; i++){
+            pola.push(new Punkt(i+10,10));
+        }
+    }
 
-    void ruch_glowy(bool tryb_bez_scian); //Przesuniecie glowy weza wg aktualnego kierunku.
-                                          //W trybie ze scianami glowa moze sie znalezc poza plansza.
-                                          //W trybie bez scian glowa moze sie znalezc po przeciwnej stronie planzzy.
+    void zmien_kierunek(int _kierunek){ //Zmienia kierunek weza
+        if(kierunek + _kierunek != 0 && kierunek != _kierunek){
+            kierunek = _kierunek;
+        }
+    };
 
-    void skroc(); //usuniecie ostatniego pola weza
+    void ruch_glowy(bool tryb_bez_scian, int wymiar_x, int wymiar_y){     //Przesuniecie glowy weza wg aktualnego kierunku.
+        Punkt p = glowa();                                                //W trybie ze scianami glowa moze sie znalezc poza plansza.
+        if(tryb_bez_scian){                                               //W trybie bez scian glowa moze sie znalezc po przeciwnej stronie planszy.
+            if(kierunek == 1){
+                pola.push(new Punkt((p.getX() + 1) % wymiar_x, p.getY()));
+            }
+            else if(kierunek == -1){
+                pola.push(new Punkt((p.getX() - 1 + wymiar_x) % wymiar_x, p.getY()));
+            }
+            else if(kierunek == 2) {
+                pola.push(new Punkt(p.getX(), (p.getY() - 1 + wymiar_y) % wymiar_y));
+            }
+            else if(kierunek == -2) {
+                pola.push(new Punkt(p.getX(), (p.getY() + 1) % wymiar_y));
+            }
+        }
+        else {
+            if(kierunek == 1){
+                pola.push(new Punkt(p.getX() + 1, p.getY()));
+            }
+            else if(kierunek == -1){
+                pola.push(new Punkt(p.getX() - 1, p.getY()));
+            }
+            else if(kierunek == 2) {
+                pola.push(new Punkt(p.getX(), p.getY() - 1));
+            }
+            else if(kierunek == -2) {
+                pola.push(new Punkt(p.getX(), p.getY() + 1));
+            }
+        }
+    }
 
-    Punkt glowa(); //zwraca pole zajmowane przez glowe weza
+    void skroc(){  //usuniecie ostatniego pola weza
+        pola.pop();
+    }
 
-    bool czy_nalezy(Punkt p); //sprawdza czy na polu jest waz
+    Punkt glowa(){   //zwraca pole zajmowane przez glowe weza
+        return *static_cast<Punkt*>(pola.get_ostatni()->dane);
+    }
+    bool czy_nalezy(Punkt p){  //sprawdza czy na polu jest waz
+        return pola.czy_zawiera(&p);
+    }
 
-    bool czy_zapetlony();
+    bool czy_zapetlony(){ // 1 jesli waz wszedl sam w siebie
+        Punkt p = glowa();
+        return (pola.ile_zawiera(&p) > 1);
+    }
+
+    int dlugosc(){  //zwraca dlugosc weza
+        return pola.size();
+    };
 };
 
 class Plansza
 {
-    const int wymiar_x = 30;
-    const int wymiar_y = 20;
+    const int wymiar_x = 39;
+    const int wymiar_y = 29;
     int wynik = 0; //Liczba zjedzonych jablek
 
     Waz waz;
@@ -176,15 +356,86 @@ class Plansza
     bool tryb_bez_scian;
 
 public:
-    void wyswietl(); //Wyswietla aktualny stan planszy na ekranie
 
-    void zmien_kierunek(int kierunek); //Zmienia kierunek weza
+    Plansza(bool tryb){
+        tryb_bez_scian = tryb;
+        nowe_jablko();
+    }
 
-    void ruch_weza(); //Przesuwa weza
+    void wyswietl(){  //Wyswietla aktualny stan planszy na ekranie
+        const int przesuniecie = 10;
+        const int mnoznik = 20;
+        al_init_primitives_addon();
+        al_draw_filled_rectangle(10, 10, 790, 590,al_map_rgba(54,107,54, 255));
+        for(int i=0; i<wymiar_x; i++){
+            for(int j=0; j< wymiar_y; j++){
+                Punkt p(i,j);
+                if(waz.czy_nalezy(p)){
+                    al_draw_filled_rectangle(i*mnoznik + przesuniecie, j*mnoznik + przesuniecie, (i+1)*mnoznik + przesuniecie, (j+1)*mnoznik + przesuniecie,al_map_rgba(0,0,0, 255));
+                    al_draw_rectangle(i*mnoznik + przesuniecie, j*mnoznik + przesuniecie, (i+1)*mnoznik + przesuniecie, (j+1)*mnoznik + przesuniecie,al_map_rgba(255,255,0, 255), 1);
+                }
+                if(p.czy_rowne(jablko)){
+                    al_draw_filled_rectangle(i*mnoznik + przesuniecie, j*mnoznik + przesuniecie, (i+1)*mnoznik + przesuniecie, (j+1)*mnoznik + przesuniecie,al_map_rgba(255,0,0, 255));
+                }
+            }
+        }
+        if(!tryb_bez_scian){
+            al_draw_rectangle(5, 5, 795, 595,al_map_rgba(0,0,0, 255), 7);
+        }
 
-    bool czy_kolizja(); //Sprawdza czy wystapila kolizja
 
-    void nowe_jablko(); //Generuje nowe jablko
+    }
+    void zmien_kierunek(int _kierunek){  //Zmienia kierunek weza
+        waz.zmien_kierunek(_kierunek);
+    }
+
+    void ruch_weza(){ //Przesuwa weza
+        waz.ruch_glowy(tryb_bez_scian, wymiar_x, wymiar_y);
+//        cout << "(" << waz.glowa().getX() << ", " << waz.glowa().getY() << ")" << endl;
+        if(waz.glowa().czy_rowne(jablko)){
+            nowe_jablko();
+            wynik++;
+        }
+        else {
+            waz.skroc();
+        }
+    }
+
+    bool czy_kolizja(){  //Sprawdza czy wystapila kolizja
+        if(waz.czy_zapetlony()){
+            return true;
+        }
+        else{
+            if(tryb_bez_scian){
+                return false;
+            }
+            else{
+                if(waz.glowa().getX() >= wymiar_x || waz.glowa().getY() >= wymiar_y || waz.glowa().getX() < 0 || waz.glowa().getY() < 0){
+                    return true;
+                }
+            }
+        }
+    }
+
+    void nowe_jablko(){ //Generuje nowe jablko
+        srand(time(NULL));
+        int pozycja = (rand() * 99) % (wymiar_x*wymiar_y - waz.dlugosc());
+        for(int i=0; i<wymiar_x; i++){
+            for(int j=0; j< wymiar_y; j++){
+                Punkt p(i,j);
+                if(!waz.czy_nalezy(p)){
+                    if(pozycja == 0){
+                        jablko = p;
+                    }
+                    pozycja--;
+                }
+            }
+        }
+    }
+
+    int get_wynik(){  //zwraca wynik (liczbe zjedzonych jablek)
+        return wynik;
+    }
 };
 
 
@@ -206,21 +457,30 @@ int main(int, char**)
     }
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
-    al_register_event_source(event_queue, al_get_timer_event_source(timer));
+//    al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
     ALLEGRO_BITMAP *menu = al_load_bitmap("grafika/snake_menu.png");
     ALLEGRO_BITMAP *wyniki = al_load_bitmap("grafika/highscores.png");
     ALLEGRO_BITMAP *tryb = al_load_bitmap("grafika/tryb_menu.png");
 
+    al_init_font_addon();
+    al_init_ttf_addon();
+    ALLEGRO_FONT *font = al_load_ttf_font("pixelart.ttf",48,0 );
+
     al_clear_to_color(al_map_rgb(255,255,255));
 
     al_draw_bitmap(menu,0,0,0);
     al_flip_display();
 
-    al_start_timer(timer);
+//    al_start_timer(timer);
 
-    int poziom_menu = 1; //1 - menu glowne, 2 - tryb, 3 -  highscores, 4 - gra
+    czytaj_wyniki();
+    int kod = 0;
+    Plansza *gra;
+
+
+    int poziom_menu = 1; //1 - menu glowne, 2 - tryb, 3 -  highscores, 4 - gra, 5 - game over
 
     while (true)
     {
@@ -235,6 +495,7 @@ int main(int, char**)
         else if(ev.keyboard.keycode == ALLEGRO_KEY_Q) {
             break;
         }
+        //obsluga menu
         if (poziom_menu == 1){
             if(ev.keyboard.keycode == ALLEGRO_KEY_S) {
                 al_draw_bitmap(tryb,0,0,0);
@@ -244,36 +505,94 @@ int main(int, char**)
             else if(ev.keyboard.keycode == ALLEGRO_KEY_H) {
                 al_clear_to_color(al_map_rgb(255,255,255));
                 al_draw_bitmap(wyniki,0,0,0);
+                wypisz_wyniki();
                 al_flip_display();
                 poziom_menu = 3;
             }
         }
         if (poziom_menu == 2){
             if(ev.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
-                al_clear_to_color(al_map_rgb(0,255,255));
+                al_clear_to_color(al_map_rgb(255,255,255));
+                gra = new Plansza(1);
                 al_flip_display();
                 poziom_menu = 4;
             }
             else if(ev.keyboard.keycode == ALLEGRO_KEY_LEFT) {
-                al_clear_to_color(al_map_rgb(255,255,0));
+                al_clear_to_color(al_map_rgb(255,255,255));
+                gra = new Plansza(0);
                 al_flip_display();
                 poziom_menu = 4;
             }
         }
-        if (poziom_menu == 2 || poziom_menu == 3 || poziom_menu == 4){
+        if (poziom_menu == 2 || poziom_menu == 3 || poziom_menu == 4 || poziom_menu == 5){
             if(ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE) {
                 al_draw_bitmap(menu,0,0,0);
                 al_flip_display();
                 poziom_menu = 1;
+                delete gra;
+                gra = new Plansza(1);
+            }
+        }
+        if(poziom_menu == 4){
+            al_register_event_source(event_queue, al_get_timer_event_source(timer));
+            al_start_timer(timer);
+            al_clear_to_color(al_map_rgb(255,255,255));
+            gra->wyswietl();
+            al_flip_display();
+
+            if(ev.type == ALLEGRO_EVENT_TIMER){
+                gra->ruch_weza();
+                gra->wyswietl();
+                al_flip_display();
+            }
+
+            switch(ev.keyboard.keycode){
+
+                case ALLEGRO_KEY_LEFT:
+                    gra->zmien_kierunek(-1);
+                    break;
+                case ALLEGRO_KEY_RIGHT:
+                    gra->zmien_kierunek(1);
+                    break;
+                case ALLEGRO_KEY_UP:
+                    gra->zmien_kierunek(2);
+                    break;
+                case ALLEGRO_KEY_DOWN:
+                    gra->zmien_kierunek(-2);
+                    break;
+            }
+
+            if(gra->czy_kolizja()){
+
+                al_clear_to_color(al_map_rgb(255,255,255));
+                al_draw_text(font, al_map_rgb(0,0,0), 400, 100,ALLEGRO_ALIGN_CENTRE, "GAME OVER");
+                al_draw_text(font, al_map_rgb(0,0,0), 400, 200,ALLEGRO_ALIGN_CENTRE, "YOUR SCORE");
+                al_draw_textf(font, al_map_rgb(0,0,0), 400, 250,ALLEGRO_ALIGN_CENTRE, "%d", gra->get_wynik());
+//                al_draw_text(font, al_map_rgb(0,0,0), 400, 350,ALLEGRO_ALIGN_CENTRE, "ENTER YOUR INITIALS");
+                al_flip_display();
+                poziom_menu = 5;
+                al_stop_timer(timer);
+            }
+        }
+        if(poziom_menu == 5){
+
+            if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
+                al_clear_to_color(al_map_rgb(255,255,255));
+                al_draw_bitmap(wyniki,0,0,0);
+                wypisz_wyniki();
+                al_flip_display();
+                poziom_menu = 3;
             }
         }
     }
 
-    //WRZUC DO GITHUBA !!!
+    zapisz_wyniki();
 
-    al_stop_timer(timer); //zatrzymanie zegarka
-    float life_time = al_get_timer_count(timer) / FPS;
-    cout  << "Czas gry: " << life_time << " seconds!" << endl;
+/*    wynik test;
+    cout << "punkty: "; cin >> test.punkty;
+    cout << "imie: "; cin >> test.imie;
 
+    dodaj_wynik(test);
+*/
     return 0;
 }
