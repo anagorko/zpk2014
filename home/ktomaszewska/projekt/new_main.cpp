@@ -41,6 +41,7 @@ int main(int, char**){
     ALLEGRO_BITMAP *menu = al_load_bitmap("menu.png");
     ALLEGRO_BITMAP *wyniki = al_load_bitmap("wyniki.png");
     ALLEGRO_BITMAP *poziom = al_load_bitmap("poziom.png");
+    ALLEGRO_BITMAP *poziom = al_load_bitmap("plansza.png");
 
     al_clear_to_color(al_map_rgb(0,0,0));
 
@@ -56,9 +57,9 @@ int main(int, char**){
 
         if(event.type==ALLEGRO_EVENT_TIMER)
         {
-            if (p->czy_kolizja(gra->pX,gra->pY,gra->typ_klocka, gra->rotacja_klocka)==0)
+            if (p->czy_kolizja(gra->pX,gra->pY+1,gra->typ_klocka, gra->rotacja_klocka)==0)
                 gra->pY++;
-
+                p->umiesc_klocek(gra->pX, gra->pY, gra->typ_klocka,gra->rotacja_klocka);
             else
             {
                 p->umiesc_klocek(gra->pX, gra->pY, gra->typ_klocka,gra->rotacja_klocka);
@@ -102,14 +103,20 @@ int main(int, char**){
             case ALLEGRO_KEY_C:
             {
                 p->zapelnij_plansze(3);
+                al_draw_bitmap(plansza,0,0,0);
+                al_flip_display();
             }
             case ALLEGRO_KEY_B:
             {
                 p->zapelnij_plansze(2);
+                al_draw_bitmap(plansza,0,0,0);
+                al_flip_display();
             }
             case ALLEGRO_KEY_A:
             {
                 p->zapelnij_plansze(1);
+                al_draw_bitmap(plansza,0,0,0);
+                al_flip_display();
             }
 //najlepszy wynik
             case ALLEGRO_KEY_N:
@@ -121,9 +128,9 @@ int main(int, char**){
 // ruch strz³kami
             case ALLEGRO_KEY_DOWN:
             {
-                while (p->czy_kolizja(gra->pX,gra->pY-1,gra->typ_klocka,gra->rotacja_klocka)==0)
+                while (p->czy_kolizja(gra->pX,gra->pY+1,gra->typ_klocka,gra->rotacja_klocka)==0)
                     gra->pY++;
-                    p->umiesc_klocek(gra->pX, gra->pY-1,gra->typ_klocka, gra->rotacja_klocka);
+                    p->umiesc_klocek(gra->pX, gra->pY,gra->typ_klocka, gra->rotacja_klocka);
                     p->usun_mozliwe_linie();
                     if (p->czy_przegrana())
                         exit(0);
