@@ -250,3 +250,16 @@
 	"allegro5/allegro.h"
 	"allegro5/allegro_font.h"
 
+1433673218 source:c:\users\redrack\documents\github\zpk2014\home\pnagorka\projekt\langtons_ant.cpp
+	<iostream>
+	<vector>
+	<math.h>
+	<random>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+
+1372621132 c:\program files (x86)\codeblocks\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_primitives.h
+	<allegro5/allegro.h>
+
