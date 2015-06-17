@@ -53,6 +53,11 @@ public:
         return getX() < a.getX() || (getX() == a.getX() && getY() < a.getY());
     }
 
+    bool operator==(const Point &a) const
+    {
+        return (getX() == a.getX()) && (getY() == a.getY());
+    }
+
 };
 
 Point operator*(Point v, float f) {
@@ -71,6 +76,7 @@ class Ant: public Point {
 
     Point p;
     float a;
+    unsigned short kierunek;
 
 public:
 
@@ -79,38 +85,119 @@ public:
     Ant(double _x, double _y) {
         p.setX(_x);
         p.setY(_y);
+        kierunek = 1;
     }
 
     Ant(Point _p) {
-        setPosition(_p);
-    }
-
-    Point getPosition() const {
-        return p;
-    }
-    void setPosition (Point _p) {
         p.setX(_p.getX());
         p.setY(_p.getY());
+        kierunek = 1;
     }
+
+    Point getPosition() {
+        return p;
+    }
+
+    unsigned short getDirection() const {return kierunek;}
 
     float getAngle() const;
     void setAngle(float _a);
 
-    void move(double dx, double dy);
+    void lewo() {
+        switch(kierunek) {
+            case 1:
+                p.setX(p.getX() - 1);
+                kierunek = 4;
+                break;
+            case 2:
+                p.setY(p.getY() + 1);
+                kierunek = 1;
+                break;
+            case 3:
+                p.setX(p.getX() + 1);
+                kierunek = 2;
+                break;
+            case 4:
+                p.setY(p.getY() - 1);
+                kierunek = 3;
+                break;
+        }
+    }
 
-    bool collidesWith(Ant _ant) const;
+    void prawo() {
+        switch(kierunek) {
+            case 1:
+                p.setX(p.getX() + 1);
+                kierunek = 2;
+                break;
+            case 2:
+                p.setY(p.getY() - 1);
+                kierunek = 3;
+                break;
+            case 3:
+                p.setX(p.getX() - 1);
+                kierunek = 4;
+                break;
+            case 4:
+                p.setY(p.getY() + 1);
+                kierunek = 1;
+                break;
+        }
+    }
 };
 
 set<Point> czarne;
 vector<Ant> mrowki;
 
-void rysuj_pole (Point lg, Point p, float rozmiar) {
+void ruch(set<Point> &czarne, vector<Ant> &mrowki) {
+
+    set<Point>::iterator it;
+    bool czyCzarne;
+    Point pozycja;
+
+    for (int i = 0; i < mrowki.size(); ++i) {
+
+        czyCzarne = false;
+        pozycja = mrowki[i].getPosition();
+
+        for (it = czarne.begin(); it != czarne.end(); ++it) {
+            if(*it == pozycja) {
+                czyCzarne = true;
+                break;
+            }
+        }
+
+        if (czyCzarne) {
+            mrowki[i].prawo();
+            czarne.erase(pozycja);
+        }
+        else {
+            mrowki[i].lewo();
+            czarne.insert(pozycja);
+        }
+
+    }
+}
+
+void rysujPole (Point lg, Point p, float rozmiar) {
     al_draw_filled_rectangle(rozmiar * (p.getX() - lg.getX()), rozmiar * (p.getY()  - lg.getY()), rozmiar * (p.getX()  - lg.getX()) + rozmiar, rozmiar * (p.getY() - lg.getY()) + rozmiar ,al_map_rgb(0,0,0));
-};
-void rysuj_ant (Ant a, float rozmiar) {
-    al_draw_ellipse(a.getPosition().getX(), a.getPosition().getY() , rozmiar / 4, rozmiar / 5, al_map_rgb(0,0,0), 5);
-    al_draw_ellipse(a.getPosition().getX() + rozmiar / 2, a.getPosition().getY() , rozmiar / 4, rozmiar / 5, al_map_rgb(0,0,0), 5);
-};
+}
+void rysujMrowke (Point lg, Ant a, float rozmiar) {
+    switch (a.getDirection()){
+        case 1:
+            al_draw_ellipse(rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2, rozmiar / 4, rozmiar / 2 - ((5 * rozmiar) / (40 * 2)), al_map_rgb(0,0,255), ((5 * rozmiar) / 40));
+            break;
+        case 2:
+            al_draw_ellipse(rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2, rozmiar / 2 - ((5 * rozmiar) / (40 * 2)), rozmiar / 4 , al_map_rgb(0,0,255), ((5 * rozmiar) / 40));
+            break;
+        case 3:
+            al_draw_ellipse(rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2, rozmiar / 4, rozmiar / 2 - ((5 * rozmiar) / (40 * 2)), al_map_rgb(0,0,255), ((5 * rozmiar) / 40));
+            break;
+        case 4:
+            al_draw_ellipse(rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2, rozmiar / 2 - ((5 * rozmiar) / (40 * 2)), rozmiar / 4 , al_map_rgb(0,0,255), ((5 * rozmiar) / 40));
+            break;
+    }
+}
 
 void rysuj (set<Point> czarne, vector<Ant> mrowki) {
 
@@ -140,17 +227,8 @@ void rysuj (set<Point> czarne, vector<Ant> mrowki) {
             y_max = a.getPosition().getY();
     }
 
-    ALLEGRO_DISPLAY *display = al_create_display(screen_w, screen_h);
-    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+    float rozmiar = 40.0;
 
-    al_register_event_source(event_queue, al_get_display_event_source(display));
-
-    ALLEGRO_EVENT ev;
-
-    al_clear_to_color(al_map_rgb(255,255,255));
-
-    float rozmiar = 1000.0;
-    
     if (screen_w / (x_max - x_min + 1) < rozmiar) {
         rozmiar = (float) screen_w / (x_max - x_min + 1);
     }
@@ -158,34 +236,66 @@ void rysuj (set<Point> czarne, vector<Ant> mrowki) {
         rozmiar = (float) screen_h / (y_max - y_min + 1);
     }
 
-    cout << "rozmiar= " << rozmiar << endl;
-    
+    /*Point lg (0.0, 0.0);
+
+    if (x_min < lg.getX())
+        lg.setX(x_min);
+
+    if (y_min < lg.getY())
+        lg.setY(y_min);
+    */
+
     for(Point p: czarne) {
-        rysuj_pole(Point(x_min, y_min), p, rozmiar);
+        rysujPole(Point(x_min, y_min), p, rozmiar);
     }
     for(Ant a: mrowki) {
-        rysuj_ant(a, rozmiar);
+        rysujMrowke(Point(x_min, y_min), a, rozmiar);
     }
-
-    al_flip_display();
-
-    al_wait_for_event(event_queue, &ev);
-    al_destroy_display(display);
-};
+}
 
 int main(int, char**) {
     al_init();
     al_init_primitives_addon();
 
-    Ant mrowka = Ant(200, 200);
-    //mrowki.push_back(mrowka);
+    ALLEGRO_DISPLAY *display = al_create_display(screen_w, screen_h);
+    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+
+    al_register_event_source(event_queue, al_get_display_event_source(display));
+
+    ALLEGRO_EVENT ev;
+    ALLEGRO_TIMEOUT timeout;
+    al_init_timeout(&timeout, 0.005f);
+
+    al_clear_to_color(al_map_rgb(255,255,255));
+
+    mrowki.push_back(Point(8,9));
+    mrowki.push_back(Point(12,7));
+    mrowki.push_back(Point(3,20));
+    mrowki.push_back(Point(15,18));
 
     czarne.insert(Point(3,4));
     czarne.insert(Point(4,6));
     czarne.insert(Point(2,5));
     czarne.insert(Point(8,8));
 
-    rysuj(czarne, mrowki);
+    for (int i = 0 ; i < 10000; ++i) {
 
+        al_clear_to_color(al_map_rgb(255,255,255));
+        rysuj(czarne, mrowki);
+        ruch(czarne, mrowki);
+
+        al_flip_display();
+
+        ALLEGRO_EVENT ev;
+        ALLEGRO_TIMEOUT timeout;
+        al_init_timeout(&timeout, 0.05f);
+        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+
+        if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+            break;
+
+    }
+
+    al_destroy_display(display);
 }
 
