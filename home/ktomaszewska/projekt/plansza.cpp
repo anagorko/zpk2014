@@ -54,6 +54,9 @@ bool Plansza::czy_kolizja(int pX, int pY, int typ_klocka, int rotacja_klocka){
             // czy klocek wychodzi poza plansze
             if (i1<0 || i1>szerokosc-1 || j1>wysokosc-1)
             {
+                cout << "typ_klocka" << typ_klocka << endl;
+                cout << "rotacja_klocka" << rotacja_klocka << endl;
+                
                     if (k->klocki[typ_klocka][rotacja_klocka][i2][j2] !=0)
                     return 1;
             }

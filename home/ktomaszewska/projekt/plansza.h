@@ -12,7 +12,7 @@ class Plansza{
     public:
     int wysokosc; //=20;
     int szerokosc; //=10;
-    double** tablica;
+    double tablica[20][10];
     int punkty; //liczba punktów
 
     //wymiary planszy
@@ -23,7 +23,7 @@ class Plansza{
         punkty=p;
     }
 
-    Klocek*k;
+    Klocek *k;
 
     bool czy_kolizja(int pX, int pY, int typ_klocka, int rotacja_klocka); //czy kolizja z innym klockiem lub sciana
     void usun_linie(int wiersz); //usuwa jedna linie i przesuwa klocki w dol

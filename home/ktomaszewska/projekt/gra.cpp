@@ -4,7 +4,7 @@ int Gra::losuj_liczbe(int a, int b){
     return rand()%(b-a+1)+a;
 }
 
-void Gra::ropocznij_gre(){
+void Gra::rozpocznij_gre(){
     srand( time( NULL ) );
 
     //klocek obecny

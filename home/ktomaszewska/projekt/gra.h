@@ -30,7 +30,7 @@ public:
     Plansza *p;
 
     void generuj_klocek();
-    void ropocznij_gre();
+    void rozpocznij_gre();
     void rysuj_klocek();
     void rysuj_plasze();
     int losuj_liczbe(int a, int b);
