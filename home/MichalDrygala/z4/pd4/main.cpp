@@ -8,6 +8,9 @@ int main()
     Vect u(4, { 0, 1, 1, 1 }), v(4, { 1, 0, 1, 1 }), w(4, { 1, 1, 0, 1 } ), z(4, { 1, 1, 1, 0 });
     Vect a(4), b(4), c(4), d(4);
 
+    Vect e;
+    cin >> e;
+
     a = u;
     a.normalize();
 
