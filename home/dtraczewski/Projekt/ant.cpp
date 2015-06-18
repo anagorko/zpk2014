@@ -259,15 +259,15 @@ void rysuj (set<Point> czarne, vector<Ant> mrowki) {
 int main(int, char**) {
     al_init();
     al_init_primitives_addon();
+    al_install_mouse();
 
     ALLEGRO_DISPLAY *display = al_create_display(screen_w, screen_h);
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
-
+    al_register_event_source(event_queue, al_get_mouse_event_source());
+    
     ALLEGRO_EVENT ev;
-    ALLEGRO_TIMEOUT timeout;
-    al_init_timeout(&timeout, 0.005f);
 
     al_clear_to_color(al_map_rgb(255,255,255));
 
@@ -281,7 +281,10 @@ int main(int, char**) {
     czarne.insert(Point(2,5));
     czarne.insert(Point(8,8));
 
-    for (int i = 0 ; i < 10000; ++i) {
+    ALLEGRO_TIMEOUT timeout;
+    al_init_timeout(&timeout, 0.001f);
+
+    while (true) {
 
         al_clear_to_color(al_map_rgb(255,255,255));
         rysuj(czarne, mrowki);
@@ -290,11 +293,13 @@ int main(int, char**) {
         al_flip_display();
 
         ALLEGRO_EVENT ev;
-        ALLEGRO_TIMEOUT timeout;
-        al_init_timeout(&timeout, 0.005f);
         
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
 
+        if (get_event && ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+            cout << "myszka wcisnieta " << ev.mouse.x << " " << ev.mouse.y << endl;
+        }
+        
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
             break;
 
