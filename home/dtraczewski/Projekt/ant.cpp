@@ -110,7 +110,7 @@ public:
                 kierunek = 4;
                 break;
             case 2:
-                p.setY(p.getY() + 1);
+                p.setY(p.getY() - 1);
                 kierunek = 1;
                 break;
             case 3:
@@ -118,7 +118,7 @@ public:
                 kierunek = 2;
                 break;
             case 4:
-                p.setY(p.getY() - 1);
+                p.setY(p.getY() + 1);
                 kierunek = 3;
                 break;
         }
@@ -131,7 +131,7 @@ public:
                 kierunek = 2;
                 break;
             case 2:
-                p.setY(p.getY() - 1);
+                p.setY(p.getY() + 1);
                 kierunek = 3;
                 break;
             case 3:
@@ -139,7 +139,7 @@ public:
                 kierunek = 4;
                 break;
             case 4:
-                p.setY(p.getY() + 1);
+                p.setY(p.getY() - 1);
                 kierunek = 1;
                 break;
         }
@@ -160,12 +160,15 @@ void ruch(set<Point> &czarne, vector<Ant> &mrowki) {
         czyCzarne = false;
         pozycja = mrowki[i].getPosition();
 
+/*
         for (it = czarne.begin(); it != czarne.end(); ++it) {
             if(*it == pozycja) {
                 czyCzarne = true;
                 break;
             }
         }
+*/
+        czyCzarne = czarne.find(pozycja) != czarne.end();
 
         if (czyCzarne) {
             mrowki[i].prawo();
@@ -288,7 +291,8 @@ int main(int, char**) {
 
         ALLEGRO_EVENT ev;
         ALLEGRO_TIMEOUT timeout;
-        al_init_timeout(&timeout, 0.05f);
+        al_init_timeout(&timeout, 0.005f);
+        
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
 
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
