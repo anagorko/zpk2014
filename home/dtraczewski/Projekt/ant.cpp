@@ -298,6 +298,18 @@ int main(int, char**) {
 
         if (get_event && ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
             cout << "myszka wcisnieta " << ev.mouse.x << " " << ev.mouse.y << endl;
+
+            // https://www.allegro.cc/manual/5/al_get_mouse_state
+            
+            ALLEGRO_MOUSE_STATE state;
+            al_get_mouse_state(&state);
+
+            if (state.buttons & 1) {
+                cout << "lewy" << endl;
+            }
+            if (state.buttons & 2) {
+                cout << "prawy" << endl;
+            }
         }
         
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
