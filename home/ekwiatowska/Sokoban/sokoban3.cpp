@@ -227,32 +227,22 @@ public:
 
 };
 
-int rysuj_plansze(Plansza &p){
+ALLEGRO_BITMAP  *pole   = NULL;
+ALLEGRO_BITMAP  *sciana   = NULL;
+ALLEGRO_BITMAP  *bambus   = NULL;
+ALLEGRO_BITMAP  *magazyn   = NULL;
+ALLEGRO_BITMAP  *panda   = NULL;
 
-    // tworzenie wskaznikow do elementow planszy
-
-    ALLEGRO_BITMAP  *pole   = NULL;
-    ALLEGRO_BITMAP  *sciana   = NULL;
-    ALLEGRO_BITMAP  *bambus   = NULL;
-    ALLEGRO_BITMAP  *magazyn   = NULL;
-    ALLEGRO_BITMAP  *panda   = NULL;
-
-    // sprawdzenie inicjalizacji allegro
-    if(!al_init()) {
-        return 1;
-    }
-
-    if(!al_init_image_addon()) {
-        return 1;
-    }
-
-
-    // wczytanie elementow planszy
+void zaladuj_bitmapy()
+{
     sciana = al_load_bitmap("sciana.png");
     pole = al_load_bitmap("pole.png");
     bambus = al_load_bitmap("bambus.png");
     magazyn = al_load_bitmap("magazyn.png");
     panda = al_load_bitmap("panda.png");
+}
+
+int rysuj_plansze(Plansza &p){
 
     // sprawdzenie czy elementy sie wczytaly
     if(!pole || !sciana || !bambus || !magazyn) {
@@ -283,13 +273,6 @@ int rysuj_plansze(Plansza &p){
     // wyswietla plansze
     al_flip_display();
 
-    // usuwa wksazniki
-    al_destroy_bitmap(sciana);
-    al_destroy_bitmap(pole);
-    al_destroy_bitmap(bambus);
-    al_destroy_bitmap(magazyn);
-    al_destroy_bitmap(panda);
-
     return 0;
 
 }
@@ -297,14 +280,6 @@ int rysuj_plansze(Plansza &p){
 int ekran_powitalny(Plansza &p){
 
     ALLEGRO_BITMAP  *menu   = NULL;
-    // sprawdzenie inicjalizacji allegro
-    if(!al_init()) {
-        return 1;
-    }
-
-    if(!al_init_image_addon()) {
-        return 1;
-    }
 
     // wczytanie elementow planszy
     menu = al_load_bitmap("menu.png");
@@ -356,10 +331,10 @@ int ekran_poziomy(Plansza &p){
     return 0;
 }
 
-int graj(Plansza &p, int poziom){
+int graj(Plansza &p, int poziom, ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE *event_queue){
 
+    /*
     ALLEGRO_DISPLAY *display = al_create_display(screen_w, screen_h);
-    ALLEGRO_TIMER *timer = al_create_timer(1.0 / FPS);
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
 
     if (display == NULL || timer == NULL || event_queue == NULL) {
@@ -368,11 +343,17 @@ int graj(Plansza &p, int poziom){
     }
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
-    al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
-    al_start_timer(timer);
+    */
 
+    ALLEGRO_TIMER *timer = al_create_timer(1.0 / FPS);
+    al_register_event_source(event_queue, al_get_timer_event_source(timer));
+    al_start_timer(timer);
+    
+    bool narysuj = true;
+    bool idz_lewo = false, idz_gora = false, idz_prawo = false, idz_dol = false;
+        
     while (p.czyKoniec()==false){
 
         // kolejka zdarzeń
@@ -381,6 +362,10 @@ int graj(Plansza &p, int poziom){
 
         if(ev.type == ALLEGRO_EVENT_TIMER) {
             energia=energia+1;
+
+            if (idz_gora) {
+                p.wykonajRuch(0,energia); narysuj = true;
+            }            
         }
 
         else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
@@ -389,10 +374,11 @@ int graj(Plansza &p, int poziom){
         }
 
         else if(ev.type == ALLEGRO_EVENT_KEY_DOWN) {
+            narysuj = true;
+                        
             switch(ev.keyboard.keycode) {
                 case ALLEGRO_KEY_UP:
-                    p.wykonajRuch(0,energia);
-                    break;
+                    idz_gora = true; break;
                 case ALLEGRO_KEY_LEFT:
                     p.wykonajRuch(3,energia);
                     break;
@@ -411,10 +397,20 @@ int graj(Plansza &p, int poziom){
                     break;
             }
         }
+        else if (ev.type == ALLEGRO_EVENT_KEY_UP) {
+            switch(ev.keyboard.keycode) {
+                case ALLEGRO_KEY_UP:
+                    idz_gora = false; break;
+            }
+        }
+
 
 
         // rysowanie planszy
-        rysuj_plansze(p);
+        if (narysuj) {
+            rysuj_plansze(p);
+            narysuj = false;
+        }
     };
     quit=true;
 
@@ -443,10 +439,10 @@ int main(int, char**){
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
 
-    ekran_powitalny(p);
-    al_flip_display();
-
+    zaladuj_bitmapy();
+    
     while (quit==false){
+        ekran_powitalny(p);
 
         // kolejka zdarzeń
         ALLEGRO_EVENT ev;
@@ -486,19 +482,19 @@ int main(int, char**){
                             switch(ev1.keyboard.keycode) {
                                 case ALLEGRO_KEY_1:
                                     p.wczytaj_plansze(0); // wczytanie planszy
-                                    graj(p, 0);
+                                    graj(p, 0, display, event_queue);
                                     poziom=true;
                                     break;
 
                                 case ALLEGRO_KEY_2:
                                     p.wczytaj_plansze(1); // wczytanie planszy
-                                    graj(p, 1);
+                                    graj(p, 1, display, event_queue);
                                     poziom=true;
                                     break;
 
                                 case ALLEGRO_KEY_3:
                                     p.wczytaj_plansze(2); // wczytanie planszy
-                                    graj(p, 2);
+                                    graj(p, 2, display, event_queue);
                                     poziom=true;
                                     break;
 
