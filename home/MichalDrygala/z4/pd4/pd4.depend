@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1434109611 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z4\pd4\main.cpp
+	<iostream>
+	"vect.h"
+
+1434302278 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z4\pd4\include\vect.h
+	<iostream>
+	<math.h>
+	<assert.h>
+
+1434109578 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z4\pd4\src\vect.cpp
+	"vect.h"
+
