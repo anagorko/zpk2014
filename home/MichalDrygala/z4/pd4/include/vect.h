@@ -28,6 +28,7 @@ public:
         int i = 0;
         for (const double & d: _v)
         {
+            assert(i < _dim);
             v[i++] = d;
         }
     }

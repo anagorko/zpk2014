@@ -1,15 +1,12 @@
 #ifndef STOS_H
 #define STOS_H
 
-#include <iostream>
+#include<iostream>
 using namespace std;
 
 #include "ElementStosu.h"
 
-/*
- * Obiekty klasy Stos mog¹ przechowywaæ dowolne obiekty implementuj¹ce interfejs
- * ElementStosu.
- */
+/* Obiekty klasy Stos mog¹ przechowywaæ dowolne obiekty implementuj¹ce interfejs ElementStosu. */
 
 class Stos
 {
@@ -23,18 +20,20 @@ class Stos
 
 public:
 
-//konstruktor
-    Stos() ;
+// konstruktor
+    Stos() {  wierzcholek = NULL;  }
 
 //destruktor
     ~Stos();
 
-//funkcje
+// funkcje
     void push(ElementStosu* el);
     ElementStosu* pop();
+    bool empty();
+    int size();
 
-//operatory
-    friend ostream& operator<<(ostream&, Stos &);
+//operator
+    friend ostream& operator << (ostream&, Stos &);
 };
 
 #endif // STOS_H

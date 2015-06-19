@@ -6,7 +6,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include "allegro5/allegro_image.h"
-#include <stdlib.h>
+#include <random>
 
 #include <iostream>
 using namespace std;
@@ -160,7 +160,7 @@ void przygotuj_plansze()
     for (int i = 0; i < sz; i++) {
         for (int j = 0; j < wy; j++) {
             p.podloga[i][j].typ = zwykla_podloga;
-            p.podloga[i][j].wariant = random() % 4; // mamy 4 warianty pod³ogi
+            p.podloga[i][j].wariant = rand() % 4; // mamy 4 warianty pod³ogi
         }
     }
 
@@ -180,7 +180,7 @@ void przygotuj_plansze()
     //
 
     for (int i = 0; i < sz*wy*3/4; i++) {
-        p.sciana[random() % sz][random() % wy].typ = zwykla;
+        p.sciana[rand() % sz][rand() % wy].typ = zwykla;
     }
 
     //
@@ -238,7 +238,7 @@ void przygotuj_plansze()
             p.obiekt[i][j].wariant = 0;
 
             if (p.sciana[i][j].typ == zwykla) {
-                switch (random() % 10) {
+                switch (rand() % 10) {
                 case 0:
                     p.obiekt[i][j].typ = bonus_bomba;
                     p.obiekt[i][j].wariant = 0;
@@ -640,7 +640,7 @@ ALLEGRO_TIMER *timer = NULL;
 
 int init()
 {
-    srandom( time(NULL) );
+    srand( time(NULL) );
 
     if(!al_init()) {
         cerr << "B³¹d podczas inicjalizacji allegro." << endl;

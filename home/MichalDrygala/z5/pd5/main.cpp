@@ -2,7 +2,6 @@
 #include <math.h>
 using namespace std;
 
-#include "Figure.h"
 #include "Point.h"
 #include "Square.h"
 #include "Circle.h"

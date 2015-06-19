@@ -1,0 +1,54 @@
+# depslib dependency file v1.0
+1434715827 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\z6\pd6\main.cpp
+	"ElementStosu.h"
+	"Liczba.h"
+	"Stos.h"
+	<iostream>
+	<cstdlib>
+
+1434653406 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\z6\pd6\include\elementstosu.h
+	<iostream>
+
+1434653388 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\z6\pd6\src\elementstosu.cpp
+	"ElementStosu.h"
+
+1434653410 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\z6\pd6\include\liczba.h
+	<iostream>
+	"ElementStosu.h"
+
+1434641278 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\z6\pd6\src\liczba.cpp
+	"Liczba.h"
+
+1434714866 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\z6\pd6\src\stos.cpp
+	"Stos.h"
+
+1434714106 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\z6\pd6\include\stos.h
+	<iostream>
+	"ElementStosu.h"
+
+1434653390 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z6\pd6\src\elementstosu.cpp
+	"ElementStosu.h"
+
+1434653408 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z6\pd6\include\elementstosu.h
+	<iostream>
+
+1434641280 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z6\pd6\src\liczba.cpp
+	"Liczba.h"
+
+1434653412 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z6\pd6\include\liczba.h
+	<iostream>
+	"ElementStosu.h"
+
+1434714868 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z6\pd6\src\stos.cpp
+	"Stos.h"
+
+1434714108 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z6\pd6\include\stos.h
+	<iostream>
+	"ElementStosu.h"
+
+1434717409 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\z6\pd6\main.cpp
+	"Liczba.h"
+	"Stos.h"
+	<iostream>
+	<cstdlib>
+

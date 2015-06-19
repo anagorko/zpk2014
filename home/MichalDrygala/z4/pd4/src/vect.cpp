@@ -146,8 +146,14 @@ ostream& operator << (ostream &o, const Vect p)
     o << p.getCoordinate( p.getDimension() - 1) << ")";
     return o;
 }
-istream& operator >> (istream&i, Vect&p)
+
+istream& operator >> (istream& i, Vect& p)
 {
+    cout >> "Podaj wymiar wektora: ";
+    int a;
+    cin >> a;
+    Vect re
+
     for(int j = 0; j < p.dim; j++)
     {
         i >> p.v[j];

@@ -1,9 +1,10 @@
-#include "ElementStosu.h"
+#include "Liczba.h"
 #include "Stos.h"
 
 #include <iostream>
-#include <math.h>
 using namespace std;
+
+#include<cstdlib>
 
 int main()
 {
@@ -16,34 +17,55 @@ int main()
         string komenda;
         cin >> komenda;
 
-        if (komenda == "q" || komenda == "quit") {
+//czekamy na komende
+//jesli uzytkownik wpisze 'q'
+
+        if (komenda == "q" || komenda == "quit")
+        {
             cout << "Bye" << endl;
             return 0;
         }
 
-        if (komenda == "+" || komenda == "*" || komenda == "-" || komenda == "/") {
-            Liczba *l2 = static_cast<Liczba*>(s.pop());
-            Liczba *l1 = static_cast<Liczba*>(s.pop());
+        if (komenda == "+" || komenda == "*" || komenda == "-" || komenda == "/" || komenda == "%")
+        {
+            Liczba* l2 = static_cast<Liczba*>(s.pop());
+            Liczba* l1 = static_cast<Liczba*>(s.pop());
 
-            if (l1 == NULL || l2 == NULL) {
-                cout << "Brak elementów na stosie." << endl; continue;
+            // jesli nie ma liczby 1 albo liczby 2
+            if (l1 == NULL || l2 == NULL)
+            {
+                cout << "Brak elementow na stosie." << endl; continue; // continue nie wykonuje dalszych instrukcji w tej petli
+            }                                                         // ale jej nie przerywa, nastapi kolejny bieg petli
+
+            Liczba* wynik;
+
+            if (komenda == "+")
+            { wynik = new Liczba(l1 -> get() + l2 -> get());
             }
-
-            Liczba *wynik;
-
-            if (komenda == "+") {
-                wynik = new Liczba(l1 -> get() + l2 -> get());
-            } else if (komenda == "*") {
-                wynik = new Liczba(l1 -> get() * l2 -> get());
-            } else if (komenda == "-") {
-                wynik = new Liczba(l1 -> get() - l2 -> get());
-            } else if (komenda == "/") {
-                if (l2 -> get() == 0) {
-                    cout << "Nie umiem dzieliæ przez zero." << endl;
-
+            else if (komenda == "*")
+            { wynik = new Liczba(l1 -> get() * l2 -> get());
+            }
+            else if (komenda == "-")
+            { wynik = new Liczba(l1 -> get() - l2 -> get());
+            }
+            else if (komenda == "/")
+            {
+                if (l2 -> get() == 0)
+                {   cout << "Nie umiem dzielic przez zero." << endl;
                     wynik = new Liczba();
-                } else {
-                    wynik = new Liczba(l1 -> get() / l2 -> get());
+                }
+                else
+                {  wynik = new Liczba(l1 -> get() / l2 -> get());
+                }
+            }
+            else if (komenda == "%")
+            {
+                if (l2 -> get() == 0)
+                {   cout << "Nie umiem dzielic przez zero." << endl;
+                    wynik = new Liczba();
+                }
+                else
+                {  wynik = new Liczba(l1 -> get() % l2 -> get());
                 }
             }
 
@@ -55,12 +77,21 @@ int main()
             continue;
         }
 
-        try {
-            int l = stoi(komenda);
-
+        try
+        {
+            int l = atoi(komenda.c_str());
             s.push(new Liczba(l));
-        } catch (string ex) {
-            cout << "Nieznana komenda: " << komenda << endl;
         }
+
+        catch (string ex)
+        {
+            cout <<  "Nieznana komenda: " << komenda << endl;
+        }
+
+// sprawdzmy czy nasze funkcje size() i empty() sa poprawne
+        cout << endl << "Liczba elementow na stosie: " << s.size() << endl;
+        if (s.empty() == 0) { cout << "Stos nie jest pusty: "; };
     }
 }
+
+

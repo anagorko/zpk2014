@@ -12,6 +12,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++0x" />
 					<Add option="-g" />
 					<Add directory="include" />
 				</Compiler>
@@ -32,11 +33,14 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/ElementStosu.h" />
+		<Unit filename="include/Liczba.h" />
 		<Unit filename="include/Stos.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/ElementStosu.cpp" />
+		<Unit filename="src/Liczba.cpp" />
 		<Unit filename="src/Stos.cpp" />
 		<Extensions>
 			<code_completion />
