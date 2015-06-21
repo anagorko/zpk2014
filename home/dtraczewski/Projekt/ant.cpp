@@ -3,6 +3,7 @@
 #include <vector>
 #include <set>
 #include <math.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -14,8 +15,6 @@ using namespace std;
 
 const int screen_w = 800;
 const int screen_h = 600;
-
-const float FPS = 60.0;
 
 class Point
 {
@@ -35,7 +34,6 @@ public:
     double getX() const {return x;}
     double getY() const {return y;}
 
-
     Point& operator*=(float f) {
         x *= f;
         y *= f;
@@ -53,12 +51,17 @@ public:
         return getX() < a.getX() || (getX() == a.getX() && getY() < a.getY());
     }
 
-    bool operator==(const Point &a) const
+    bool operator==(const Point &p) const
     {
-        return (getX() == a.getX()) && (getY() == a.getY());
+        return (getX() == p.getX()) && (getY() == p.getY());
     }
 
 };
+
+Point roundMe (Point p) {
+    Point nowy(floor(p.getX()), floor(p.getY()));
+    return nowy;
+}
 
 Point operator*(Point v, float f) {
     v *= f;
@@ -99,9 +102,6 @@ public:
     }
 
     unsigned short getDirection() const {return kierunek;}
-
-    float getAngle() const;
-    void setAngle(float _a);
 
     void lewo() {
         switch(kierunek) {
@@ -144,6 +144,11 @@ public:
                 break;
         }
     }
+
+    bool operator==(const Ant &a) const
+    {
+        return ((p.getX() == a.p.getX()) && (p.getY() == a.p.getY()));
+    }
 };
 
 set<Point> czarne;
@@ -155,19 +160,11 @@ void ruch(set<Point> &czarne, vector<Ant> &mrowki) {
     bool czyCzarne;
     Point pozycja;
 
-    for (int i = 0; i < mrowki.size(); ++i) {
+    for (unsigned int i = 0; i < mrowki.size(); ++i) {
 
         czyCzarne = false;
         pozycja = mrowki[i].getPosition();
 
-/*
-        for (it = czarne.begin(); it != czarne.end(); ++it) {
-            if(*it == pozycja) {
-                czyCzarne = true;
-                break;
-            }
-        }
-*/
         czyCzarne = czarne.find(pozycja) != czarne.end();
 
         if (czyCzarne) {
@@ -202,121 +199,295 @@ void rysujMrowke (Point lg, Ant a, float rozmiar) {
     }
 }
 
-void rysuj (set<Point> czarne, vector<Ant> mrowki) {
+Point lg(set<Point> czarne, vector<Ant> mrowki) {
 
-    int x_min = 1000000000; //czarne.front().getX();
-    int y_min = 1000000000; // czarne.front().getY();
-    int x_max = -1000000000; //czarne.front().getX();
-    int y_max = -1000000000; // czarne.front().getY();
+    int x_min = 1000000000;
+    int y_min = 1000000000;
 
     for (Point p: czarne) {
         if (p.getX() < x_min)
             x_min = p.getX();
         if (p.getY() < y_min)
             y_min = p.getY();
-        if (p.getX() > x_max)
-            x_max = p.getX();
-        if (p.getY() > y_max)
-            y_max = p.getY();
+
     }
     for (Ant a: mrowki) {
         if (a.getPosition().getX() < x_min)
             x_min = a.getPosition().getX();
         if (a.getPosition().getY() < y_min)
             y_min = a.getPosition().getY();
+    }
+
+    Point p(x_min, y_min);
+
+    return p;
+}
+
+Point pg (set<Point> czarne, vector<Ant> mrowki) {
+
+    int x_max = -1000000000;
+    int y_max = -1000000000;
+
+    for (Point p: czarne) {
+
+        if (p.getX() > x_max)
+            x_max = p.getX();
+        if (p.getY() > y_max)
+            y_max = p.getY();
+    }
+    for (Ant a: mrowki) {
+
         if (a.getPosition().getX() > x_max)
             x_max = a.getPosition().getX();
         if (a.getPosition().getY() > y_max)
             y_max = a.getPosition().getY();
     }
 
-    float rozmiar = 40.0;
+    Point p(x_max, y_max);
 
-    if (screen_w / (x_max - x_min + 1) < rozmiar) {
-        rozmiar = (float) screen_w / (x_max - x_min + 1);
+    return p;
+
+}
+
+float rozmiar (set<Point> czarne, vector<Ant> mrowki) {
+
+    Point lewyGorny = lg(czarne, mrowki);
+    Point prawyGorny = pg(czarne, mrowki);
+
+    int x_min = lewyGorny.getX();
+    int y_min = lewyGorny.getY();
+    int x_max = prawyGorny.getX();
+    int y_max = prawyGorny.getY();
+
+    float roz = 30.0;
+
+    if (screen_w / (x_max - x_min + 1) < roz) {
+        roz = (float) (screen_w - 200) / (x_max - x_min + 1);
     }
-    if (screen_h / (y_max - y_min + 1) < rozmiar) {
-        rozmiar = (float) screen_h / (y_max - y_min + 1);
+    if (screen_h / (y_max - y_min + 1) < roz) {
+        roz = (float) (screen_h - 50) / (y_max - y_min + 1);
     }
 
-    /*Point lg (0.0, 0.0);
+    return roz;
 
-    if (x_min < lg.getX())
-        lg.setX(x_min);
+}
 
-    if (y_min < lg.getY())
-        lg.setY(y_min);
+void rysuj (set<Point> czarne, vector<Ant> mrowki) {
+
+    Point lewyGorny = lg(czarne, mrowki);
+
+    int x_min = lewyGorny.getX();
+    int y_min = lewyGorny.getY();
+
+
+    float roz = rozmiar(czarne, mrowki);
+
+    /*Point start (0.0, 0.0);
+    if (x_min < start.getX())
+        start.setX(x_min);
+    if (y_min < start.getY())
+        start.setY(y_min);
     */
 
     for(Point p: czarne) {
-        rysujPole(Point(x_min, y_min), p, rozmiar);
+        rysujPole(Point(x_min, y_min), p, roz);
     }
     for(Ant a: mrowki) {
-        rysujMrowke(Point(x_min, y_min), a, rozmiar);
+        rysujMrowke(Point(x_min, y_min), a, roz);
     }
 }
 
 int main(int, char**) {
+
+    bool czyRuch = false;
+    float FPS = 10.0;
+    int it = 0;
+
     al_init();
     al_init_primitives_addon();
     al_install_mouse();
+    al_install_keyboard();
+    al_init_font_addon();
+    al_init_ttf_addon();
+    al_init_image_addon();
+
+    ALLEGRO_FONT *title = al_load_font("arial.ttf", 20, 0);
+    ALLEGRO_FONT *body = al_load_font("arial.ttf", 12, 0);
+    ALLEGRO_FONT *counter = al_load_font("arial.ttf", 20, 0);
+    ALLEGRO_FONT *element = al_load_font("arial.ttf", 10, 0);
+    ALLEGRO_FONT *title2 = al_load_font("arial.ttf", 48, 0);
 
     ALLEGRO_DISPLAY *display = al_create_display(screen_w, screen_h);
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+    ALLEGRO_EVENT ev;
+    ALLEGRO_TIMER *timer = al_create_timer(1 / FPS);
+    ALLEGRO_BITMAP* bitmap;
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_mouse_event_source());
-    
-    ALLEGRO_EVENT ev;
+    al_register_event_source(event_queue, al_get_keyboard_event_source());
+    al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
-    al_clear_to_color(al_map_rgb(255,255,255));
+    al_start_timer(timer);
 
-    mrowki.push_back(Point(8,9));
-    mrowki.push_back(Point(12,7));
-    mrowki.push_back(Point(3,20));
-    mrowki.push_back(Point(15,18));
+    Start:
 
-    czarne.insert(Point(3,4));
-    czarne.insert(Point(4,6));
-    czarne.insert(Point(2,5));
-    czarne.insert(Point(8,8));
+    while (true) {
 
-    ALLEGRO_TIMEOUT timeout;
-    al_init_timeout(&timeout, 0.001f);
+        al_clear_to_color(al_map_rgb(44, 34, 85));
+        bitmap = al_load_bitmap("ant.png");
+        al_draw_bitmap(bitmap, screen_w / 2 - 150, 10, 0);
+
+        al_draw_rectangle(screen_w / 2 - 200, 270, screen_w / 2 + 200, 400, al_map_rgb(255, 255, 255), 5);
+        al_draw_text(title2, al_map_rgb(255, 255, 255), screen_w / 2 , 310, ALLEGRO_ALIGN_CENTRE, "Mrówka Langtona");
+
+        al_draw_filled_rounded_rectangle(screen_w / 2 - 75, 420, screen_w / 2 + 75, 490, 20, 20, al_map_rgb(0, 0, 0));
+        al_draw_text(counter, al_map_rgb(255, 255, 255), screen_w / 2 , 445, ALLEGRO_ALIGN_CENTRE, "SYMULACJA");
+
+        al_draw_filled_rounded_rectangle(screen_w / 2 - 75, 510, screen_w / 2 + 75, 580, 20, 20, al_map_rgb(0, 0, 0));
+        al_draw_text(counter, al_map_rgb(255, 255, 255), screen_w / 2 , 535, ALLEGRO_ALIGN_CENTRE, "WYJŚCIE");
+
+        al_flip_display();
+
+        al_wait_for_event(event_queue, &ev);
+
+        if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+            if ((ev.mouse.x > screen_w / 2 - 75) && (ev.mouse.x < screen_w / 2 + 75) && (ev.mouse.y > 420) && (ev.mouse.y < 490))
+                break;
+            else if ((ev.mouse.x > screen_w / 2 - 75) && (ev.mouse.x < screen_w / 2 + 75) && (ev.mouse.y > 510) && (ev.mouse.y < 580)) {
+                goto Koniec;
+            }
+        }
+        else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+            goto Koniec;
+    }
 
     while (true) {
 
         al_clear_to_color(al_map_rgb(255,255,255));
+        al_draw_filled_rectangle(screen_w - 150, 0, screen_w, screen_h, al_map_rgb(44, 34, 85));
+
+        al_draw_text(body, al_map_rgb(255, 255, 255), screen_w - 75, 30, ALLEGRO_ALIGN_CENTRE, "LICZBA ITERACJI:");
+        al_draw_textf(counter, al_map_rgb(255, 255, 255), screen_w - 75, 45, ALLEGRO_ALIGN_CENTRE, "%.0f iteracji", (float)it);
+
+        al_draw_text(body, al_map_rgb(255, 255, 255), screen_w - 75, 95, ALLEGRO_ALIGN_CENTRE, "LICZBA FPS:");
+        al_draw_textf(counter, al_map_rgb(255, 255, 255), screen_w - 75, 110, ALLEGRO_ALIGN_CENTRE, "%.0f klatek/sek", FPS);
+
+        al_draw_text(title, al_map_rgb(255, 255, 255), screen_w - 75, screen_h / 2, ALLEGRO_ALIGN_CENTRE, "STEROWANIE:");
+
+        al_draw_text(element, al_map_rgb(255, 255, 255), screen_w - 75, screen_h / 2 + 40, ALLEGRO_ALIGN_CENTRE, "Spacja = zatrzymaj symulację");
+        al_draw_text(element, al_map_rgb(255, 255, 255), screen_w - 75, screen_h / 2 + 55, ALLEGRO_ALIGN_CENTRE, "Lewo = FPS - 1");
+        al_draw_text(element, al_map_rgb(255, 255, 255), screen_w - 75, screen_h / 2 + 70, ALLEGRO_ALIGN_CENTRE, "Prawo = FPS + 1");
+        al_draw_text(element, al_map_rgb(255, 255, 255), screen_w - 75, screen_h / 2 + 85, ALLEGRO_ALIGN_CENTRE, "Góra = FPS + 5");
+        al_draw_text(element, al_map_rgb(255, 255, 255), screen_w - 75, screen_h / 2 + 100, ALLEGRO_ALIGN_CENTRE, "Dół = FPS - 5");
+
+        al_draw_text(element, al_map_rgb(255, 255, 255), screen_w - 75, screen_h / 2 + 140, ALLEGRO_ALIGN_CENTRE, "PPM = Dodaj/usuń mrówkę");
+        al_draw_text(element, al_map_rgb(255, 255, 255), screen_w - 75, screen_h / 2 + 155, ALLEGRO_ALIGN_CENTRE, "LPM = Dodaj/usuń pole");
+
+        al_draw_text(element, al_map_rgb(255, 255, 255), screen_w - 75, screen_h / 2 + 180, ALLEGRO_ALIGN_CENTRE, "ENTER = Wyczyść planszę");
+        al_draw_text(element, al_map_rgb(255, 255, 255), screen_w - 75, screen_h / 2 + 210, ALLEGRO_ALIGN_CENTRE, "ESC = Powrót do menu");
+
         rysuj(czarne, mrowki);
-        ruch(czarne, mrowki);
+
+        Point lewyGorny = lg(czarne, mrowki);
+        float roz = rozmiar(czarne, mrowki);
 
         al_flip_display();
 
-        ALLEGRO_EVENT ev;
-        
-        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+        al_wait_for_event(event_queue, &ev);
 
-        if (get_event && ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
-            cout << "myszka wcisnieta " << ev.mouse.x << " " << ev.mouse.y << endl;
+        if (ev.type == ALLEGRO_EVENT_TIMER && czyRuch){
+            ruch(czarne, mrowki);
+            it++;
+        }
 
-            // https://www.allegro.cc/manual/5/al_get_mouse_state
-            
+        else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && ev.mouse.x < screen_w - 150) {
+
+            Point klik(ev.mouse.x, ev.mouse.y);
+            Point zaokr = roundMe((klik * (1/roz) + lewyGorny));
+
             ALLEGRO_MOUSE_STATE state;
             al_get_mouse_state(&state);
 
             if (state.buttons & 1) {
-                cout << "lewy" << endl;
+                if(czarne.find(zaokr) != czarne.end())
+                    czarne.erase(zaokr);
+                else
+                    czarne.insert(zaokr);
+
             }
             if (state.buttons & 2) {
-                cout << "prawy" << endl;
+                bool czyJest = false;
+                for (unsigned int i = 0; i < mrowki.size(); ++i){
+                    if (zaokr == mrowki[i].getPosition()){
+                        czyJest = true;
+                        mrowki.erase(mrowki.begin() + i);
+                        break;
+                    }
+                }
+                if (!czyJest)
+                    mrowki.push_back(zaokr);
             }
         }
-        
-        if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+
+        else if(ev.type == ALLEGRO_EVENT_KEY_DOWN) {
+
+            switch (ev.keyboard.keycode) {
+                case ALLEGRO_KEY_SPACE:
+                    czyRuch = !czyRuch;
+                    break;
+                case ALLEGRO_KEY_LEFT:
+                    if(FPS > 1.0){
+                        FPS -= 1.0;
+                        al_set_timer_speed(timer, 1 / FPS);
+                    }
+                    else
+                        FPS = 1.0;
+                    break;
+                case ALLEGRO_KEY_RIGHT:
+                    if(FPS < 60.0){
+                        FPS += 1.0;
+                        al_set_timer_speed(timer, 1 / FPS);
+                    }
+                    else
+                        FPS = 60.0;
+                    break;
+                case ALLEGRO_KEY_DOWN:
+                    if(FPS > 5.0){
+                        FPS -= 5.0;
+                        al_set_timer_speed(timer, 1 / FPS);
+                    }
+                    else
+                        FPS = 1.0;
+                    break;
+                case ALLEGRO_KEY_UP:
+                    if(FPS < 55.0){
+                        FPS += 5.0;
+                        al_set_timer_speed(timer, 1 / FPS);
+                    }
+                    else
+                        FPS = 60;
+                    break;
+                case ALLEGRO_KEY_ESCAPE:
+                    goto Start;
+                    break;
+                case ALLEGRO_KEY_ENTER:
+                    czyRuch = false;
+                    czarne.clear();
+                    mrowki.clear();
+                    it = 0;
+
+            }
+        }
+        else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
             break;
 
     }
 
-    al_destroy_display(display);
-}
+    Koniec:
 
+    al_destroy_timer(timer);
+    al_destroy_display(display);
+    al_destroy_event_queue(event_queue);
+
+}
