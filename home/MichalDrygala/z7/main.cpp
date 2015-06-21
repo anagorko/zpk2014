@@ -694,7 +694,7 @@ int init()
     return 0;
 }
 
-int main(int argc, char ** argv)
+//int main(int argc, char ** argv)
 {
     if (init() != 0) {
         cerr << "Inicjalizacja nie powiod³a siê." << endl;
