@@ -17,6 +17,10 @@ const float FPS = 60.0;
 
 int main(){
 
+/* ******************************************************************************************************************* */
+/*Inicjalizacja allegro                                                                                                */
+/* ******************************************************************************************************************* */
+
 //inicjalizacja czcionek
     al_init_font_addon();
 
@@ -41,7 +45,6 @@ int main(){
     }
 
 
-
  /*   al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -62,6 +65,7 @@ int main(){
     int a;
     cin >> a;
 
+
 //<> wybiera odpowiedni¹ planszê (decyduje u¿ytkownik)
 //<> wy³¹cza program (decyduje u¿ytkownik)
 
@@ -72,11 +76,15 @@ int main(){
 /* ******************************************************************************************************************* */
 
     clsPlansza objPlansza;
+    objPlansza.WczytajDane();
+    objPlansza.WypiszDane();
+    objPlansza.KonwertujDane();
     objPlansza.przygotuj_bitmapy();
-    objPlansza.przygotuj_plansze();
+   // objPlansza.przygotuj_plansze();
     objPlansza.rysuj_plansze();
 
 
+    cin >> a;
     //objPlansza.WyswietlMenu();
 // Rysuje siê na okr¹g³o.
 

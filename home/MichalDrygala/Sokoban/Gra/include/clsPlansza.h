@@ -14,8 +14,8 @@ class clsPlansza
     static const int sz = 12; //szrokosc kafelka
     static const int wy = 12;  //wysokosc kafelka
 
-    static const int k_sz = 35;
-    static const int k_wy = 35;
+    static const int k_sz = 32;
+    static const int k_wy = 32;
 
 enum typ_kafelka
 {
@@ -37,7 +37,7 @@ struct kafelek
 };
 */
 
-    ALLEGRO_BITMAP* bitmapa[];
+    ALLEGRO_BITMAP* bitmapa[liczba_kafelkow];
 
 const string plik_z_kafelkiem[liczba_kafelkow] =
 {
@@ -63,13 +63,13 @@ struct plansza
 };
 */
 
-    char* tchrDane[];
     int intNumerPlanszy;
 
     static bool tblnUkonczonePlansze[];
     static int intLiczbaPlansz;
 
-    int tblKefelki[sz][wy];
+    char tblDane[7][7];
+    int  tblDaneLiczby[7][7];
 
 public:
 
@@ -78,6 +78,9 @@ public:
     void rysuj_plansze();
 
     void WczytajDane();
+    void WypiszDane();
+    void KonwertujDane();
+
     void WyswietlMenu();
     void Ukonczono(int pintNumerPlanszy);
     bool CzySaNieukonczone(int pintNumerPlanszy); //sprawdza czy sa jeszcze jakies nie ukonczone plansze

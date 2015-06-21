@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1434910140 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\main.cpp
+1434915549 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\main.cpp
 	<allegro5/allegro5.h>
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_image.h>
@@ -10,43 +10,43 @@
 	<clsLudzik.h>
 	<clsSkrzynka.h>
 
-1434828553 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsludzik.cpp
+1434910777 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsludzik.cpp
 	"clsLudzik.h"
 
-1434832514 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsludzik.h
+1434910777 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsludzik.h
 	<clsObiektyRuchome.h>
 
-1434901918 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsmenu.cpp
+1434910777 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsmenu.cpp
 	"clsMenu.h"
 	<string>
 
-1434901617 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsmenu.h
+1434910777 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsmenu.h
 	<allegro5/allegro5.h>
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_image.h>
 	<allegro5/allegro_ttf.h>
 	<clsPlansza.h>
 
-1434828609 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsobiektyruchome.cpp
+1434910777 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsobiektyruchome.cpp
 	"clsObiektyRuchome.h"
 
-1434832549 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsobiektyruchome.h
+1434910777 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsobiektyruchome.h
 
-1434910422 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsplansza.cpp
+1434915242 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsplansza.cpp
 	"clsPlansza.h"
 	"clsMenu.h"
 
-1434910187 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsplansza.h
+1434914268 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsplansza.h
 	<clsMenu.h>
 	<allegro5/allegro.h>
 	<allegro5/allegro_primitives.h>
 	"allegro5/allegro_image.h"
 	<iostream>
 
-1434828575 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsskrzynka.cpp
+1434910777 source:c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsskrzynka.cpp
 	"clsSkrzynka.h"
 
-1434839988 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsskrzynka.h
+1434910777 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsskrzynka.h
 	<clsObiektyRuchome.h>
 
 1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro5.h

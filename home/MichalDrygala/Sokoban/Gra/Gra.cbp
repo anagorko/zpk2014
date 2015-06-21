@@ -38,8 +38,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="InicjalizacjaAllegro.cpp" />
-		<Unit filename="InicjalizacjaAllegro.h" />
 		<Unit filename="include/clsLudzik.h" />
 		<Unit filename="include/clsMenu.h" />
 		<Unit filename="include/clsObiektyRuchome.h" />
