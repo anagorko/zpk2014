@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1434766220 source:c:\users\piotrek\desktop\zpk\zd4\zd4\main.cpp
+	<iostream>
+	"vect.h"
+	<assert.h>
+
+1434826089 c:\users\piotrek\desktop\zpk\zd4\zd4\include\vect.h
+	<iostream>
+	<math.h>
+	<assert.h>
+
+1434826021 source:c:\users\piotrek\desktop\zpk\zd4\zd4\src\vect.cpp
+	"Vect.h"
+	<assert.h>
+
