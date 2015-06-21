@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1434883256 source:c:\users\piotrek\desktop\zpk\zd6\zd6\stos.cpp
+	<iostream>
+	<string>
+	<cstdlib>
+
