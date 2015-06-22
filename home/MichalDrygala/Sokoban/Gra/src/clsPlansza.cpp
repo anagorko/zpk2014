@@ -97,38 +97,49 @@ void clsPlansza::KonwertujDane()
     {   for(int j = 0; j < intKolumny; j++)
         {   switch(tblDane[i][j])
             {   case ' ':
-                    tblDaneLiczby[i][j] = 0;
+                    tblPodloga[i][j] = 0;
                     break;
 
                 case '#':
-                    tblDaneLiczby[i][j] = 1;
+                    tblPodloga[i][j] = 1;
                     break;
 
                 case '@':
-                    tblDaneLiczby[i][j] = 2;
+                    tblPodloga[i][j] = 0;
+                    xLudzik = i;
+                    yLudzik = j;
                     break;
 
                 case '+':
-                    tblDaneLiczby[i][j] = 3;
+                    tblPodloga[i][j] = 6;
+                    xLudzik = i;
+                    yLudzik = j;
                     break;
 
                 case '$':
-                    tblDaneLiczby[i][j] = 4;
+                    tblPodloga[i][j] = 0;
+                    //intLiczbaSkrzynek ++;
+                    tblSkrzynki[i][j] = 4;
                     break;
 
                 case '*':
-                    tblDaneLiczby[i][j] = 5;
+                    tblPodloga[i][j] = 6;
+                    //intLiczbaSkrzynek ++;
+                    tblSkrzynki[i][j] = 5;
                     break;
 
                 case '.':
-                    tblDaneLiczby[i][j] = 6;
+                    tblPodloga[i][j] = 6;
                     break;
             }
-            cout << tblDaneLiczby[i][j];
+            cout << tblPodloga[i][j];
         }
         cout << endl;
     }
 }
+
+
+
 
 bool clsPlansza::przygotuj_bitmapy()
 {   for (int i = 0; i < liczba_kafelkow; i++)
@@ -142,42 +153,33 @@ bool clsPlansza::przygotuj_bitmapy()
     return true;
 }
 
-void clsPlansza::rysuj_plansze()
+void clsPlansza::rysuj_statyczne()
 {
     al_clear_to_color(al_map_rgb(0,0,0));
 
-    /*for (int i = 0; i < sz; i++)
-    {   for (int j = 0; j < wy; j++)*/
     for (int i = 0; i < intWiersze; i++)
     {   for (int j = 0; j < intKolumny; j++)
         {
-            al_draw_bitmap_region(bitmapa[tblDaneLiczby[i][j]], 1, 0, k_sz, k_wy, i * k_sz, j * k_sz, 0);
+            al_draw_bitmap_region(bitmapa[tblPodloga[i][j]], 1, 0, k_sz, k_wy, j * k_sz, i * k_sz, 0);
              al_flip_display();
         }
     }
 }
 
-    int clsPlansza::PozycjaLudzikaWiersz()
+void clsPlansza::rysuj_ruchome()
 {
-    for (int i = 0; i < intWiersze; i++)
+    //rysuje czlowieczka
+    al_draw_bitmap_region(bitmapa[2], 1, 0, k_sz, k_wy, yLudzik * k_sz, xLudzik * k_sz, 0);
+    al_flip_display();
+int a;
+cin >> a;
+    //rysuje skrzynki
+   for (int i = 0; i < intWiersze; i++)
     {   for (int j = 0; j < intKolumny; j++)
-        {
-            if (tblDaneLiczby[i][j] == 2) {return i;}
+        {   if(tblSkrzynki[i][j] == 4 || tblSkrzynki[i][j] == 5 )
+            {   al_draw_bitmap_region(bitmapa[tblSkrzynki[i][j]], 1, 0, k_sz, k_wy, j * k_sz, i * k_sz, 0);
+                al_flip_display();
+            }
         }
     }
-    cout << "Blad przy wyszukiwaniu pozycji Ludzika - wiersz";
-    return -1;
 }
-
-    int clsPlansza::PozycjaLudzikaKolumna()
-{
-    for (int i = 0; i < intWiersze; i++)
-    {   for (int j = 0; j < intKolumny; j++)
-        {
-            if (tblDaneLiczby[i][j] == 2) {return j;}
-        }
-    }
-    cout << "Blad przy wyszukiwaniu pozycji Ludzika - kolumna";
-    return -1;
-}
-

@@ -23,6 +23,12 @@ class clsPlansza
     static const int intWiersze = 7;
     static const int intKolumny = 7;
 
+    int xLudzik;
+    int yLudzik;
+
+    //int intLiczbaSkrzynek = 0;
+    int tblSkrzynki[intWiersze][intKolumny]; //[wiersz][kolumna]
+
 enum typ_kafelka
 {
     podloga,
@@ -66,13 +72,14 @@ struct plansza
     static int intLiczbaPlansz;
 
     char tblDane[7][7];
-    int  tblDaneLiczby[7][7];
+    int  tblPodloga[7][7];
 
 public:
 
     bool przygotuj_bitmapy();
     void przygotuj_plansze();
-    void rysuj_plansze();
+    void rysuj_statyczne();
+    void rysuj_ruchome();
 
     void WczytajDane();
     void WypiszDane();
@@ -82,8 +89,8 @@ public:
     void Ukonczono(int pintNumerPlanszy);
     bool CzySaNieukonczone(int pintNumerPlanszy); //sprawdza czy sa jeszcze jakies nie ukonczone plansze
 
-    int PozycjaLudzikaWiersz();
-    int PozycjaLudzikaKolumna();
+    int PozycjaLudzikaWiersz()  { return xLudzik;}
+    int PozycjaLudzikaKolumna() { return yLudzik;}
 };
 
 #endif // CLSPLANSZA_H

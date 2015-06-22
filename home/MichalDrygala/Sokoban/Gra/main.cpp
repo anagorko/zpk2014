@@ -84,7 +84,10 @@ int main(){
     objPlansza.KonwertujDane();
     objPlansza.przygotuj_bitmapy();
    // objPlansza.przygotuj_plansze();
-    objPlansza.rysuj_plansze();
+    objPlansza.rysuj_statyczne();
+
+    cin >> a;
+    objPlansza.rysuj_ruchome();
 
 
     cin >> a;

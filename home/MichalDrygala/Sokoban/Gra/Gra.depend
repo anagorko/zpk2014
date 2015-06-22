@@ -302,7 +302,7 @@
 1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_primitives.h
 	<allegro5/allegro.h>
 
-1434984408 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\main.cpp
+1434986675 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\main.cpp
 	<allegro5/allegro5.h>
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_image.h>
@@ -320,7 +320,7 @@
 	<allegro5/allegro_ttf.h>
 	<clsPlansza.h>
 
-1434982919 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsplansza.h
+1434988178 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsplansza.h
 	<clsMenu.h>
 	<allegro5/allegro.h>
 	<allegro5/allegro_primitives.h>
@@ -329,16 +329,16 @@
 	"clsLudzik.h"
 	<iostream>
 
-1434984393 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsludzik.h
+1434984603 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsludzik.h
 	<clsObiektyRuchome.h>
 	"clsPlansza.h"
 
 1434964919 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsobiektyruchome.h
 
-1434971134 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsskrzynka.h
+1434984603 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsskrzynka.h
 	<clsObiektyRuchome.h>
 
-1434984420 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsludzik.cpp
+1434984603 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsludzik.cpp
 	"clsLudzik.h"
 	"clsSkrzynka.h"
 
@@ -349,7 +349,7 @@
 1434964919 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsobiektyruchome.cpp
 	"clsObiektyRuchome.h"
 
-1434982958 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsplansza.cpp
+1434986644 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsplansza.cpp
 	"clsPlansza.h"
 	"clsMenu.h"
 	"clsLudzik.h"
