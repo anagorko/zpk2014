@@ -46,7 +46,8 @@ int main(){
         cout << "Blad inicjalizacji 2." << endl;
         return 2;
     }
-
+    al_register_event_source(event_queue, al_get_timer_event_source(timer));
+    al_start_timer(timer);
 
  /*   al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
@@ -55,7 +56,6 @@ int main(){
 */    al_clear_to_color(al_map_rgb(0,0,0));
 /*    al_flip_display();
 
-  al_start_timer(timer);
 */
 
 /* ******************************************************************************************************************* */
@@ -83,18 +83,11 @@ int main(){
     objPlansza.WypiszDane();
     objPlansza.KonwertujDane();
     objPlansza.przygotuj_bitmapy();
-   // objPlansza.przygotuj_plansze();
     objPlansza.rysuj_statyczne();
+    objPlansza.rysuj_ruchome(0);
 
-    cin >> a;
-    objPlansza.rysuj_ruchome();
-
-
-    cin >> a;
     //objPlansza.WyswietlMenu();
 // Rysuje siê na okr¹g³o.
-
-
 
 /* ******************************************************************************************************************* */
 /*  Poruszanie ludzikiem, sprawdzenie czy ma energie, czy ruch mozliwy, czy stoi obok skrzynki -> ruch Skrzynka        */
@@ -103,15 +96,37 @@ int main(){
         int y = objPlansza.PozycjaLudzikaKolumna();
         clsLudzik objLudzik(x, y);
         cout << endl << endl << "Ludzik - wiersz: " << x + 1 << endl << "Ludzik - kolumna: " << y + 1;
+         cin >> a;
 //        cout << endl << "czy mozna ruszyc sie w D: " << objLudzik.MozliwyRuch(objPlansza, 'D') << " G: " << objLudzik.MozliwyRuch(objPlansza, 'G');
  //       cout    << " L: " << objLudzik.MozliwyRuch(objPlansza, 'L') << " P: " << objLudzik.MozliwyRuch(objPlansza, 'P');
+
+/*
+while(true)
+    {
+        ALLEGRO_EVENT ev;
+        al_wait_for_event(event_queue, &ev);
+
+int x = 0;
+if (static_cast<long int>(time(NULL))%4 == 0)
+{  x = 1;  }
+
+cout << x << " " << timer << " " ;
+objPlansza.rysuj_ruchome(x);
+
+
+        if (ev.type == ALLEGRO_EVENT_KEY_UP)
+        {
+            if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+                break;
+            }
+        }
+    }*/
 
 //<> jeœli U¿ytkownik wykona³ ruch Ludzikiem:
     //objLudzik.SprawdzEnergie();
     //objLudzik.MozliwyRuch();
     //objLudzik.ObokSkrzynka();
     //objLudzik.Ruch();
-
 
 /* ******************************************************************************************************************* */
 /*  Poruszanie Skrzynka, sprawdzenie czy ruch mozliwy, czy ukonczono Plansze ->                                        */

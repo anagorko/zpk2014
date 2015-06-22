@@ -14,20 +14,19 @@ using namespace std;
 
 class clsPlansza
 {
-    static const int sz = 12; //szrokosc kafelka
-    static const int wy = 12;  //wysokosc kafelka
-
-    static const int k_sz = 32;
-    static const int k_wy = 32;
+    static const int k_sz = 31;
+    static const int k_wy = 31;
 
     static const int intWiersze = 7;
     static const int intKolumny = 7;
 
+    char tblDane[intWiersze][intKolumny];
+    int  tblPodloga[intWiersze][intKolumny];
+
     int xLudzik;
     int yLudzik;
 
-    //int intLiczbaSkrzynek = 0;
-    int tblSkrzynki[intWiersze][intKolumny]; //[wiersz][kolumna]
+    int tblSkrzynki[intWiersze][intKolumny];
 
 enum typ_kafelka
 {
@@ -40,46 +39,20 @@ enum typ_kafelka
     cel,
     liczba_kafelkow
 };
+    ALLEGRO_BITMAP* bitmapa[2 * liczba_kafelkow];
 
-/*
-struct kafelek
-{
-    enum typ_kafelka typ;
-    //int wariant;
-};
-*/
-
-    ALLEGRO_BITMAP* bitmapa[liczba_kafelkow];
-
-    static const string plik_z_kafelkiem[liczba_kafelkow];
-
-/*
-struct plansza
-{
-    struct kafelek podloga[sz][wy];
-    struct kafelek sciana[sz][wy];
-    struct kafelek ludzik[sz][wy];
-    struct kafelek ludzikNaCelu[sz][wy];
-    struct kafelek skrzynka[sz][wy];
-    struct kafelek skrzynkaNaCelu[sz][wy];
-    struct kafelek cel[sz][wy];
-};
-*/
+    static const string plik_z_kafelkiem[2 * liczba_kafelkow];
 
     int intNumerPlanszy;
 
     static bool tblnUkonczonePlansze[];
     static int intLiczbaPlansz;
 
-    char tblDane[7][7];
-    int  tblPodloga[7][7];
-
 public:
 
     bool przygotuj_bitmapy();
-    void przygotuj_plansze();
     void rysuj_statyczne();
-    void rysuj_ruchome();
+    void rysuj_ruchome(int);
 
     void WczytajDane();
     void WypiszDane();
