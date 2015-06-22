@@ -1,0 +1,10 @@
+#ifndef INICJALIZACJAALLEGRO_H_INCLUDED
+#define INICJALIZACJAALLEGRO_H_INCLUDED
+
+
+
+#include <iostream>
+using namespace std;
+
+
+#endif // INICJALIZACJAALLEGRO_H_INCLUDED
