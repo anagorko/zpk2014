@@ -42,6 +42,8 @@
 		<Unit filename="board.cpp" />
 		<Unit filename="board.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="menu.cpp" />
+		<Unit filename="menu.h" />
 		<Unit filename="obs.h" />
 		<Extensions>
 			<code_completion />

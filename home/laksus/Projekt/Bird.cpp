@@ -1,4 +1,7 @@
 #include "Bird.h"
+#include <iostream>
+
+using namespace std;
 
 Bird::Bird(){
     type = 0;
@@ -36,7 +39,7 @@ bool Bird::collision_ground(){
 
 bool Bird::collision_obstacle(double obs_x, double obs_y){ //ptak jest dla mnie ko³em
     double col_pos_x, col_pos_y;
-    col_pos_x = pos_x + 30; col_pos_y = pos_y+30;
+    col_pos_x = pos_x; col_pos_y = pos_y;
     if(col_pos_x + radius >= obs_x){
         if((col_pos_y + radius > obs_y && col_pos_y + radius < obs_y + 50) || (col_pos_y - radius > obs_y -150 && col_pos_y - radius < obs_y - 100)){
             return true;
