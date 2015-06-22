@@ -70,7 +70,7 @@ protected:
     ALLEGRO_BITMAP* bitmap; //bitmapa
 
     Vect p, v; //p-polozenie, v - predkosc
-    int object, life, explosion;
+    int object, life, explosion, where;
 
 public:
     Moving(){}
@@ -89,6 +89,9 @@ public:
 
     int getLife() const { return life; }
     void setLife(const int _life) { life = _life; }
+
+    int getWhere()const { return where; }
+    void setWhere(const int _where) { where= _where; }
 
     int getExplosion() const {return explosion;}
     void setExplosion(const int _explosion){explosion = _explosion;}
@@ -183,7 +186,7 @@ class SpaceInvader : public Moving
     float base_line;
     float speed;
 
-    int points, number;
+    int points;
 
     public:
     SpaceInvader()
@@ -191,8 +194,6 @@ class SpaceInvader : public Moving
         direction = 1; speed = 20.0;
         base_line = -1;
         life=1;
-       // const int points;
-       // const int number;
     }
 
     ~SpaceInvader(){}
@@ -253,6 +254,27 @@ class SpaceInvader03 : public SpaceInvader{
         }
 
         ~SpaceInvader03(){}
+
+};
+
+class SpaceInvader_Mother : public SpaceInvader{
+
+    float speed;
+
+    public:
+        SpaceInvader_Mother()
+        {
+            bitmap = al_load_bitmap("SpaceInvader_Matka.png");
+            speed = 150;
+        }
+
+        ~SpaceInvader_Mother(){}
+
+        virtual void move(float time) {
+
+        setVelocity(Vect((-1)*speed, 0));
+        Moving::move(time);
+        }
 
 };
 
@@ -359,11 +381,21 @@ class Life : public Moving
 //tablicze poszczegolnych obiektow
 vector<Tank*> tanks;
 vector<SpaceInvader*> invaders;
+vector<SpaceInvader_Mother*> mother;
 vector<Shield*> shields;
 vector<Missile*> missiles;
 vector<Missile*> missiles_space;
 
 vector<Moving*> layout; //tablica pozostalych obiektow planszy, np. zycie
+
+int RandomElement(int i, int j)
+{
+
+    int random_element;
+    random_element=rand()%i+j;
+    return random_element;
+}
+
 
 // utworzenie poczatkowego ukladu najezdzcow
 void create_space_invader()
@@ -380,19 +412,19 @@ void create_space_invader()
         {
             if (i==1) {
                 SpaceInvader02 *s = new SpaceInvader02();
-                s -> setPosition(Vect(odleglosc + screen_w / 5, wysokosc + (screen_h / 10)));
+                s -> setPosition(Vect(odleglosc + screen_w / 5, wysokosc + ((screen_h+400) / 10)));
                 s -> setVelocity(Vect(0, 0));
                 s -> setPoints(50);
                 invaders.push_back(s); // doklada nowy element do naszej tablicy
             } else if (i==2 || i== 3) {
                 SpaceInvader01 *s = new SpaceInvader01();
-                s -> setPosition(Vect(odleglosc + screen_w / 5, wysokosc + (screen_h / 10)));
+                s -> setPosition(Vect(odleglosc + screen_w / 5, wysokosc + ((screen_h+400) / 10)));
                 s -> setVelocity(Vect(0, 0));
                 s -> setPoints(30);
                 invaders.push_back(s); // doklada nowy element do naszej tablicy
             } else if (i==4 || i== 5) {
                 SpaceInvader03 *s = new SpaceInvader03();
-                s -> setPosition(Vect(odleglosc + screen_w / 5, wysokosc + (screen_h / 10)));
+                s -> setPosition(Vect(odleglosc + screen_w / 5, wysokosc + ((screen_h+400) / 10)));
                 s -> setVelocity(Vect(0, 0));
                 s -> setPoints(10);
                 invaders.push_back(s);// doklada nowy element do naszej tablicy
@@ -401,6 +433,19 @@ void create_space_invader()
         }
         wysokosc = wysokosc + 50;
     }
+
+}
+
+void create_mother()
+{
+
+    SpaceInvader_Mother *s= new SpaceInvader_Mother();
+    s -> setPosition(Vect(screen_w, screen_h/10));
+    s -> setVelocity(Vect(0,0));
+    //s -> setPoints(203);
+    s -> setWhere(0);
+    mother.push_back(s);
+
 }
 
 void create_shield()// utworzenie okopow
@@ -417,7 +462,7 @@ void create_shield()// utworzenie okopow
         sh -> setLife(3);
 
         shields.push_back(sh);// doklada nowy element do naszej tablicy
-       odleglosc_s = odleglosc_s + 160;
+        odleglosc_s = odleglosc_s + 160;
     }
 
 }
@@ -465,6 +510,7 @@ void explosion(float x, float y)
 
 }
 
+
 //kolizje pociskow
 
 void missile_collision_tank() {
@@ -474,6 +520,19 @@ void missile_collision_tank() {
     int score, points;
 
     for (unsigned int j=0; j< missiles.size(); j++) {
+
+        if(missiles[j] -> getLife() == 1 ) {
+                if(mother[0] -> getWhere()== 1){
+                    if (missiles[j] -> collidesWith(mother[0])) {
+                        missiles[j] -> setLife(0);
+                        missile_death.push_back(missiles[j]);
+                        mother[0] -> setLife(0);
+                        score=tanks[0] -> getScore();
+                        points=RandomElement(500, 100);
+                        tanks[0] -> setScore(score+points);}
+                }
+        }
+
         for(unsigned int i=0; i< invaders.size(); i++) {
            if(missiles[j] -> getLife() == 1 ) {
                 if(invaders[i] -> getLife() == 1) {
@@ -594,13 +653,6 @@ void missile_collision()
     missile_collision_space();
 }
 
-int RandomElement(int i)
-{
-
-    int random_element;
-    random_element=rand()%i+1;
-    return random_element;
-}
 
 void game_start()
 {
@@ -625,6 +677,7 @@ void game_start()
     create_explosion();
     //rysowanie najezdzcow
     create_space_invader();
+    create_mother();
 
 
 
@@ -635,7 +688,9 @@ int game_logic(float time) {
     for (Moving* entity: invaders) { entity -> move(time); }
     for (Moving* entity: missiles) { entity -> move(time); }
     for (Moving* entity: missiles_space) { entity -> move(time); }
+    for (Moving* entity: mother) { entity -> move(time); }
 
+    //ruch najezdzcow
     float max = 0;
     float min = screen_w;
     for (SpaceInvader* invader: invaders) {
@@ -655,6 +710,7 @@ int game_logic(float time) {
             invader -> changeDirection();
         }
     }
+
 
     //sprawdzenie, czy czolg dojechal do krawedzi ekranu
     int maxt = 20;
@@ -693,12 +749,30 @@ int game_logic(float time) {
 
     for(SpaceInvader* i: invaders) {
         if (i -> getLife() > 0) {
-            random_element=RandomElement(liczba_prob);
+            random_element=RandomElement(liczba_prob, 1);
             if (random_element==20) {
                 create_missile(i -> getPosition().getX(), i -> getPosition().getY(), 0);
             }
         }
     }
+
+    //Losowe pojawianie sie Matki
+    int random_mother;
+
+    if(mother[0] -> getPosition().getX() == screen_w)
+    {
+        random_mother=RandomElement(5, 1);
+        mother[0] -> setLife(1);
+        if((random_mother==2)||(random_mother==4))
+        {
+            mother[0] -> setWhere(1);
+        }
+        else {mother[0] -> setWhere(0);}
+
+    }
+
+    if(mother[0] -> getPosition().getX() < 0)
+    {mother[0] -> setPosition(Vect(screen_w+50, screen_h/10));}
 
     return life_invaders;
 
@@ -715,6 +789,9 @@ void clean_game()
 
                 for(SpaceInvader* i: invaders){delete i;}
                 invaders.clear();
+
+                for(SpaceInvader* i: mother){delete i;}
+                mother.clear();
 
                 for(Shield* s: shields){delete s;}
                 shields.clear();
@@ -742,6 +819,7 @@ void render_game()
             }
 
     }
+
     for (Moving* entity: invaders) { if(entity -> getLife()!=0) entity -> draw(); }
     for (Moving* entity: shields) { if(entity -> getLife()!=0) entity -> draw(); }
     for (Moving* entity: missiles) { if(entity -> getLife()!=0) entity -> draw(); }
@@ -749,7 +827,9 @@ void render_game()
     for (int i=0; i<tanks[0] -> getLife(); i++) {
 
             if(tanks[0] -> getLife() > 0)
-            layout[i] -> draw(); }
+            layout[i] -> draw();
+    }
+    for (Moving* entity: mother) {if((entity -> getLife()!=0)&&(entity -> getWhere() == 1)) entity -> draw(); }
 }
 
 
@@ -807,7 +887,7 @@ int main(int, char**)
     menu_bitmap=al_load_bitmap("start2.png");
 
     ALLEGRO_BITMAP *rules_bitmap=NULL;
-    rules_bitmap=al_load_bitmap("rules_screen.png");
+    rules_bitmap=al_load_bitmap("rules_screen02.png");
 
     ALLEGRO_BITMAP *theyrecoming_bitmap=NULL;
     theyrecoming_bitmap=al_load_bitmap("theyrecoming03.png");
@@ -820,6 +900,7 @@ int main(int, char**)
 
     int score=0;
     float time_m=0;
+    float time_sm=0;
 
     int life_invaders=55;
 
@@ -832,6 +913,7 @@ int main(int, char**)
         if (ev.type == ALLEGRO_EVENT_TIMER) {
             redraw = true;
             time_m = time_m + 1.0/FPS;
+            time_sm = time_sm + 1.0/FPS;
         }
         else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             break;
@@ -851,6 +933,8 @@ int main(int, char**)
                     }
                 }
             } else if (screen == GAME) {
+
+                time_sm = time_sm + 1.0/FPS;
 
 
                 if(tanks[0] -> getLife() == 0)
@@ -934,6 +1018,7 @@ int main(int, char**)
                 al_draw_textf( font, al_map_rgb( 255, 255, 255 ), 180, 5, ALLEGRO_ALIGN_RIGHT, "%i", score );
                 // wykonujemy wszystkie operacje na obiektach:
                 // ruchy, wykrywamy kolizje itp.
+
                 life_invaders=game_logic(1.0/FPS);
 
                 missile_collision();
