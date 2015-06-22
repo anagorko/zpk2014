@@ -10,7 +10,7 @@ cin>>i;
 
 i=i/2;}
 
-    if(i=1){
+    if(i==1){
 
 cout<<"TAK";}
     else{
