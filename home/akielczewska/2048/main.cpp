@@ -171,7 +171,6 @@ void Plansza::wykonajRuch(int kierunek) {
 
 }
 
-
 void Plansza::ustawPozycjePoczatkowa() {
     // ustawienie pierwszej liczby
     int los = std::rand();
@@ -201,7 +200,6 @@ void Plansza::ustawPozycjePoczatkowa() {
     }
     wynik += 4;
 }
-
 
 void Plansza::ustawLosowaLiczbe() {
     int ile = 0; // zwraca liczbe pustych pol
