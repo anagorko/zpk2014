@@ -7,14 +7,9 @@ class Plansza {
 
     int t[4][4];
 
-    void przesunWGore();
-    void przesunWDol();
-    void przesunWLewo();
-    void przesunWPrawo();
-    void sklejWGore();
-    void sklejWDol();
-    void sklejWLewo();
-    void sklejWPrawo();
+    int wynik = 0;
+
+    void obrocO90Stopni();
 
 public:
     Plansza() {
@@ -23,15 +18,11 @@ public:
                 t[i][j] = 0;
             }
         }
-        //wynik = 0;
     }
 
     void ustawPozycjePoczatkowa();
 
-    void wykonajRuchWGore();
-    void wykonajRuchWDol();
-    void wykonajRuchWLewo();
-    void wykonajRuchWPrawo();
+    void wykonajRuch(int kierunek);
 
     void ustawLosowaLiczbe();
 
@@ -39,16 +30,57 @@ public:
 
     bool koniecGry();
 
-    int wynik();
+    int podajWynik();
 
     void wyswietlWKonsoli(); //// na potrzeby testowania w trakcie pisania programu
 
-    int pobierzKierunek();
 };
 
-void Plansza::przesunWGore() {
-    // przesuniecie do pierwszego górnego wiersza:
+void Plansza::obrocO90Stopni() {
+    int tk[4][4]; // kopia planszy t - obrot
+    tk[0][0] = t[0][3];
+    tk[1][0] = t[0][2];
+    tk[2][0] = t[0][1];
+    tk[3][0] = t[0][0];
+    tk[0][1] = t[1][3];
+    tk[1][1] = t[1][2];
+    tk[2][1] = t[1][1];
+    tk[3][1] = t[1][0];
+    tk[0][2] = t[2][3];
+    tk[1][2] = t[2][2];
+    tk[2][2] = t[2][1];
+    tk[3][2] = t[2][0];
+    tk[0][3] = t[3][3];
+    tk[1][3] = t[3][2];
+    tk[2][3] = t[3][1];
+    tk[3][3] = t[3][0];
+
+
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
+            t[i][j] = tk[i][j];
+        }
+    }
+}
+
+void Plansza::wykonajRuch(int kierunek) {
+    if (kierunek == 1) { // ruch w gore
+    }
+    else if (kierunek == 2) { // ruch w prawo
+        obrocO90Stopni();
+    }
+    else if (kierunek == 3) { // ruch w dol
+        obrocO90Stopni();
+        obrocO90Stopni();
+    }
+    else if (kierunek == 4) { // ruch w lewo
+        obrocO90Stopni();
+        obrocO90Stopni();
+        obrocO90Stopni();
+    }
+    // Ruch w gore
     for (int j=0; j<4; j++) {
+        // przesuniecie do pierwszego górnego wiersza:
         if (t[0][j] == 0) {
             if (t[1][j] != 0) {
                 t[0][j] = t[1][j];
@@ -83,9 +115,9 @@ void Plansza::przesunWGore() {
         }
 
     }
-}
 
-void Plansza::sklejWGore() {
+
+    // sklejanie w gore
     for (int j=0; j<4; j++) {
         if (t[0][j] == t[1][j] & t[2][j] != t[3][j]) {
             t[0][j] = t[0][j] + t[1][j];
@@ -108,199 +140,23 @@ void Plansza::sklejWGore() {
             t[3][j] = 0;
         }
     }
-}
-
-void Plansza::przesunWDol() {
-    // przesuniecie do pierwszego górnego wiersza:
-    for (int j=0; j<4; j++) {
-        if (t[3][j] == 0) {
-            if (t[2][j] != 0) {
-                t[3][j] = t[2][j];
-                t[2][j] = 0;
-            }
-            else if (t[1][j] != 0) {
-                t[3][j] = t[1][j];
-                t[1][j] = 0;
-            }
-            else if (t[0][j] != 0) {
-                t[3][j] = t[0][j];
-                t[0][j] = 0;
-            }
-        }
-        // przesuniecie do drugiego wiersza:
-        if (t[2][j] == 0) {
-            if (t[1][j] != 0) {
-                t[2][j] = t[1][j];
-                t[1][j] = 0;
-            }
-            else if (t[0][j] != 0) {
-                t[2][j] = t[0][j];
-                t[0][j] = 0;
-            }
-        }
-        // przesuniecie do trzeciego wiersza:
-        if (t[1][j] == 0) {
-            if (t[0][j] != 0) {
-                t[1][j] = t[0][j];
-                t[0][j] = 0;
-            }
-        }
-
+    if (kierunek == 1) { // ruch w gore
     }
-}
-
-void Plansza::sklejWDol() {
-    for (int j=0; j<4; j++) {
-        if (t[3][j] == t[2][j] & t[1][j] != t[0][j]) {
-            t[3][j] = t[3][j] + t[2][j];
-            t[2][j] = t[1][j];
-            t[1][j] = t[0][j];
-            t[0][j] = 0;
-        }
-        else if (t[3][j] == t[2][j] & t[1][j] == t[0][j]) {
-            t[3][j] = t[3][j] + t[2][j];
-            t[2][j] = t[1][j] + t[0][j];
-            t[1][j] = 0;
-            t[0][j] = 0;
-        }
-        else if (t[2][j] == t[1][j]) {
-            t[2][j] = t[2][j] + t [1][j];
-            t[1][j] = t[0][j];
-        }
-        else if (t[1][j] == t[0][j]) {
-            t[1][j] = t[1][j] + t[0][j];
-            t[0][j] = 0;
-        }
+    else if (kierunek == 2) { // ruch w prawo
+        obrocO90Stopni();
+        obrocO90Stopni();
+        obrocO90Stopni();
     }
-}
-
-void Plansza::przesunWLewo() {
-    // przesuniecie do pierwszego górnego wiersza:
-    for (int i=0; i<4; i++) {
-        if (t[i][0] == 0) {
-            if (t[i][1] != 0) {
-                t[i][0] = t[i][1];
-                t[i][1] = 0;
-            }
-            else if (t[i][2] != 0) {
-                t[i][0] = t[i][2];
-                t[i][2] = 0;
-            }
-            else if (t[i][3] != 0) {
-                t[i][0] = t[i][3];
-                t[i][3] = 0;
-            }
-        }
-        // przesuniecie do drugiego wiersza:
-        if (t[i][1] == 0) {
-            if (t[i][2] != 0) {
-                t[i][1] = t[i][2];
-                t[i][2] = 0;
-            }
-            else if (t[i][3] != 0) {
-                t[i][1] = t[i][3];
-                t[i][3] = 0;
-            }
-        }
-        // przesuniecie do trzeciego wiersza:
-        if (t[i][2] == 0) {
-            if (t[i][3] != 0) {
-                t[i][2] = t[i][3];
-                t[i][3] = 0;
-            }
-        }
-
+    else if (kierunek == 3) { // ruch w dol
+        obrocO90Stopni();
+        obrocO90Stopni();
     }
-}
-
-void Plansza::sklejWLewo() {
-    for (int i=0; i<4; i++) {
-        if (t[i][0] == t[i][1] & t[i][2] != t[i][3]) {
-            t[i][0] = t[i][0] + t[i][1];
-            t[i][1] = t[i][2];
-            t[i][2] = t[i][3];
-            t[i][3] = 0;
-        }
-        else if (t[i][0] == t[i][1] & t[i][2] == t[i][3]) {
-            t[i][0] = t[i][0] + t[i][1];
-            t[i][1] = t[i][2] + t[i][3];
-            t[i][2] = 0;
-            t[i][3] = 0;
-        }
-        else if (t[i][1] == t[i][2]) {
-            t[i][1] = t[i][1] + t[i][2];
-            t[i][2] = t[i][3];
-        }
-        else if (t[i][2] == t[i][3]) {
-            t[i][2] = t[i][2] + t[i][3];
-            t[i][3] = 0;
-        }
+    else if (kierunek == 4) { // ruch w lewo
+        obrocO90Stopni();
     }
+
 }
 
-void Plansza::przesunWPrawo() {
-    // przesuniecie do pierwszego górnego wiersza:
-    for (int i=0; i<4; i++) {
-        if (t[i][3] == 0) {
-            if (t[i][2] != 0) {
-                t[i][3] = t[i][2];
-                t[i][2] = 0;
-            }
-            else if (t[i][1] != 0) {
-                t[i][3] = t[i][1];
-                t[i][1] = 0;
-            }
-            else if (t[i][0] != 0) {
-                t[i][3] = t[i][0];
-                t[i][0] = 0;
-            }
-        }
-        // przesuniecie do drugiego wiersza:
-        if (t[i][2] == 0) {
-            if (t[i][1] != 0) {
-                t[i][2] = t[i][1];
-                t[i][1] = 0;
-            }
-            else if (t[i][0] != 0) {
-                t[i][2] = t[i][0];
-                t[i][0] = 0;
-            }
-        }
-        // przesuniecie do trzeciego wiersza:
-        if (t[i][1] == 0) {
-            if (t[i][0] != 0) {
-                t[i][1] = t[i][0];
-                t[i][0] = 0;
-            }
-        }
-
-    }
-}
-
-void Plansza::sklejWPrawo() {
-    for (int i=0; i<4; i++) {
-        if (t[i][3] == t[i][2] & t[i][1] != t[i][0]) {
-            t[i][3] = t[i][3] + t[i][2];
-            t[i][2] = t[i][1];
-            t[i][1] = t[i][0];
-            t[i][0] = 0;
-        }
-        else if (t[i][3] == t[i][2] & t[i][1] == t[i][0]) {
-            t[i][3] = t[i][3] + t[i][2];
-            t[i][2] = t[i][1] + t[i][0];
-            t[i][1] = 0;
-            t[i][0] = 0;
-        }
-        else if (t[i][2] == t[i][1]) {
-            t[i][2] = t[i][2] + t[i][1];
-            t[i][1] = t[i][0];
-        }
-        else if (t[i][1] == t[i][0]) {
-            t[i][1] = t[i][1] + t[i][0];
-            t[i][0] = 0;
-        }
-    }
-}
 
 void Plansza::ustawPozycjePoczatkowa() {
     // ustawienie pierwszej liczby
@@ -315,7 +171,6 @@ void Plansza::ustawPozycjePoczatkowa() {
             }
         }
     }
-    //cout << los << " " << nr << endl;
     // ustawienie drugiej liczby
     los = std::rand();
     nr = los%15;
@@ -330,28 +185,9 @@ void Plansza::ustawPozycjePoczatkowa() {
             }
         }
     }
-    //cout << los << " " << nr << endl;
+    wynik += 4;
 }
 
-void Plansza::wykonajRuchWGore() {
-    przesunWGore();
-    sklejWGore();
-}
-
-void Plansza::wykonajRuchWDol() {
-    przesunWDol();
-    sklejWDol();
-}
-
-void Plansza::wykonajRuchWLewo() {
-    przesunWLewo();
-    sklejWLewo();
-}
-
-void Plansza::wykonajRuchWPrawo() {
-    przesunWPrawo();
-    sklejWPrawo();
-}
 
 void Plansza::ustawLosowaLiczbe() {
     int ile = 0; // zwraca liczbe pustych pol
@@ -369,13 +205,18 @@ void Plansza::ustawLosowaLiczbe() {
         for (int j=0; j<4; j++) {
             if (t[i][j] == 0) {
                 l++;
-            }
-            if (nr == l) {
-                t[i][j] = 2;
+                if (nr == l) {
+                    t[i][j] = 2;
+                }
             }
         }
     }
-    //cout << los << " " << nr << endl;
+    wynik += 2;
+}
+
+int Plansza::zawartoscPola(int w, int k) {
+    // wiersze i kolumny numerujemy od 1 do 4
+    return t[w-1][k-1];
 }
 
 void Plansza::wyswietlWKonsoli() {
@@ -398,15 +239,8 @@ bool Plansza::koniecGry() {
     return k;
 }
 
-int Plansza::pobierzKierunek() {
-    char t;
-    cin >> t;
-    int s;
-    if (t == 'w') s = 1;
-        else if (t == 'a') s = 2;
-        else if (t == 's') s = 3;
-        else if (t == 'd') s = 4;
-    return s;
+int Plansza::podajWynik() {
+    return wynik;
 }
 
 int main() {
@@ -415,19 +249,29 @@ int main() {
     srand( time( NULL ) ); // zeby losowanie bylo losowe
     gra.ustawPozycjePoczatkowa();
     gra.wyswietlWKonsoli();
-    int k;
-    while (gra.koniecGry() == false) {
-        k = gra.pobierzKierunek();
-        if (k == 1) gra.wykonajRuchWGore();
-            else if (k == 2) gra.wykonajRuchWLewo();
-            else if (k == 3) gra.wykonajRuchWDol();
-            else if (k == 4) gra.wykonajRuchWPrawo();
-            else {
-                cout << "Błędny przycisk" << endl;
-                break;
-            }
+    for (int i = 1; i < 5; i++) {
+        gra.wykonajRuch(1);
+        gra.wyswietlWKonsoli();
+        gra.ustawLosowaLiczbe();
+        gra.wyswietlWKonsoli();
+        gra.wykonajRuch(2);
+        gra.wyswietlWKonsoli();
+        gra.ustawLosowaLiczbe();
+        gra.wyswietlWKonsoli();
+        gra.wykonajRuch(3);
+        gra.wyswietlWKonsoli();
+        gra.ustawLosowaLiczbe();
+        gra.wyswietlWKonsoli();
+        gra.wykonajRuch(4);
         gra.wyswietlWKonsoli();
         gra.ustawLosowaLiczbe();
         gra.wyswietlWKonsoli();
     }
+
+
+
+
+
+
+
 }
