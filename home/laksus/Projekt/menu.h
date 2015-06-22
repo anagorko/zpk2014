@@ -11,7 +11,6 @@ class MainMenu: public Menu{
     public:
     const int ButtonCount = 3;
     int actButton;
-    ALLEGRO_DISPLAY *menu = NULL;
     ALLEGRO_BITMAP *title, *background;
     ALLEGRO_BITMAP *buttons[3];
 
@@ -32,7 +31,6 @@ class SettingsMenu: public Menu{
     public:
     const int ButtonCount = 3;
     int actButton;
-    ALLEGRO_DISPLAY *menu = NULL;
     ALLEGRO_BITMAP *title, *background;
     ALLEGRO_BITMAP *buttons[3];
 
