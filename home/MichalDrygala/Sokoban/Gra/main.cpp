@@ -15,6 +15,9 @@ const int screen_w = 800;
 const int screen_h = 600;
 const float FPS = 60.0;
 
+int PozycjaLudzikaWiersz(clsPlansza);
+int PozycjaLudzikaKolumna(clsPlansza);
+
 int main(){
 
 /* ******************************************************************************************************************* */
@@ -93,8 +96,13 @@ int main(){
 /* ******************************************************************************************************************* */
 /*  Poruszanie ludzikiem, sprawdzenie czy ma energie, czy ruch mozliwy, czy stoi obok skrzynki -> ruch Skrzynka        */
 /* ******************************************************************************************************************* */
+        int x = objPlansza.PozycjaLudzikaWiersz();
+        int y = objPlansza.PozycjaLudzikaKolumna();
+        clsLudzik objLudzik(x, y);
+        cout << endl << endl << "Ludzik - wiersz: " << x + 1 << endl << "Ludzik - kolumna: " << y + 1;
+//        cout << endl << "czy mozna ruszyc sie w D: " << objLudzik.MozliwyRuch(objPlansza, 'D') << " G: " << objLudzik.MozliwyRuch(objPlansza, 'G');
+ //       cout    << " L: " << objLudzik.MozliwyRuch(objPlansza, 'L') << " P: " << objLudzik.MozliwyRuch(objPlansza, 'P');
 
-    //clsLudzik objLudzik;
 //<> jeœli U¿ytkownik wykona³ ruch Ludzikiem:
     //objLudzik.SprawdzEnergie();
     //objLudzik.MozliwyRuch();

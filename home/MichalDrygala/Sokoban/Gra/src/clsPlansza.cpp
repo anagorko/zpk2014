@@ -1,5 +1,6 @@
 #include "clsPlansza.h"
 #include "clsMenu.h"
+#include "clsLudzik.h"
 
 /*
 Floor	            (Space)     0
@@ -12,6 +13,17 @@ Goal square	            .       6
 
  koniec levelu ;
 */
+
+    const string clsPlansza::plik_z_kafelkiem[liczba_kafelkow] =
+{
+    "kafelki/podloga.png",
+    "kafelki/sciana.png",
+    "kafelki/ludzik.png",
+    "kafelki/ludzikNaCelu.png",
+    "kafelki/skrzynka.png",
+    "kafelki/skrzynkaNaCelu.png",
+    "kafelki/cel.png"
+};
 
 void clsPlansza::WczytajDane()
 {tblDane[0][0]='#';
@@ -67,8 +79,8 @@ tblDane[6][6]='#';
 
 void clsPlansza::WypiszDane()
 {
-    for(int i = 0; i < 7 ; i++)
-    {   for(int j = 0; j < 7; j++)
+    for(int i = 0; i < intWiersze ; i++)
+    {   for(int j = 0; j < intKolumny; j++)
         {
             cout << tblDane[i][j];
         }
@@ -81,8 +93,8 @@ void clsPlansza::KonwertujDane()
     cout << endl;
     cout << endl;
 
-    for(int i = 0; i < 7 ; i++)
-    {   for(int j = 0; j < 7; j++)
+    for(int i = 0; i < intWiersze ; i++)
+    {   for(int j = 0; j < intKolumny; j++)
         {   switch(tblDane[i][j])
             {   case ' ':
                     tblDaneLiczby[i][j] = 0;
@@ -136,11 +148,36 @@ void clsPlansza::rysuj_plansze()
 
     /*for (int i = 0; i < sz; i++)
     {   for (int j = 0; j < wy; j++)*/
-    for (int i = 0; i < 7; i++)
-    {   for (int j = 0; j < 7; j++)
+    for (int i = 0; i < intWiersze; i++)
+    {   for (int j = 0; j < intKolumny; j++)
         {
             al_draw_bitmap_region(bitmapa[tblDaneLiczby[i][j]], 1, 0, k_sz, k_wy, i * k_sz, j * k_sz, 0);
              al_flip_display();
         }
     }
 }
+
+    int clsPlansza::PozycjaLudzikaWiersz()
+{
+    for (int i = 0; i < intWiersze; i++)
+    {   for (int j = 0; j < intKolumny; j++)
+        {
+            if (tblDaneLiczby[i][j] == 2) {return i;}
+        }
+    }
+    cout << "Blad przy wyszukiwaniu pozycji Ludzika - wiersz";
+    return -1;
+}
+
+    int clsPlansza::PozycjaLudzikaKolumna()
+{
+    for (int i = 0; i < intWiersze; i++)
+    {   for (int j = 0; j < intKolumny; j++)
+        {
+            if (tblDaneLiczby[i][j] == 2) {return j;}
+        }
+    }
+    cout << "Blad przy wyszukiwaniu pozycji Ludzika - kolumna";
+    return -1;
+}
+

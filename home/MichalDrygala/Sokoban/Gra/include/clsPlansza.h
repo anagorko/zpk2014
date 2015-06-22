@@ -6,6 +6,9 @@
 #include <allegro5/allegro_primitives.h>
 #include "allegro5/allegro_image.h"
 
+#include "clsObiektyRuchome.h"
+#include "clsLudzik.h"
+
 #include <iostream>
 using namespace std;
 
@@ -16,6 +19,9 @@ class clsPlansza
 
     static const int k_sz = 32;
     static const int k_wy = 32;
+
+    static const int intWiersze = 7;
+    static const int intKolumny = 7;
 
 enum typ_kafelka
 {
@@ -39,16 +45,7 @@ struct kafelek
 
     ALLEGRO_BITMAP* bitmapa[liczba_kafelkow];
 
-const string plik_z_kafelkiem[liczba_kafelkow] =
-{
-    "kafelki/podloga.png",
-    "kafelki/sciana.png",
-    "kafelki/ludzik.png",
-    "kafelki/ludzikNaCelu.png",
-    "kafelki/skrzynka.png",
-    "kafelki/skrzynkaNaCelu.png",
-    "kafelki/cel.png"
-};
+    static const string plik_z_kafelkiem[liczba_kafelkow];
 
 /*
 struct plansza
@@ -84,6 +81,9 @@ public:
     void WyswietlMenu();
     void Ukonczono(int pintNumerPlanszy);
     bool CzySaNieukonczone(int pintNumerPlanszy); //sprawdza czy sa jeszcze jakies nie ukonczone plansze
+
+    int PozycjaLudzikaWiersz();
+    int PozycjaLudzikaKolumna();
 };
 
 #endif // CLSPLANSZA_H

@@ -49,10 +49,10 @@
 1434910777 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsskrzynka.h
 	<clsObiektyRuchome.h>
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro5.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro5.h
 	"allegro.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro.h
 	"allegro5/base.h"
 	"allegro5/altime.h"
 	"allegro5/bitmap.h"
@@ -87,7 +87,7 @@
 	"allegro5/utf8.h"
 	"allegro5/alcompat.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\base.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\base.h
 	<errno.h>
 	<limits.h>
 	<limits.h>
@@ -101,7 +101,7 @@
 	<dmalloc.h>
 	"allegro5/internal/alconfig.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\internal\alconfig.h
+1434965757 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\internal\alconfig.h
 	"allegro5/platform/alplatf.h"
 	"allegro5/platform/alwatcom.h"
 	"allegro5/platform/almngw32.h"
@@ -113,9 +113,9 @@
 	"allegro5/platform/astdint.h"
 	"allegro5/platform/astdbool.h"
 
-1372622328 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alplatf.h
+1434965760 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alplatf.h
 
-1368962708 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alwatcom.h
+1434965760 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alwatcom.h
 	<io.h>
 	<i86.h>
 	<conio.h>
@@ -123,166 +123,166 @@
 	<direct.h>
 	<malloc.h>
 
-1368962708 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\almngw32.h
+1434965759 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\almngw32.h
 	<io.h>
 	<fcntl.h>
 	<direct.h>
 	<malloc.h>
 	"allegro5/platform/alplatf.h"
 
-1368962708 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\albcc32.h
+1434965760 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\albcc32.h
 	<io.h>
 	<fcntl.h>
 	<direct.h>
 	<malloc.h>
 
-1368962708 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\almsvc.h
+1434965760 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\almsvc.h
 	<io.h>
 	<fcntl.h>
 	<direct.h>
 	<malloc.h>
 	"allegro5/platform/alplatf.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\aliphonecfg.h
+1434965760 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\aliphonecfg.h
 	<fcntl.h>
 	<unistd.h>
 
-1368962708 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alosxcfg.h
+1434965759 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alosxcfg.h
 	"allegro5/platform/alplatf.h"
 
-1368962708 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alucfg.h
+1434965759 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alucfg.h
 	<fcntl.h>
 	<unistd.h>
 	"alunix.h"
 	"allegro5/platform/alplatf.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alunix.h
+1434965760 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\alunix.h
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\astdint.h
+1434965760 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\astdint.h
 	<inttypes.h>
 	<stdint.h>
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\astdbool.h
+1434965760 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\platform\astdbool.h
 	<stdbool.h>
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\altime.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\altime.h
 	"allegro5/base.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\bitmap.h
+1434965753 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\bitmap.h
 	"allegro5/color.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\color.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\color.h
 	"allegro5/base.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\bitmap_draw.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\bitmap_draw.h
 	"allegro5/bitmap.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\bitmap_io.h
+1434965756 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\bitmap_io.h
 	"allegro5/bitmap.h"
 	"allegro5/file.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\file.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\file.h
 	"allegro5/base.h"
 	"allegro5/path.h"
 	"allegro5/utf8.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\path.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\path.h
 	"allegro5/base.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\utf8.h
+1434965753 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\utf8.h
 	"allegro5/base.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\bitmap_lock.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\bitmap_lock.h
 	"allegro5/bitmap.h"
 
-1372621084 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\blender.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\blender.h
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\config.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\config.h
 	"allegro5/file.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\debug.h
+1434965753 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\debug.h
 	<assert.h>
 	"allegro5/base.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\display.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\display.h
 	"allegro5/bitmap.h"
 	"allegro5/color.h"
 	"allegro5/events.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\events.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\events.h
 	"allegro5/altime.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\drawing.h
+1434965753 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\drawing.h
 	"allegro5/color.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\error.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\error.h
 	"allegro5/base.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\fixed.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\fixed.h
 	"allegro5/base.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\fmaths.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\fmaths.h
 	"allegro5/base.h"
 	"allegro5/fixed.h"
 	"allegro5/inline/fmaths.inl"
 
-1368962708 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\inline\fmaths.inl
+1434965759 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\inline\fmaths.inl
 	"allegro5/error.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\fshook.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\fshook.h
 	"allegro5/base.h"
 	"allegro5/file.h"
 	"allegro5/path.h"
 	<sys/types.h>
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\fullscreen_mode.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\fullscreen_mode.h
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\joystick.h
+1434965753 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\joystick.h
 	"allegro5/base.h"
 	"allegro5/events.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\keyboard.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\keyboard.h
 	"allegro5/base.h"
 	"allegro5/events.h"
 	"allegro5/keycodes.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\keycodes.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\keycodes.h
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\memory.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\memory.h
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\monitor.h
+1434965756 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\monitor.h
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\mouse.h
+1434965756 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\mouse.h
 	"allegro5/base.h"
 	"allegro5/events.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\mouse_cursor.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\mouse_cursor.h
 	"allegro5/base.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\system.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\system.h
 	"allegro5/config.h"
 	"allegro5/path.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\threads.h
+1434965756 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\threads.h
 	"allegro5/altime.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\timer.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\timer.h
 	"allegro5/base.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\tls.h
+1434965753 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\tls.h
 	"allegro5/base.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\transformations.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\transformations.h
 	"allegro5/display.h"
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\alcompat.h
+1434965753 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\alcompat.h
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_font.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_font.h
 	"allegro5/allegro.h"
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_image.h
+1434965755 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_image.h
 
-1362323900 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_ttf.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_ttf.h
 	"allegro5/allegro.h"
 	"allegro5/allegro_font.h"
 
@@ -299,6 +299,61 @@
 1434900958 c:\users\drygas\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\inicjalizacjaallegro.h
 	<iostream>
 
-1372621132 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_primitives.h
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_primitives.h
 	<allegro5/allegro.h>
+
+1434984408 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\main.cpp
+	<allegro5/allegro5.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_ttf.h>
+	<iostream>
+	<clsMenu.h>
+	<clsPlansza.h>
+	<clsLudzik.h>
+	<clsSkrzynka.h>
+
+1434964919 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsmenu.h
+	<allegro5/allegro5.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_ttf.h>
+	<clsPlansza.h>
+
+1434982919 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsplansza.h
+	<clsMenu.h>
+	<allegro5/allegro.h>
+	<allegro5/allegro_primitives.h>
+	"allegro5/allegro_image.h"
+	"clsObiektyRuchome.h"
+	"clsLudzik.h"
+	<iostream>
+
+1434984393 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsludzik.h
+	<clsObiektyRuchome.h>
+	"clsPlansza.h"
+
+1434964919 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsobiektyruchome.h
+
+1434971134 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsskrzynka.h
+	<clsObiektyRuchome.h>
+
+1434984420 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsludzik.cpp
+	"clsLudzik.h"
+	"clsSkrzynka.h"
+
+1434964919 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsmenu.cpp
+	"clsMenu.h"
+	<string>
+
+1434964919 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsobiektyruchome.cpp
+	"clsObiektyRuchome.h"
+
+1434982958 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsplansza.cpp
+	"clsPlansza.h"
+	"clsMenu.h"
+	"clsLudzik.h"
+
+1434964919 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsskrzynka.cpp
+	"clsSkrzynka.h"
 

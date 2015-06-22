@@ -9,7 +9,7 @@ class clsSkrzynka : public clsObiektyRuchome
     int intPozycjaKolumna;
 
 public:
-    bool MozliwyRuch(int pintPozycjaWiersz, int pintPozycjaKolumna, char pchrKierunek);
+    bool MozliwyRuch(char pchrKierunek);
     void Ruch(int pintPozycjaWiersz, int pintPozycjaKolumna, char pchrKierunek);
 
     bool CzyUkonczono();                // sprawdza czy ukonczona te plansze

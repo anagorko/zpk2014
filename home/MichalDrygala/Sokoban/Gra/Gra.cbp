@@ -15,6 +15,7 @@
 					<Add option="-g" />
 					<Add directory="../../../../../../../../../Allegro/allegro-5.0.10-mingw-4.7.0/include" />
 					<Add directory="C:/Users/Drygas/Documents/GitHub/zpk2014/home/MichalDrygala/Sokoban/Gra/include" />
+					<Add directory="C:/Users/mdrygala/Documents/GitHub/zpk2014/home/MichalDrygala/Sokoban/Gra/include" />
 				</Compiler>
 				<Linker>
 					<Add library="..\..\..\..\..\..\..\..\..\Allegro\allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-mt-debug.a" />
