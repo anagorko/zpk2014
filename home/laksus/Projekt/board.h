@@ -8,8 +8,8 @@ class Board{
 public:
     void init(int bird_type);
     void close();
-    void refresh_hero(double b_x, double b_y);
-    void refresh_pipe(double p_x, double p_y);
+    void refresh_hero(double, double, double);
+    void refresh_pipe(double, double);
     void refresh_background();
     void show();
     void end_game();
