@@ -1,6 +1,7 @@
 #include "clsPlansza.h"
 #include "clsMenu.h"
 #include "clsLudzik.h"
+#include"clsSkrzynka.h"
 
 /*
 Floor	            (Space)     0
@@ -14,22 +15,16 @@ Goal square	            .       6
  koniec levelu ;
 */
 
-    const string clsPlansza::plik_z_kafelkiem[2 * liczba_kafelkow] =
+const string clsPlansza::plik_z_kafelkiem[liczba_kafelkow] =
 {
     "kafelki/podloga.png",
     "kafelki/sciana.png",
-    "kafelki/ludzik.png",
-    "kafelki/ludzikNaCelu.png",
-    "kafelki/skrzynka.png",
-    "kafelki/skrzynkaNaCelu.png",
+    "kafelki/ludziki.png",
+    "kafelki/ludzikiNaCelu.png",
+    "kafelki/skrzynki.png",
+    "kafelki/skrzynkiNaCelu.png",
     "kafelki/cel.png",
-    "kafelki/podloga.png",
-    "kafelki/sciana.png",
-    "kafelki/ludzikv2.png",
-    "kafelki/ludzikNaCelu.png",
-    "kafelki/skrzynka.png",
-    "kafelki/skrzynkaNaCelu.png",
-    "kafelki/cel.png"
+
 };
 
 void clsPlansza::WczytajDane()
@@ -105,51 +100,51 @@ void clsPlansza::KonwertujDane()
         {   switch(tblDane[i][j])
             {   case ' ':
                     tblPodloga[i][j] = 0;
-                    tblSkrzynki[i][j] = 0;
+                    tblSkrzynkiP[i][j] = 0;
                     break;
 
                 case '#':
                     tblPodloga[i][j] = 1;
-                   tblSkrzynki[i][j] = 0;
+                   tblSkrzynkiP[i][j] = 0;
                     break;
 
                 case '@':
                     tblPodloga[i][j] = 0;
-                    tblSkrzynki[i][j] = 0;
+                    tblSkrzynkiP[i][j] = 0;
                     xLudzik = i;
                     yLudzik = j;
                     break;
 
                 case '+':
                     tblPodloga[i][j] = 6;
-                    tblSkrzynki[i][j] = 0;
+                    tblSkrzynkiP[i][j] = 0;
                     xLudzik = i;
                     yLudzik = j;
                     break;
 
                 case '$':
                     tblPodloga[i][j] = 0;
-                    tblSkrzynki[i][j] = 1;
+                    tblSkrzynkiP[i][j] = 1;
                     break;
 
                 case '*':
                     tblPodloga[i][j] = 6;
-                    tblSkrzynki[i][j] = 1;
+                    tblSkrzynkiP[i][j] = 1;
                     break;
 
                 case '.':
                     tblPodloga[i][j] = 6;
-                    tblSkrzynki[i][j] = 0;
+                    tblSkrzynkiP[i][j] = 0;
                     break;
             }
-            cout << tblSkrzynki[i][j];
+            cout << tblPodloga[i][j];
         }
         cout << endl;
     }
 }
 
 bool clsPlansza::przygotuj_bitmapy()
-{   for (int i = 0; i < 2 * liczba_kafelkow; i++)
+{   for (int i = 0; i < liczba_kafelkow; i++)
         {   bitmapa[i] = al_load_bitmap(plik_z_kafelkiem[i].c_str());
 
             if (!bitmapa[i])
@@ -166,37 +161,38 @@ void clsPlansza::rysuj_statyczne()
 
     for (int i = 0; i < intWiersze; i++)
     {   for (int j = 0; j < intKolumny; j++)
-        {    al_draw_bitmap_region(bitmapa[tblPodloga[i][j]], 1, 0, k_sz, k_wy, j * k_sz, i * k_sz, 0);
+        {    al_draw_bitmap_region(bitmapa[tblPodloga[i][j]], 0, 0, k_sz, k_wy, intYStart + j * k_sz, intXStart + i * k_sz, 0);
              al_flip_display();
         }
     }
 }
 
-void clsPlansza::rysuj_ruchome(int wersja)
+void clsPlansza::rysuj_ruchome(clsLudzik l, clsSkrzynka s, int wersja)
 {
     //rysuje czlowieczka
-    if(tblPodloga[xLudzik][yLudzik] == 0)//jesli stoi na podlodze
-    {   al_draw_bitmap_region(bitmapa[2 + 7 * (wersja)], 1, 0, k_sz, k_wy, yLudzik * k_sz, xLudzik * k_wy, 0);
+    if(tblPodloga[l.get_X()][l.get_Y()] == 0)//jesli stoi na podlodze
+    {   al_draw_bitmap_region(bitmapa[2], 32 * wersja, 0, k_sz, k_wy, intYStart + l.get_Y() * k_sz, intXStart + l.get_X() * k_wy, 0);
         al_flip_display();
     }
-    else if(tblPodloga[xLudzik][yLudzik] == 6)//jesli stoi na celu
-    {   al_draw_bitmap_region(bitmapa[3], 1, 0, k_sz, k_wy, yLudzik * k_sz, xLudzik * k_wy, 0);
+    else if(tblPodloga[l.get_X()][l.get_Y()] == 6)//jesli stoi na celu
+    {   al_draw_bitmap_region(bitmapa[3], 32 * wersja, 0, k_sz, k_wy, intYStart + l.get_Y() * k_sz, intXStart + l.get_X() * k_wy, 0);
         al_flip_display();
     }
 
     //rysuje skrzynki
      for (int i = 0; i < intWiersze; i++)
     {   for (int j = 0; j < intKolumny; j++)
-        {    if (tblSkrzynki[i][j] == 1 )
+        {    if (s.get_tblSkrzynkiS(i, j) == 1 )
             {   if(tblPodloga[i][j] == 0)//jesli stoi na podlodze
-                {   al_draw_bitmap_region(bitmapa[4], 1, 0, k_sz, k_wy, j * k_sz, i * k_sz, 0);
+                {   al_draw_bitmap_region(bitmapa[4], 32 * wersja, 0, k_sz, k_wy, intYStart + j * k_sz, intXStart + i * k_sz, 0);
                     al_flip_display();
                 }
                 else if(tblPodloga[i][j] == 6)//jesli stoi na celu
-                {   al_draw_bitmap_region(bitmapa[5], 1, 0, k_sz, k_wy, j * k_sz, i * k_sz, 0);
+                {   al_draw_bitmap_region(bitmapa[5], 32 * wersja, 0, k_sz, k_wy, intYStart + j * k_sz, intXStart + i * k_sz, 0);
                     al_flip_display();
                 }
             }
         }
     }
 }
+

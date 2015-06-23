@@ -22,12 +22,6 @@ void MainMenu::display(){
 }
 
 void MainMenu::create(){
-    al_init();
-    al_init_image_addon();
-    al_init_primitives_addon();
-
-    menu = al_create_display(w, h);
-
     title = al_load_bitmap("images/title_screen.png");
     background = al_load_bitmap("images/background.jpg");
     buttons[0] = al_load_bitmap("images/butt1.png");
@@ -37,7 +31,6 @@ void MainMenu::create(){
     actButton = 0;
     display();
     select_menu_item(0);
-    Sleep(2000);
 }
 
 void MainMenu::show_button(ALLEGRO_BITMAP* but, int pos_x, int pos_y){
@@ -76,22 +69,15 @@ void SettingsMenu::display(){
 }
 
 void SettingsMenu::create(){
-    al_init();
-    al_init_image_addon();
-    al_init_primitives_addon();
-
-    menu = al_create_display(w, h);
-
     title = al_load_bitmap("images/title_screen.png");
     background = al_load_bitmap("images/background.jpg");
-    buttons[0] = al_load_bitmap("images/butt1.png");
-    buttons[1] = al_load_bitmap("images/butt2.png");
+    buttons[0] = al_load_bitmap("images/butt2.png");
+    buttons[1] = al_load_bitmap("images/butt1.png");
     buttons[2] = al_load_bitmap("images/butt3.png");
 
     actButton = 0;
     display();
     select_menu_item(0);
-    Sleep(2000);
 }
 
 void SettingsMenu::show_button(ALLEGRO_BITMAP* but, int pos_x, int pos_y){
