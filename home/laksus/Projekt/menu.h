@@ -1,3 +1,7 @@
+#ifndef __MENU_H__
+#define __MENU_H__
+
+
 class Menu{
     public:
     virtual void display() = 0;
@@ -46,3 +50,6 @@ class SettingsMenu: public Menu{
     const int w = 800;
     const int h = 600;
 };
+
+
+#endif

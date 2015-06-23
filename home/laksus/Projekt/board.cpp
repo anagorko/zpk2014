@@ -11,11 +11,19 @@ void Board::init(int bird_type){
     if(bird_type == 0)
         hero = al_load_bitmap("images/flappy-bird.png");
     MenuFont = al_load_ttf_font("fonts/arial.ttf",20,0);
-    background = al_load_bitmap("images/background.jpg");
+    background[0] = al_load_bitmap("images/background.jpg");
+    background[1] = al_load_bitmap("images/background2.png");
+    background[2] = al_load_bitmap("images/background3.jpeg");
+    background[3] = al_load_bitmap("images/background4.jpeg");
+    background[4] = al_load_bitmap("images/background5.jpeg");
     obstacle_up = al_load_bitmap("images/mario_pipe_up.png");
     obstacle_down = al_load_bitmap("images/mario_pipe_down.png");
     lvl_win = al_load_bitmap("images/win.png");
     endgame = al_load_bitmap("images/game_over.jpg");
+
+    for(int i = 0; i < 5; i++){
+        ObstacleLevel[i]=10/(i+1);
+    }
 }
 
 void Board::refresh_hero(double b_x, double b_y, double angle){
@@ -31,8 +39,8 @@ void Board::refresh_pipe(double p_x, double p_y){
     al_draw_scaled_bitmap(obstacle_up,0,0,233,88,p_x,p_y-150,100,50,0);
 }
 
-void Board::refresh_background(){
-    al_draw_scaled_bitmap(background,0,0,400,300,0,0,w,h,0);
+void Board::refresh_background(int _lvl){
+    al_draw_scaled_bitmap(background[_lvl],0,0,400,300,0,0,w,h,0);
 }
 
 void Board::show(){

@@ -99,3 +99,4 @@ void SettingsMenu::select_menu_item(int direction){
 int SettingsMenu::actual_selection(){
     return actButton;
 }
+
