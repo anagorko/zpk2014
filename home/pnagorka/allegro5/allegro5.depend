@@ -250,7 +250,7 @@
 	"allegro5/allegro.h"
 	"allegro5/allegro_font.h"
 
-1433673218 source:c:\users\redrack\documents\github\zpk2014\home\pnagorka\projekt\langtons_ant.cpp
+1435089062 source:c:\users\redrack\documents\github\zpk2014\home\pnagorka\projekt\langtons_ant.cpp
 	<iostream>
 	<vector>
 	<math.h>
