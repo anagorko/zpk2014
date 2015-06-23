@@ -80,6 +80,6 @@ public:
     int get_intWiersze() {return intWiersze;}
     int get_intKolumny() {return intKolumny;}
 
-    friend void ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s);
+    void ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s);
 };
 #endif // CLSPLANSZA_H

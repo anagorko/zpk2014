@@ -19,10 +19,12 @@ public:
     int get_tblSkrzynkiS(int x, int y) { return tblSkrzynkiS[x][y];}
     void set_tblSkrzynkiS(int x, int y, int wartosc) { tblSkrzynkiS[x][y] = wartosc;}
 
+
+
     //bool MozliwyRuch(char pchrKierunek);
     //void Ruch(int pintPozycjaWiersz, int pintPozycjaKolumna, char pchrKierunek);
 
-    //bool CzyUkonczono();                // sprawdza czy ukonczona te plansze
+    bool CzyUkonczono(clsPlansza p); // sprawdza czy ukonczona te plansze
 };
 
 #endif // CLSSKRZYNKA_H
