@@ -3,6 +3,7 @@
 
 #include <clsObiektyRuchome.h>
 #include "clsPlansza.h"
+class clsPlansza;
 
 class clsLudzik //: public clsObiektyRuchome
 {
@@ -44,7 +45,7 @@ int get_energia(){
     return intEnergia;
 }
 
-void ruchy();
+    friend void ruchy(clsPlansza&, clsLudzik&);
 
     bool MozliwyRuch(char pchrKierunek); //tblPodloga
 

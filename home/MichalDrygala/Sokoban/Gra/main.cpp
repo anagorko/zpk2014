@@ -26,66 +26,76 @@ int czas = 0;
 
 void rysuj_ruchome(clsLudzik, int);
 
-void ruchy(clsPlansza plansza1, clsLudzik on){
-
+void ruchy(clsPlansza& plansza1, clsLudzik& on)
+{
     int x = on.get_X();
     int y = on.get_Y();
     int energia = on.get_energia();
-
     //int ile_bomb = p.g[0].ile_bomb;
     //bool moze_stawiac = p.g[0].moze_stawiac;
 
-    if (key[ALLEGRO_KEY_LEFT] && energia > energia_ruchu) {
-        if ((plansza1.tblPodloga[x-1][y] == 0 || 6) && (plansza1.tblSkrzynki[x-1][y] == 0)){
-            energia = 0; x = x-1;
+    if (key[ALLEGRO_KEY_LEFT] && energia > energia_ruchu)
+    {
+        if ((plansza1.tblPodloga[x][y-1] == 0 || 6) && (plansza1.tblSkrzynki[x][y-1] == 0))
+        {
+            energia = 0; y--;
             cout << "lewo" << endl;
         }
-        else if ((plansza1.tblSkrzynki[x-1][y] == 1) && (plansza1.tblSkrzynki[x-2][y] == 0) &&
-                 (plansza1.tblPodloga[x-2][y] == 0 || 6)){
-                  plansza1.tblSkrzynki[x-1][y] = 0;
-                  plansza1.tblSkrzynki[x-2][y] = 1;
-                  energia = 0; x = x-1;
-                  cout << "lewo - dłuzsza" << endl;
-                 }
+        else if ((plansza1.tblSkrzynki[x][y-1] == 1) && (plansza1.tblSkrzynki[x][y-2] == 0) && (plansza1.tblPodloga[x][y-2] == 0 || 6))
+        {
+            plansza1.tblSkrzynki[x][y-1] = 0;
+            plansza1.tblSkrzynki[x][y-2] = 1;
+            energia = 0; y--;
+            cout << "lewo - dłuzsza" << endl;
+        }
+        plansza1.rysuj_statyczne();
     }
     if (key[ALLEGRO_KEY_RIGHT] && energia > energia_ruchu) {
-        if ((plansza1.tblPodloga[x+1][y] == 0 || 6) && (plansza1.tblSkrzynki[x+1][y] == 0)) {
-            energia = 0; x = x+1;
+        if ((plansza1.tblPodloga[x][y+1] == 0 || 6) && (plansza1.tblSkrzynki[x][y+1] == 0))
+        {
+            energia = 0; y++;
             cout << "prawo" << endl;
         }
-        else if ((plansza1.tblSkrzynki[x+1][y] == 1) && (plansza1.tblSkrzynki[x+2][y] == 0) &&
-                 (plansza1.tblPodloga[x+2][y] == 0 || 6)){
-                  plansza1.tblSkrzynki[x+1][y] = 0;
-                  plansza1.tblSkrzynki[x+2][y] = 1;
-                  energia = 0; x = x+1;
-                  cout << "prawo - dłuzsza" << endl;
-                 }
+        else if ((plansza1.tblSkrzynki[x][y+1] == 1) && (plansza1.tblSkrzynki[x][y+2] == 0) && (plansza1.tblPodloga[x][y+2] == 0 || 6))
+        {
+            plansza1.tblSkrzynki[x][y+1] = 0;
+            plansza1.tblSkrzynki[x][y+2] = 1;
+            energia = 0; y++;
+            cout << "prawo - dłuzsza" << endl;
+        }
+        plansza1.rysuj_statyczne();
     }
-    if (key[ALLEGRO_KEY_UP] && energia > energia_ruchu) {
-        if ((plansza1.tblPodloga[x][y+1] == 0 || 6) && (plansza1.tblSkrzynki[x][y+1] == 0)) {
-            energia = 0; y = y+1;
+    if (key[ALLEGRO_KEY_DOWN] && energia > energia_ruchu)
+    {
+        if ((plansza1.tblPodloga[x+1][y] == 0 || 6) && (plansza1.tblSkrzynki[x+1][y] == 0))
+        {
+            energia = 0; x++;
             cout << "gora" << endl;
         }
-          else if ((plansza1.tblSkrzynki[x][y+1] == 1) && (plansza1.tblSkrzynki[x][y+2] == 0) &&
-                 (plansza1.tblPodloga[x][y+2] == 0 || 6)){
-                  plansza1.tblSkrzynki[x][y+1] = 0;
-                  plansza1.tblSkrzynki[x][y+2] = 1;
-                  energia = 0; y = y+1;
-                  cout << "gora - dłuzsza" << endl;
-                 }
+        else if ((plansza1.tblSkrzynki[x+1][y] == 1) && (plansza1.tblSkrzynki[x+2][y] == 0) && (plansza1.tblPodloga[x+2][y] == 0 || 6))
+        {
+            plansza1.tblSkrzynki[x+1][y] = 0;
+            plansza1.tblSkrzynki[x+2][y] = 1;
+            energia = 0; x++;
+            cout << "gora - dłuzsza" << endl;
+        }
+        plansza1.rysuj_statyczne();
     }
-    if (key[ALLEGRO_KEY_DOWN] && energia > energia_ruchu) {
-        if ((plansza1.tblPodloga[x][y-1] == 0 || 6) && (plansza1.tblSkrzynki[x][y-1] == 0)) {
-            energia = 0; y = y-1;
+    if (key[ALLEGRO_KEY_UP] && energia > energia_ruchu)
+    {
+        if ((plansza1.tblPodloga[x-1][y] == 0 || 6) && (plansza1.tblSkrzynki[x-1][y] == 0))
+        {
+            energia = 0; x--;
             cout << "dol" << endl;
         }
-        else if ((plansza1.tblSkrzynki[x][y-1] == 1) && (plansza1.tblSkrzynki[x][y-2] == 0) &&
-                 (plansza1.tblPodloga[x][y-2] == 0 || 6)){
-                  plansza1.tblSkrzynki[x][y-1] = 0;
-                  plansza1.tblSkrzynki[x][y-2] = 1;
-                  energia = 0; y = y-1;
-                  cout << "dol - dłuzsza" << endl;
-                 }
+        else if ((plansza1.tblSkrzynki[x-1][y] == 1) && (plansza1.tblSkrzynki[x-2][y] == 0) && (plansza1.tblPodloga[x-2][y] == 0 || 6))
+        {
+            plansza1.tblSkrzynki[x-1][y] = 0;
+            plansza1.tblSkrzynki[x-2][y] = 1;
+            energia = 0; x--;
+            cout << "dol - dłuzsza" << endl;
+        }
+        plansza1.rysuj_statyczne();
     }
 
     on.set_X(x);
@@ -172,9 +182,6 @@ int main(){
 
         objPlansza.rysuj_ruchome(objLudzik, 0);
 
-
-        cout << endl << endl << "Ludzik - wiersz: " << x + 1 << endl << "Ludzik - kolumna: " << y + 1;
-         cin >> a;
 //        cout << endl << "czy mozna ruszyc sie w D: " << objLudzik.MozliwyRuch(objPlansza, 'D') << " G: " << objLudzik.MozliwyRuch(objPlansza, 'G');
  //       cout    << " L: " << objLudzik.MozliwyRuch(objPlansza, 'L') << " P: " << objLudzik.MozliwyRuch(objPlansza, 'P');
 
@@ -243,12 +250,11 @@ getTblSkrzynki(i ,j) {return TblSK[i][j]}
             // Koñczy program (jeœli to ostatnia ukoñczona plansza).
     }
 */
-
+cout << "ludzika X: " << objLudzik.get_X() << " ludzika Y: " << objLudzik.get_Y();
 bool wyjdz = false;
 
   while(!wyjdz)
     { //cout << "czas" << czas << endl;
-
     //animacja
     czas++;
     int x = (czas /50) % 4;
@@ -265,8 +271,7 @@ bool wyjdz = false;
 
             objLudzik.set_energia(objLudzik.get_energia() + 1);
             objPlansza.rysuj_ruchome(objLudzik, x);
-
-           ruchy(objPlansza, objLudzik);
+            ruchy(objPlansza, objLudzik);
 }
         else if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
             key[ev.keyboard.keycode] = true;

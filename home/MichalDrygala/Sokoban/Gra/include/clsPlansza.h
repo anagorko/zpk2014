@@ -56,7 +56,6 @@ enum typ_kafelka
     //static int intLiczbaPlansz;
 
 public:
-    friend class clsLudzik;
 
     bool przygotuj_bitmapy();
     void rysuj_statyczne();
@@ -75,6 +74,6 @@ public:
 
     int get_tabPodloga(int x, int y);
 
-friend void ruchy(clsPlansza, clsLudzik );
+    friend void ruchy(clsPlansza&, clsLudzik&);
 };
 #endif // CLSPLANSZA_H
