@@ -325,7 +325,7 @@ int main(int, char**)
             al_clear_to_color(al_map_rgb(255, 255, 255));
 
             al_draw_text(head_font, al_map_rgb(0, 0, 100), screen_e_w / 2, screen_e_h / 9, ALLEGRO_ALIGN_CENTRE, "!!! GAME OVER !!!!");
-            al_draw_text(body_font, al_map_rgb(0, 0, 100), screen_e_w / 2, screen_e_h / 2 - 0, ALLEGRO_ALIGN_CENTRE, "elapsed time:");
+            al_draw_text(body_font, al_map_rgb(0, 0, 100), screen_e_w / 2, screen_e_h / 2, ALLEGRO_ALIGN_CENTRE, "elapsed time:");
             al_draw_textf(time_font, al_map_rgb(0, 0, 100), screen_e_w / 2, screen_e_h / 2 + 40, ALLEGRO_ALIGN_CENTRE, "%.2f seconds", game_time);
 
             al_flip_display();
