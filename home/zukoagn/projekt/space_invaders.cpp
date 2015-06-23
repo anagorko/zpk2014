@@ -90,8 +90,8 @@ public:
     int getLife() const { return life; }
     void setLife(const int _life) { life = _life; }
 
-    int getWhere()const { return where; }
-    void setWhere(const int _where) { where= _where; }
+    int getShow()const { return where; } //metoda potrzebna do pokazania statku matki
+    void setShow(const int _where) { where= _where; } //metoda potrzebna do pokazania statku matki
 
     int getExplosion() const {return explosion;}
     void setExplosion(const int _explosion){explosion = _explosion;}
@@ -104,14 +104,13 @@ public:
 
     bool collidesWith(Moving* f) const
     //traktujemy obiekty jako kola o srednicach;
-    //kolizja, gdy srednice dw贸ch obiekt贸w naloza sie na siebie;
+    //kolizja, gdy srednice dw骳h obiekt體 naloza sie na siebie;
     {
         return getPosition().distanceTo(f -> getPosition()) <
-                (diameter() + f -> diameter()) / 2; //diameter = srednica
+                (diameter() + f -> diameter()) / 2;
     }
 
-//virtual - dotyczy polimorfizmu
-    virtual float diameter() const { return 0; } //const - dzieki temu nie modyfikujemy obiekt贸w
+    virtual float diameter() const { return 0; }
     virtual ALLEGRO_BITMAP* getBitmap() const { return bitmap; }
     virtual void draw() {
         al_draw_rotated_bitmap(bitmap,
@@ -421,13 +420,13 @@ void create_space_invader()
                 s -> setPosition(Vect(odleglosc + screen_w / 5, wysokosc + ((screen_h+400) / 10)));
                 s -> setVelocity(Vect(0, 0));
                 s -> setPoints(30);
-                invaders.push_back(s); // doklada nowy element do naszej tablicy
+                invaders.push_back(s);
             } else if (i==4 || i== 5) {
                 SpaceInvader03 *s = new SpaceInvader03();
                 s -> setPosition(Vect(odleglosc + screen_w / 5, wysokosc + ((screen_h+400) / 10)));
                 s -> setVelocity(Vect(0, 0));
                 s -> setPoints(10);
-                invaders.push_back(s);// doklada nowy element do naszej tablicy
+                invaders.push_back(s);
             }
             odleglosc = odleglosc + 50;
         }
@@ -442,8 +441,7 @@ void create_mother()
     SpaceInvader_Mother *s= new SpaceInvader_Mother();
     s -> setPosition(Vect(screen_w, screen_h/10));
     s -> setVelocity(Vect(0,0));
-    //s -> setPoints(203);
-    s -> setWhere(0);
+    s -> setShow(0);
     mother.push_back(s);
 
 }
@@ -467,7 +465,7 @@ void create_shield()// utworzenie okopow
 
 }
 
-void create_missile(float x, float y, int object)
+void create_missile(float x, float y, int object) // tworzenie pociskow
 {
     Missile *m= new Missile();
     m -> setPosition(Vect(x,y));
@@ -501,12 +499,15 @@ void create_explosion()
 {
     Explosion *e = new Explosion();
     e -> setPosition(Vect(0,0));
+    e -> setLife(10);
     layout.push_back(e);
 }
 
 void explosion(float x, float y)
 {
     layout[3] -> setPosition(Vect(x,y));
+    int life_e = layout[3] -> getLife();
+    layout[3] -> setLife(life_e-1);
 
 }
 
@@ -522,7 +523,7 @@ void missile_collision_tank() {
     for (unsigned int j=0; j< missiles.size(); j++) {
 
         if(missiles[j] -> getLife() == 1 ) {
-                if(mother[0] -> getWhere()== 1){
+                if(mother[0] -> getShow()== 1){
                     if (missiles[j] -> collidesWith(mother[0])) {
                         missiles[j] -> setLife(0);
                         missile_death.push_back(missiles[j]);
@@ -567,6 +568,15 @@ void missile_collision_tank() {
             }
         }
 
+        if(missiles[j] -> getLife() == 1)
+        {
+            if(missiles[j]-> getPosition().getY() < 0)
+            {
+                missiles[j] -> setLife(0);
+                missile_death.push_back(missiles[j]);
+            }
+        }
+
         if(missiles[j] -> getLife() != 0) {
             missiles_fly.push_back(missiles[j]);
         }
@@ -602,9 +612,6 @@ void missile_collision_space() {
                         life_tank--;
                         tanks[0] -> setLife(life_tank);
                         tanks[0] -> setExplosion(1);
-
-                        //explosion(tanks[0]-> getPosition().getX(), tanks[0] -> getPosition().getY());
-
                         tanks[0] -> setPosition(Vect(screen_w / 5, 9 * screen_h / 10));
                     } else {
                         tanks[0] -> setLife(0);
@@ -632,6 +639,15 @@ void missile_collision_space() {
             }
         }
 
+        if(missiles_space[j] -> getLife() == 1)
+        {
+            if(missiles_space[j]-> getPosition().getY() > screen_h)
+            {
+                missiles_space[j] -> setLife(0);
+                missile_space_death.push_back(missiles_space[j]);
+            }
+        }
+
         if(missiles_space[j] -> getLife() != 0) {
             missiles_space_fly.push_back(missiles_space[j]);
         }
@@ -653,6 +669,25 @@ void missile_collision()
     missile_collision_space();
 }
 
+void tank_vs_invaders_collision()
+{
+    for(unsigned int i=0; i<invaders.size(); i++)
+    {
+        if(invaders[i] -> getLife() == 1)
+        {
+            if(tanks[0] -> getLife() != 0)
+            {
+                 if ((invaders[i] -> collidesWith(tanks[0]))||(invaders[i] -> getPosition().getY() > screen_h))
+                 {
+                     tanks[0] -> setLife(0);
+                     break;
+                 }
+            }
+
+        }
+    }
+}
+
 
 void game_start()
 {
@@ -667,7 +702,7 @@ void game_start()
     Tank *tank = new Tank();
     tank -> setPosition(Vect(screen_w / 5, 9 * screen_h / 10));
     tank -> setSpeed(300.0);
-    tank -> setLife(3);
+    tank -> setLife(4);
     tank -> setExplosion(0);
     tank -> setScore(0);
 
@@ -756,7 +791,7 @@ int game_logic(float time) {
         }
     }
 
-    //Losowe pojawianie sie Matki
+    //Losowe pojawianie sie Statku Matki
     int random_mother;
 
     if(mother[0] -> getPosition().getX() == screen_w)
@@ -765,9 +800,9 @@ int game_logic(float time) {
         mother[0] -> setLife(1);
         if((random_mother==2)||(random_mother==4))
         {
-            mother[0] -> setWhere(1);
+            mother[0] -> setShow(1);
         }
-        else {mother[0] -> setWhere(0);}
+        else {mother[0] -> setShow(0);}
 
     }
 
@@ -810,12 +845,15 @@ void render_game()
     for (Moving* entity: tanks) {
             if(entity -> getLife()!=0)
             {
-                if(entity -> getExplosion() == 1)
+                if((entity -> getExplosion() == 1)&&(layout[3] -> getLife()>0))
                 {
                     explosion(entity -> getPosition().getX(), entity -> getPosition(). getY());
                     layout[3] -> draw();
+                    if(layout[3] -> getLife() == 0)
                     entity -> setExplosion(0);
-                }else{entity -> draw();}
+                }else{
+                    layout[3] -> setLife(10);
+                    entity -> draw();}
             }
 
     }
@@ -824,12 +862,13 @@ void render_game()
     for (Moving* entity: shields) { if(entity -> getLife()!=0) entity -> draw(); }
     for (Moving* entity: missiles) { if(entity -> getLife()!=0) entity -> draw(); }
     for (Moving* entity: missiles_space) { if(entity -> getLife()!=0) entity -> draw(); }
-    for (int i=0; i<tanks[0] -> getLife(); i++) {
 
-            if(tanks[0] -> getLife() > 0)
-            layout[i] -> draw();
+    if(tanks[0] -> getLife()>0){
+        for (int i=0; i<((tanks[0] -> getLife())-1); i++) {
+            layout[i] -> draw();}
     }
-    for (Moving* entity: mother) {if((entity -> getLife()!=0)&&(entity -> getWhere() == 1)) entity -> draw(); }
+
+    for (Moving* entity: mother) {if((entity -> getLife()!=0)&&(entity -> getShow() == 1)) entity -> draw(); }
 }
 
 
@@ -849,7 +888,7 @@ int main(int, char**)
     ALLEGRO_TIMER *timer = al_create_timer(1.0 / FPS); //stworzenie timera
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();//stworzenie kolejki zdarzen
 
-    //gdy nie stworzy kt贸regos z powyzszych
+    //gdy nie stworzy kt髍egos z powyzszych
     if (display == NULL || timer == NULL || event_queue == NULL) {
         cout << "Blad inicjalizacji." << endl;
         return 2;
@@ -857,11 +896,11 @@ int main(int, char**)
 
     // zainicjowanie czcionki
 
-    ALLEGRO_FONT *font = al_load_ttf_font("decker.ttf",25,0);
-    ALLEGRO_FONT *font2 = al_load_ttf_font("decker.ttf",50,0);
+    ALLEGRO_FONT *font = al_load_ttf_font("DejaVuSans-Bold.ttf",25,0);
+    ALLEGRO_FONT *font2 = al_load_ttf_font("DejaVuSans-Bold.ttf",50,0);
 
     if (!font){
-      fprintf(stderr, "Could not load 'decker.ttf'.\n");
+      fprintf(stderr, "Could not load 'DejaVuSans-Bold.ttf'.\n");
       return -1;
     }
 
@@ -939,8 +978,8 @@ int main(int, char**)
 
                 if(tanks[0] -> getLife() == 0)
                 {
+                    score=tanks[0]->getScore();
                     clean_game();
-                    score=0;
                     switch_to_screen = GAMEOVER;
                 }else if(life_invaders==0){
                     score=tanks[0]->getScore();
@@ -962,7 +1001,12 @@ int main(int, char**)
                             create_missile(tanks[0] -> getPosition().getX(),tanks[0] -> getPosition().getY()-40, 1);
                             time_m=0;
                             }
-
+                            break;
+                        case ALLEGRO_KEY_ESCAPE:
+                            clean_game();
+                            score=0;
+                            life_invaders=55;
+                            switch_to_screen = MENU;
                             break;
                     }
                 } else if (ev.type == ALLEGRO_EVENT_KEY_UP) {
@@ -977,7 +1021,12 @@ int main(int, char**)
                 }
             } else if (screen == RULES) {
                 if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
-                    switch_to_screen = MENU;
+                        switch (ev.keyboard.keycode) {
+                            case ALLEGRO_KEY_ESCAPE:
+                                switch_to_screen = MENU;
+                                break;
+                }
+
                 }
             } else if (screen == THEYARECOMING) {
                 if (ev.type == ALLEGRO_EVENT_TIMER) {
@@ -989,12 +1038,22 @@ int main(int, char**)
                 }
             } else if (screen == GAMEOVER){
                 if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
-                    switch_to_screen = MENU;
+                        switch (ev.keyboard.keycode) {
+                            case ALLEGRO_KEY_ESCAPE:
+                                switch_to_screen = MENU;
+                                break;
+                }
+
                 }
 
             }else if(screen == WIN){
                 if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
-                    switch_to_screen = MENU;
+                        switch (ev.keyboard.keycode) {
+                            case ALLEGRO_KEY_ESCAPE:
+                                switch_to_screen = MENU;
+                                break;
+                }
+
                 }
             }
         }
@@ -1022,6 +1081,7 @@ int main(int, char**)
                 life_invaders=game_logic(1.0/FPS);
 
                 missile_collision();
+                tank_vs_invaders_collision();
 
                  // renderujemy wszystkie obiekty
                 render_game();
@@ -1034,10 +1094,13 @@ int main(int, char**)
                 break;
             case GAMEOVER:
                 al_draw_bitmap(gameover_bitmap, 0, 0, 0);
+                al_draw_text( font2, al_map_rgb( 255, 0, 0), screen_w/2, (screen_h+200)/2, ALLEGRO_ALIGN_CENTRE, "YOUR SCORE: ");
+                al_draw_textf( font2, al_map_rgb( 255, 0, 0 ), screen_w/2 , (screen_h+300)/2, ALLEGRO_ALIGN_CENTRE, "%i", score );
                 break;
             case WIN:
                 al_draw_bitmap(win_bitmap, 175, 0, 0);
-                al_draw_textf( font2, al_map_rgb( 255, 0, 0 ), screen_w/2 , screen_h/2, ALLEGRO_ALIGN_CENTRE, "%i", score );
+                al_draw_text( font2, al_map_rgb( 255, 0, 0), screen_w/2, (screen_h+100)/2, ALLEGRO_ALIGN_CENTRE, "YOUR SCORE: ");
+                al_draw_textf( font2, al_map_rgb( 255, 0, 0 ), screen_w/2 , (screen_h+200)/2, ALLEGRO_ALIGN_CENTRE, "%i", score );
                 break;
         }
         // wyswietlamy to co namalowalismy na ukrytym widoku

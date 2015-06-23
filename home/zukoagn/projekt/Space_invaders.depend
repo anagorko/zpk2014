@@ -1,14 +1,15 @@
 # depslib dependency file v1.0
-1430395948 source:l:\programowanie\allegro\main.cpp
+1435087153 source:d:\studia\5 rok\programowanie komputerowe\z8\projekt\space_invaders\space_invaders.cpp
 	<iostream>
 	<vector>
 	<math.h>
+	<iomanip>
+	<random>
+	<ctime>
 	<allegro5/allegro.h>
 	<allegro5/allegro_image.h>
-	<allegro5/allegro_native_dialog.h>
-	<allegro5/allegro_primitives.h>
-	<stdio.h>
-	<allegro5/allegro.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
 
 1372631931 c:\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro.h
 	"allegro5/base.h"
@@ -238,44 +239,7 @@
 1372631931 c:\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_native_dialog.h
 	"allegro5/allegro.h"
 
-1372631931 c:\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_primitives.h
-	<allegro5/allegro.h>
-
 1362331099 c:\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_image.h
-
-1430938668 source:d:\studia\5 rok\programowanie komputerowe\z8\main.cpp
-	<iostream>
-	<vector>
-	<math.h>
-	<allegro5/allegro.h>
-	<allegro5/allegro_image.h>
-	<allegro5/allegro_native_dialog.h>
-	<allegro5/allegro.h>
-	<allegro5/allegro_native_dialog.h>
-	<allegro5/allegro_primitives.h>
-	<stdio.h>
-	<allegro5/allegro.h>
-
-1434061993 source:d:\studia\5 rok\programowanie komputerowe\z8\pd8\main.cpp
-	<iostream>
-	<vector>
-	<math.h>
-	<iomanip>
-	<allegro5/allegro.h>
-	<allegro5/allegro_image.h>
-	<allegro5/allegro_native_dialog.h>
-
-1434996399 source:d:\studia\5 rok\programowanie komputerowe\z8\projekt\main.cpp
-	<iostream>
-	<vector>
-	<math.h>
-	<iomanip>
-	<random>
-	<ctime>
-	<allegro5/allegro.h>
-	<allegro5/allegro_image.h>
-	<allegro5/allegro_font.h>
-	<allegro5/allegro_ttf.h>
 
 1372631931 c:\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_font.h
 	"allegro5/allegro.h"
