@@ -15,12 +15,13 @@
         delete []tblSkrzynkiS;
     }
 
+//funkcja
     bool clsSkrzynka::CzyUkonczono(clsPlansza p)
     {   bool ukonczono = 1;
 
         for(int i = 0; i < intWiersze; i++)
         {   for(int j = 0; j < intKolumny; j++)
-            {   if(tblSkrzynkiS[i][j] && p.get_tblPodloga(i, j) != 6)
+            {   if(tblSkrzynkiS[i][j] == 1 && p.get_tblPodloga(i, j) != 6)
                 {   ukonczono = 0;
                 }
             }

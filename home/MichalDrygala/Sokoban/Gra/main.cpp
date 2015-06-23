@@ -112,15 +112,11 @@ int main(){
         ALLEGRO_EVENT ev;
         al_wait_for_event(event_queue, &ev);
 
-        if(ev.type == ALLEGRO_EVENT_TIMER) {
-            //
-            // minęła 1/60 (1/FPS) część sekundy
-            //
-
+        if(ev.type == ALLEGRO_EVENT_TIMER)  // minęła 1/60 (1/FPS) część sekundy
+        {
             objLudzik.set_energia(objLudzik.get_energia() + 1);
-            objPlansza.rysuj_ruchome(objLudzik, objSkrzynka, x);
             ruchy(objPlansza, objLudzik, objSkrzynka);
-}
+        }
         else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
         {
             key[ev.keyboard.keycode] = true;
@@ -134,7 +130,6 @@ int main(){
                 wyjdz = true;
             }
         }
-           al_flip_display();
     }
 
     return 0;

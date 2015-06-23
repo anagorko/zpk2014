@@ -36,7 +36,7 @@ tblDane[0][4]='#';
 tblDane[0][5]='#';
 tblDane[0][6]='#';
 tblDane[1][0]='#';
-tblDane[1][1]='.';
+tblDane[1][1]=' ';
 tblDane[1][2]=' ';
 tblDane[1][3]=' ';
 tblDane[1][4]=' ';
@@ -44,8 +44,8 @@ tblDane[1][5]='.';
 tblDane[1][6]='#';
 tblDane[2][0]='#';
 tblDane[2][1]=' ';
-tblDane[2][2]='$';
-tblDane[2][3]='$';
+tblDane[2][2]=' ';
+tblDane[2][3]=' ';
 tblDane[2][4]='$';
 tblDane[2][5]=' ';
 tblDane[2][6]='#';
@@ -60,15 +60,15 @@ tblDane[4][0]='#';
 tblDane[4][1]='.';
 tblDane[4][2]='$';
 tblDane[4][3]='$';
-tblDane[4][4]='$';
+tblDane[4][4]=' ';
 tblDane[4][5]='.';
 tblDane[4][6]='#';
 tblDane[5][0]='#';
 tblDane[5][1]='.';
 tblDane[5][2]='.';
 tblDane[5][3]=' ';
-tblDane[5][4]='.';
-tblDane[5][5]='.';
+tblDane[5][4]=' ';
+tblDane[5][5]=' ';
 tblDane[5][6]='#';
 tblDane[6][0]='#';
 tblDane[6][1]='#';
@@ -162,9 +162,10 @@ void clsPlansza::rysuj_statyczne()
     for (int i = 0; i < intWiersze; i++)
     {   for (int j = 0; j < intKolumny; j++)
         {    al_draw_bitmap_region(bitmapa[tblPodloga[i][j]], 0, 0, k_sz, k_wy, intYStart + j * k_sz, intXStart + i * k_sz, 0);
-             al_flip_display();
+
         }
     }
+    al_flip_display();
 }
 
 void clsPlansza::rysuj_ruchome(clsLudzik l, clsSkrzynka s, int wersja)
@@ -172,11 +173,9 @@ void clsPlansza::rysuj_ruchome(clsLudzik l, clsSkrzynka s, int wersja)
     //rysuje czlowieczka
     if(tblPodloga[l.get_X()][l.get_Y()] == 0)//jesli stoi na podlodze
     {   al_draw_bitmap_region(bitmapa[2], 32 * wersja, 0, k_sz, k_wy, intYStart + l.get_Y() * k_sz, intXStart + l.get_X() * k_wy, 0);
-        al_flip_display();
     }
     else if(tblPodloga[l.get_X()][l.get_Y()] == 6)//jesli stoi na celu
     {   al_draw_bitmap_region(bitmapa[3], 32 * wersja, 0, k_sz, k_wy, intYStart + l.get_Y() * k_sz, intXStart + l.get_X() * k_wy, 0);
-        al_flip_display();
     }
 
     //rysuje skrzynki
@@ -185,14 +184,13 @@ void clsPlansza::rysuj_ruchome(clsLudzik l, clsSkrzynka s, int wersja)
         {    if (s.get_tblSkrzynkiS(i, j) == 1 )
             {   if(tblPodloga[i][j] == 0)//jesli stoi na podlodze
                 {   al_draw_bitmap_region(bitmapa[4], 32 * wersja, 0, k_sz, k_wy, intYStart + j * k_sz, intXStart + i * k_sz, 0);
-                    al_flip_display();
                 }
                 else if(tblPodloga[i][j] == 6)//jesli stoi na celu
                 {   al_draw_bitmap_region(bitmapa[5], 32 * wersja, 0, k_sz, k_wy, intYStart + j * k_sz, intXStart + i * k_sz, 0);
-                    al_flip_display();
                 }
             }
         }
     }
+    al_flip_display();
 }
 

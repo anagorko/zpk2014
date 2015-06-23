@@ -21,7 +21,7 @@
 					<Add directory="C:/Users/Piotrek/Documents/GitHub/zpk2014/home/MichalDrygala/Sokoban/Gra/include" />
 				</Compiler>
 				<Linker>
-					<Add library="D:\allegro.code_blocks\lib\liballegro-5.0.10-monolith-mt-debug.a" />
+					<Add library="..\..\..\..\..\..\..\..\..\allegro\allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-mt-debug.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
