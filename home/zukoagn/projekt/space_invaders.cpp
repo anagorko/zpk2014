@@ -771,7 +771,7 @@ int game_logic(float time) {
     }
 
     float fraction_life = float(life_invaders)/float(all_invaders);
-    float one_per_time = 5.5; // srednio jeden wrog na okreslony czas
+    float one_per_time = 4.0; // srednio jeden wrog na okreslony czas
 
     if (fraction_life > 0.5) {
         one_per_time = 1.5; // jak duzo wrogow to czesciej strzelamy
@@ -1074,7 +1074,7 @@ int main(int, char**)
             case GAME:
                 score=tanks[0] -> getScore();
                 al_draw_text( font, al_map_rgb( 255, 255, 255 ), 20, 5, ALLEGRO_ALIGN_LEFT, "SCORE: ");
-                al_draw_textf( font, al_map_rgb( 255, 255, 255 ), 180, 5, ALLEGRO_ALIGN_RIGHT, "%i", score );
+                al_draw_textf( font, al_map_rgb( 255, 255, 255 ), 250, 5, ALLEGRO_ALIGN_RIGHT, "%i", score );
                 // wykonujemy wszystkie operacje na obiektach:
                 // ruchy, wykrywamy kolizje itp.
 
