@@ -15,7 +15,7 @@ public:
     void WyswietlKomunikat(ALLEGRO_FONT* font);
 
     //Koñczy program na ¿¹danie u¿ytkownika
-    void WyswietlPlansze(int pintNumerPlanszy);
+    //void WyswietlPlansze(int pintNumerPlanszy);
 
 };
 

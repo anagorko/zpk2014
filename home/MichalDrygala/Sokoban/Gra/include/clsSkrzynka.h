@@ -1,20 +1,28 @@
 #ifndef CLSSKRZYNKA_H
 #define CLSSKRZYNKA_H
 
-#include<clsObiektyRuchome.h>
+#include <clsPlansza.h>
+class clsPlansza;
 
 class clsSkrzynka //: public clsObiektyRuchome
 {
-    //int intPozycjaWiersz;
-    //int intPozycjaKolumna;
+    static const int intWiersze = 7;
+    static const int intKolumny = 7;
 
-    //tblSkrzynki
+    int tblSkrzynkiS[intWiersze][intKolumny];
 
 public:
-    bool MozliwyRuch(char pchrKierunek);
-    void Ruch(int pintPozycjaWiersz, int pintPozycjaKolumna, char pchrKierunek);
 
-    bool CzyUkonczono();                // sprawdza czy ukonczona te plansze
+    clsSkrzynka(clsPlansza p); //konstruktor
+    ~clsSkrzynka(); //destruktor
+
+    int get_tblSkrzynkiS(int x, int y) { return tblSkrzynkiS[x][y];}
+    void set_tblSkrzynkiS(int x, int y, int wartosc) { tblSkrzynkiS[x][y] = wartosc;}
+
+    //bool MozliwyRuch(char pchrKierunek);
+    //void Ruch(int pintPozycjaWiersz, int pintPozycjaKolumna, char pchrKierunek);
+
+    //bool CzyUkonczono();                // sprawdza czy ukonczona te plansze
 };
 
 #endif // CLSSKRZYNKA_H

@@ -1,6 +1,7 @@
 #include "clsPlansza.h"
 #include "clsMenu.h"
 #include "clsLudzik.h"
+#include"clsSkrzynka.h"
 
 /*
 Floor	            (Space)     0
@@ -99,44 +100,44 @@ void clsPlansza::KonwertujDane()
         {   switch(tblDane[i][j])
             {   case ' ':
                     tblPodloga[i][j] = 0;
-                    tblSkrzynki[i][j] = 0;
+                    tblSkrzynkiP[i][j] = 0;
                     break;
 
                 case '#':
                     tblPodloga[i][j] = 1;
-                   tblSkrzynki[i][j] = 0;
+                   tblSkrzynkiP[i][j] = 0;
                     break;
 
                 case '@':
                     tblPodloga[i][j] = 0;
-                    tblSkrzynki[i][j] = 0;
+                    tblSkrzynkiP[i][j] = 0;
                     xLudzik = i;
                     yLudzik = j;
                     break;
 
                 case '+':
                     tblPodloga[i][j] = 6;
-                    tblSkrzynki[i][j] = 0;
+                    tblSkrzynkiP[i][j] = 0;
                     xLudzik = i;
                     yLudzik = j;
                     break;
 
                 case '$':
                     tblPodloga[i][j] = 0;
-                    tblSkrzynki[i][j] = 1;
+                    tblSkrzynkiP[i][j] = 1;
                     break;
 
                 case '*':
                     tblPodloga[i][j] = 6;
-                    tblSkrzynki[i][j] = 1;
+                    tblSkrzynkiP[i][j] = 1;
                     break;
 
                 case '.':
                     tblPodloga[i][j] = 6;
-                    tblSkrzynki[i][j] = 0;
+                    tblSkrzynkiP[i][j] = 0;
                     break;
             }
-            cout << tblSkrzynki[i][j];
+            cout << tblPodloga[i][j];
         }
         cout << endl;
     }
@@ -166,7 +167,7 @@ void clsPlansza::rysuj_statyczne()
     }
 }
 
-void clsPlansza::rysuj_ruchome(clsLudzik l, int wersja)
+void clsPlansza::rysuj_ruchome(clsLudzik l, clsSkrzynka s, int wersja)
 {
     //rysuje czlowieczka
     if(tblPodloga[l.get_X()][l.get_Y()] == 0)//jesli stoi na podlodze
@@ -181,7 +182,7 @@ void clsPlansza::rysuj_ruchome(clsLudzik l, int wersja)
     //rysuje skrzynki
      for (int i = 0; i < intWiersze; i++)
     {   for (int j = 0; j < intKolumny; j++)
-        {    if (tblSkrzynki[i][j] == 1 )
+        {    if (s.get_tblSkrzynkiS(i, j) == 1 )
             {   if(tblPodloga[i][j] == 0)//jesli stoi na podlodze
                 {   al_draw_bitmap_region(bitmapa[4], 32 * wersja, 0, k_sz, k_wy, intYStart + j * k_sz, intXStart + i * k_sz, 0);
                     al_flip_display();
@@ -193,10 +194,5 @@ void clsPlansza::rysuj_ruchome(clsLudzik l, int wersja)
             }
         }
     }
-}
-
-int clsPlansza::get_tabPodloga(int x, int y)
-{
-    return tblPodloga[x][y];
 }
 

@@ -1,7 +1,7 @@
 #ifndef CLSLUDZIK_H
 #define CLSLUDZIK_H
 
-#include <clsObiektyRuchome.h>
+//#include <clsObiektyRuchome.h>
 #include "clsPlansza.h"
 class clsPlansza;
 
@@ -15,46 +15,15 @@ class clsLudzik //: public clsObiektyRuchome
 
 public:
 //konstruktor
-    clsLudzik(int x, int y)
-    {
-        intPozycjaWiersz = x;
-        intPozycjaKolumna = y;
-    }
+    clsLudzik(int x, int y);
 
-void set_X(int x){
-    intPozycjaWiersz = x;
-}
+    void set_X(int x){ intPozycjaWiersz = x; }
+    void set_Y(int y){ intPozycjaKolumna = y; }
+    void set_energia(int energia){ intEnergia = energia; }
 
-void set_Y(int y){
-    intPozycjaKolumna = y;
-}
-
-int get_X(){
-    return intPozycjaWiersz;
-}
-
-int get_Y(){
-    return intPozycjaKolumna;
-}
-
-void set_energia(int energia){
-    intEnergia = energia;
-}
-
-int get_energia(){
-    return intEnergia;
-}
-
-    friend void ruchy(clsPlansza&, clsLudzik&);
-
-    bool MozliwyRuch(char pchrKierunek); //tblPodloga
-
-    void Ruch(char chrKierunek);
-        //intLiczbaRuchów++;
-
-    bool ObokSkrzynka(int pintPozycjaWiersz, int pintPozycjaKolumna, char pchrKierunek); //tblSkrzynka
-
-
+    int get_X(){ return intPozycjaWiersz;}
+    int get_Y(){ return intPozycjaKolumna; }
+    int get_energia(){ return intEnergia; }
 
 };
 
