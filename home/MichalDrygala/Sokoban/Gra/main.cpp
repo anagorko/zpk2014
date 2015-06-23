@@ -11,7 +11,7 @@ using namespace std;
 #include<clsLudzik.h>
 #include<clsSkrzynka.h>
 
-const int screen_w = 800;
+const int screen_w = 1240;
 const int screen_h = 600;
 const float FPS = 60.0;
 const int energia_ruchu = 7;
@@ -68,7 +68,8 @@ int main(){
 /* ******************************************************************************************************************* */
 
     clsMenu objMenu;
-    objMenu.WyswietlKomunikat(font);
+    //objMenu.WyswietlKomunikat(font);
+    objMenu.WyswietlMenu();
 
     int a;
     cin >> a;

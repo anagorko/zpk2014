@@ -26,7 +26,7 @@ class clsPlansza
     static const int intKolumny = 7;
 
     static const int intXStart = (((600 / k_wy) - intWiersze) / 2) * k_wy;  //wspolrzedna X gdzie ma zaczac wyswietlac plansze tak by byla na srodku
-    static const int intYStart = (((800 / k_sz) - intKolumny) / 2) * k_sz;
+    static const int intYStart = (((1240 / k_sz) - intKolumny) / 2) * k_sz;
 
     enum typ_kafelka    //typ kafelkow
     {   podloga,
