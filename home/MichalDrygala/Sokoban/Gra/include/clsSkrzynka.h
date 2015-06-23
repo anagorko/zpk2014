@@ -3,10 +3,12 @@
 
 #include<clsObiektyRuchome.h>
 
-class clsSkrzynka : public clsObiektyRuchome
+class clsSkrzynka //: public clsObiektyRuchome
 {
-    int intPozycjaWiersz;
-    int intPozycjaKolumna;
+    //int intPozycjaWiersz;
+    //int intPozycjaKolumna;
+
+    //tblSkrzynki
 
 public:
     bool MozliwyRuch(char pchrKierunek);

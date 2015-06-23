@@ -12,14 +12,16 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 					<Add directory="../../../../../../../../../Allegro/allegro-5.0.10-mingw-4.7.0/include" />
 					<Add directory="C:/Users/Drygas/Documents/GitHub/zpk2014/home/MichalDrygala/Sokoban/Gra/include" />
 					<Add directory="C:/Users/mdrygala/Documents/GitHub/zpk2014/home/MichalDrygala/Sokoban/Gra/include" />
+					<Add directory="D:/allegro.code_blocks/include" />
+					<Add directory="C:/Users/Piotrek/Documents/GitHub/zpk2014/home/MichalDrygala/Sokoban/Gra/include" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\..\..\..\..\Allegro\allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-mt-debug.a" />
-					<Add library="..\..\..\..\..\..\..\..\..\Allegro\allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-mt.a" />
+					<Add library="D:\allegro.code_blocks\lib\liballegro-5.0.10-monolith-mt-debug.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -33,6 +35,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="D:\allegro.code_blocks\lib\liballegro-5.0.10-monolith-mt.a" />
 				</Linker>
 			</Target>
 		</Build>

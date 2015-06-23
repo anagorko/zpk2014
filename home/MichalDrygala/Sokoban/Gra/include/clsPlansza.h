@@ -12,13 +12,20 @@
 #include <iostream>
 using namespace std;
 
+class clsLudzik;
+
 class clsPlansza
 {
-    static const int k_sz = 31;
-    static const int k_wy = 31;
+
+
+    static const int k_sz = 32;
+    static const int k_wy = 32;
 
     static const int intWiersze = 7;
     static const int intKolumny = 7;
+
+    static const int intXStart = (((600 / k_wy) - intWiersze) / 2) * k_wy;
+    static const int intYStart = (((800 / k_sz) - intKolumny) / 2) * k_sz;
 
     char tblDane[intWiersze][intKolumny];
     int  tblPodloga[intWiersze][intKolumny];
@@ -39,20 +46,21 @@ enum typ_kafelka
     cel,
     liczba_kafelkow
 };
-    ALLEGRO_BITMAP* bitmapa[2 * liczba_kafelkow];
+    ALLEGRO_BITMAP* bitmapa[liczba_kafelkow];
 
-    static const string plik_z_kafelkiem[2 * liczba_kafelkow];
+    static const string plik_z_kafelkiem[liczba_kafelkow];
 
     int intNumerPlanszy;
 
     static bool tblnUkonczonePlansze[];
-    static int intLiczbaPlansz;
+    //static int intLiczbaPlansz;
 
 public:
+    friend class clsLudzik;
 
     bool przygotuj_bitmapy();
     void rysuj_statyczne();
-    void rysuj_ruchome(int);
+    void rysuj_ruchome(clsLudzik, int );
 
     void WczytajDane();
     void WypiszDane();
@@ -64,6 +72,9 @@ public:
 
     int PozycjaLudzikaWiersz()  { return xLudzik;}
     int PozycjaLudzikaKolumna() { return yLudzik;}
-};
 
+    int get_tabPodloga(int x, int y);
+
+friend void ruchy(clsPlansza, clsLudzik );
+};
 #endif // CLSPLANSZA_H

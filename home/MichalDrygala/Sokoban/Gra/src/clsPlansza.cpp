@@ -14,22 +14,16 @@ Goal square	            .       6
  koniec levelu ;
 */
 
-    const string clsPlansza::plik_z_kafelkiem[2 * liczba_kafelkow] =
+const string clsPlansza::plik_z_kafelkiem[liczba_kafelkow] =
 {
     "kafelki/podloga.png",
     "kafelki/sciana.png",
-    "kafelki/ludzik.png",
-    "kafelki/ludzikNaCelu.png",
-    "kafelki/skrzynka.png",
-    "kafelki/skrzynkaNaCelu.png",
+    "kafelki/ludziki.png",
+    "kafelki/ludzikiNaCelu.png",
+    "kafelki/skrzynki.png",
+    "kafelki/skrzynkiNaCelu.png",
     "kafelki/cel.png",
-    "kafelki/podloga.png",
-    "kafelki/sciana.png",
-    "kafelki/ludzikv2.png",
-    "kafelki/ludzikNaCelu.png",
-    "kafelki/skrzynka.png",
-    "kafelki/skrzynkaNaCelu.png",
-    "kafelki/cel.png"
+
 };
 
 void clsPlansza::WczytajDane()
@@ -56,7 +50,7 @@ tblDane[2][5]=' ';
 tblDane[2][6]='#';
 tblDane[3][0]='#';
 tblDane[3][1]=' ';
-tblDane[3][2]='$';
+tblDane[3][2]=' ';
 tblDane[3][3]='@';
 tblDane[3][4]='$';
 tblDane[3][5]=' ';
@@ -149,7 +143,7 @@ void clsPlansza::KonwertujDane()
 }
 
 bool clsPlansza::przygotuj_bitmapy()
-{   for (int i = 0; i < 2 * liczba_kafelkow; i++)
+{   for (int i = 0; i < liczba_kafelkow; i++)
         {   bitmapa[i] = al_load_bitmap(plik_z_kafelkiem[i].c_str());
 
             if (!bitmapa[i])
@@ -166,21 +160,21 @@ void clsPlansza::rysuj_statyczne()
 
     for (int i = 0; i < intWiersze; i++)
     {   for (int j = 0; j < intKolumny; j++)
-        {    al_draw_bitmap_region(bitmapa[tblPodloga[i][j]], 1, 0, k_sz, k_wy, j * k_sz, i * k_sz, 0);
+        {    al_draw_bitmap_region(bitmapa[tblPodloga[i][j]], 0, 0, k_sz, k_wy, intYStart + j * k_sz, intXStart + i * k_sz, 0);
              al_flip_display();
         }
     }
 }
 
-void clsPlansza::rysuj_ruchome(int wersja)
+void clsPlansza::rysuj_ruchome(clsLudzik l, int wersja)
 {
     //rysuje czlowieczka
-    if(tblPodloga[xLudzik][yLudzik] == 0)//jesli stoi na podlodze
-    {   al_draw_bitmap_region(bitmapa[2 + 7 * (wersja)], 1, 0, k_sz, k_wy, yLudzik * k_sz, xLudzik * k_wy, 0);
+    if(tblPodloga[l.get_X()][l.get_Y()] == 0)//jesli stoi na podlodze
+    {   al_draw_bitmap_region(bitmapa[2], 32 * wersja, 0, k_sz, k_wy, intYStart + l.get_Y() * k_sz, intXStart + l.get_X() * k_wy, 0);
         al_flip_display();
     }
-    else if(tblPodloga[xLudzik][yLudzik] == 6)//jesli stoi na celu
-    {   al_draw_bitmap_region(bitmapa[3], 1, 0, k_sz, k_wy, yLudzik * k_sz, xLudzik * k_wy, 0);
+    else if(tblPodloga[l.get_X()][l.get_Y()] == 6)//jesli stoi na celu
+    {   al_draw_bitmap_region(bitmapa[3], 32 * wersja, 0, k_sz, k_wy, intYStart + l.get_Y() * k_sz, intXStart + l.get_X() * k_wy, 0);
         al_flip_display();
     }
 
@@ -189,14 +183,20 @@ void clsPlansza::rysuj_ruchome(int wersja)
     {   for (int j = 0; j < intKolumny; j++)
         {    if (tblSkrzynki[i][j] == 1 )
             {   if(tblPodloga[i][j] == 0)//jesli stoi na podlodze
-                {   al_draw_bitmap_region(bitmapa[4], 1, 0, k_sz, k_wy, j * k_sz, i * k_sz, 0);
+                {   al_draw_bitmap_region(bitmapa[4], 32 * wersja, 0, k_sz, k_wy, intYStart + j * k_sz, intXStart + i * k_sz, 0);
                     al_flip_display();
                 }
                 else if(tblPodloga[i][j] == 6)//jesli stoi na celu
-                {   al_draw_bitmap_region(bitmapa[5], 1, 0, k_sz, k_wy, j * k_sz, i * k_sz, 0);
+                {   al_draw_bitmap_region(bitmapa[5], 32 * wersja, 0, k_sz, k_wy, intYStart + j * k_sz, intXStart + i * k_sz, 0);
                     al_flip_display();
                 }
             }
         }
     }
 }
+
+int clsPlansza::get_tabPodloga(int x, int y)
+{
+    return tblPodloga[x][y];
+}
+
