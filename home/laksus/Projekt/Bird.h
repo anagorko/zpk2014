@@ -3,18 +3,18 @@
 
 
 class Bird{
-    public:
+    private:
+        const double radius = 22;
         double pos_y;
         int type;
         double pos_x = 80;
-        const double radius = 22;
+
+    public:
 
         Bird();
-        Bird(int);
         ~Bird();
 
-        void move(int step, double speed);
-        void show_position();
+        void move(double step, double speed);
         void reset();
         bool collision_ground();
         bool collision_obstacle(double obs_x, double obs_y);
