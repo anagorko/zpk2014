@@ -8,18 +8,50 @@
 using namespace std;
 
 void Board::init(int bird_type){
-    if(bird_type == 0)
-        hero = al_load_bitmap("images/flappy-bird.png");
-    MenuFont = al_load_ttf_font("fonts/arial.ttf",20,0);
-    background[0] = al_load_bitmap("images/background.jpg");
-    background[1] = al_load_bitmap("images/background2.png");
-    background[2] = al_load_bitmap("images/background3.jpeg");
-    background[3] = al_load_bitmap("images/background4.jpeg");
-    background[4] = al_load_bitmap("images/background5.jpeg");
-    obstacle_up = al_load_bitmap("images/mario_pipe_up.png");
-    obstacle_down = al_load_bitmap("images/mario_pipe_down.png");
-    lvl_win = al_load_bitmap("images/win.png");
-    endgame = al_load_bitmap("images/game_over.jpg");
+    ALLEGRO_PATH *path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+    al_append_path_component(path, "images");
+
+    if(bird_type == 0){
+        al_set_path_filename(path, "flappy-bird.png");
+        hero = al_load_bitmap(al_path_cstr(path, '/'));
+    }
+
+    al_set_path_filename(path, "background1.jpg");
+    background[0] = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "background2.png");
+    background[1] = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "background3.jpeg");
+    background[2] = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "background4.jpeg");
+    background[3] = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "background5.jpeg");
+    background[4] = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "Mario_pipe_up.png");
+    obstacle_up = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "Mario_pipe_down.png");
+    obstacle_down = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "helper.png");
+    helper = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "win.png");
+    lvl_win = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "game_over.jpg");
+    endgame = al_load_bitmap(al_path_cstr(path, '/'));
+
+    path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+    al_append_path_component(path, "fonts");
+    al_set_path_filename(path, "arial.ttf");
+    MenuFont = al_load_ttf_font(al_path_cstr(path, '/'),20,0);
+    if(MenuFont == NULL)
+        cout << "problem font" << endl;
 
     for(int i = 0; i < 5; i++){
         ObstacleLevel[i]=10/(i+1);
@@ -66,4 +98,14 @@ void Board::win_lvl(){
         scale += 0.01;
         Sleep(25);
     }
+}
+
+
+void Board::welcome(){
+    refresh_background(0);
+    refresh_hero(80,150,0);
+    //al_draw_filled_rectangle(180,100,700,500,al_map_rgb(255,255,255));
+    al_draw_scaled_bitmap(helper,0,0,400,300,180,100,520,400,0);
+    show();
+    Sleep(4000);
 }

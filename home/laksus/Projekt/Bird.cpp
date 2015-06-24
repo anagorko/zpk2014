@@ -22,11 +22,11 @@ void Bird::show_position(){
     cout << "Pozycja x: " << pos_x+30 << ", pozycja y: " << pos_y+30 << endl;
 }
 
-double Bird::getX(){
+double Bird::getXb(){
     return pos_x;
 }
 
-double Bird::getY(){
+double Bird::getYb(){
     return pos_y;
 }
 

@@ -22,15 +22,28 @@ void MainMenu::display(){
 }
 
 void MainMenu::create(){
-    title = al_load_bitmap("images/title_screen.png");
-    background = al_load_bitmap("images/background.jpg");
-    buttons[0] = al_load_bitmap("images/butt1.png");
-    buttons[1] = al_load_bitmap("images/butt2.png");
-    buttons[2] = al_load_bitmap("images/butt3.png");
+    ALLEGRO_PATH *path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+    al_append_path_component(path, "images");
+
+    al_set_path_filename(path, "title_screen.png");
+    title = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "background1.jpg");
+    background = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "butt1.png");
+    buttons[0] = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "butt2.png");
+    buttons[1] = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "butt3.png");
+    buttons[2] = al_load_bitmap(al_path_cstr(path, '/'));
 
     actButton = 0;
     display();
     select_menu_item(0);
+    al_destroy_path(path);
 }
 
 void MainMenu::show_button(ALLEGRO_BITMAP* but, int pos_x, int pos_y){
@@ -69,15 +82,28 @@ void SettingsMenu::display(){
 }
 
 void SettingsMenu::create(){
-    title = al_load_bitmap("images/title_screen.png");
-    background = al_load_bitmap("images/background.jpg");
-    buttons[0] = al_load_bitmap("images/butt2.png");
-    buttons[1] = al_load_bitmap("images/butt1.png");
-    buttons[2] = al_load_bitmap("images/butt3.png");
+    ALLEGRO_PATH *path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+    al_append_path_component(path, "images");
+
+    al_set_path_filename(path, "title_screen.png");
+    title = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "background1.jpg");
+    background = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "butt1.png");
+    buttons[0] = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "butt2.png");
+    buttons[1] = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "butt3.png");
+    buttons[2] = al_load_bitmap(al_path_cstr(path, '/'));
 
     actButton = 0;
     display();
     select_menu_item(0);
+    al_destroy_path(path);
 }
 
 void SettingsMenu::show_button(ALLEGRO_BITMAP* but, int pos_x, int pos_y){

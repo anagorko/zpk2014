@@ -32,13 +32,14 @@ int main(){
     al_init_font_addon();
     al_init_ttf_addon();
     displ = al_create_display(800, 600);
-    al_set_window_title(displ,"Flappy Bird v. 1.0beta");
+    al_set_window_title(displ,"Flappy Bird v. 2.2beta");
 
     Board plansza;
     Bird flap;
     MainMenu men;
     SettingsMenu set_menu;
     act_menu = &men;
+
     act_menu->create();
     plansza.init(0);
 
@@ -59,7 +60,7 @@ int main(){
                     act_menu->select_menu_item(-1);
                 }
                 else if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE){
-                    quit_game = true; break;
+                    quit_game = true; actLvl = 5; break;
                 }
                 else if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER){
                     if(act_menu->actual_selection() == 0)
@@ -82,6 +83,9 @@ int main(){
         OBS.push(p);
         flap.reset();
         angle = 0;
+
+        if(actLvl == 0)
+                plansza.welcome();
 
         while(!flap.collision_ground() && !failed && actLvl<5){
             al_start_timer(timer);
@@ -120,7 +124,7 @@ int main(){
                         OBS.pop();
                 }
 
-            plansza.refresh_hero(flap.getX(), flap.getY(), angle);
+            plansza.refresh_hero(flap.getXb(), flap.getYb(), angle);
             plansza.refresh_counter(ObstacleCompleted,plansza.ObstacleLevel[actLvl]);
             plansza.show();
             if(ObstacleCompleted>=plansza.ObstacleLevel[actLvl]){
