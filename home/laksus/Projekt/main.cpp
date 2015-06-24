@@ -27,12 +27,13 @@ double angle;
 int main(){
     al_init();
     al_install_keyboard();
+    al_install_mouse();
     al_init_image_addon();
     al_init_primitives_addon();
     al_init_font_addon();
     al_init_ttf_addon();
     displ = al_create_display(800, 600);
-    al_set_window_title(displ,"Flappy Bird v. 2.2beta");
+    al_set_window_title(displ,"Flappy Bird v. 3.0beta");
 
     Board plansza;
     Bird flap;
@@ -40,7 +41,6 @@ int main(){
     SettingsMenu set_menu;
     act_menu = &men;
 
-    act_menu->create();
     plansza.init(0);
 
     event_queue = al_create_event_queue();
@@ -51,6 +51,7 @@ int main(){
 
 
     while(!quit_game){
+        act_menu->create();
         while(!decision_made){
             if(ev.type == ALLEGRO_EVENT_KEY_DOWN){
                 if(ev.keyboard.keycode == ALLEGRO_KEY_UP || ev.keyboard.keycode == ALLEGRO_KEY_RIGHT){
@@ -96,8 +97,14 @@ int main(){
                     flap.move(-1,15);
                     angle = 0;
                 }
-                if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-                    quit_game = true;
+                else if(ev.keyboard.keycode == ALLEGRO_KEY_SPACE){
+                    plansza.pause();
+                    while(ev.keyboard.keycode != ALLEGRO_KEY_ENTER){
+                        al_wait_for_event(event_queue, &ev);
+                        if(ev.keyboard.keycode == ALLEGRO_KEY_C)
+                        { failed = true; break;}
+                    }
+                }
             }
             else if(ev.type == ALLEGRO_EVENT_TIMER){
                 flap.move(1,5);
@@ -125,9 +132,9 @@ int main(){
                 }
 
             plansza.refresh_hero(flap.getXb(), flap.getYb(), angle);
-            plansza.refresh_counter(ObstacleCompleted,plansza.ObstacleLevel[actLvl]);
+            plansza.refresh_counter(ObstacleCompleted,plansza.level[actLvl].ObstacleLevel,actLvl+1);
             plansza.show();
-            if(ObstacleCompleted>=plansza.ObstacleLevel[actLvl]){
+            if(ObstacleCompleted>=plansza.level[actLvl].ObstacleLevel){
                 al_stop_timer(timer);
                 plansza.win_lvl();
                 actLvl ++;
@@ -142,11 +149,10 @@ int main(){
             }
         }
         if(failed){
+            al_stop_timer(timer);
             plansza.end_game();
-            while(ev.type != ALLEGRO_EVENT_KEY_DOWN)
-                al_wait_for_event(event_queue, &ev);
+            Sleep(100);
         }
-        Sleep(100);
     }
     al_destroy_display(displ);
     return 0;

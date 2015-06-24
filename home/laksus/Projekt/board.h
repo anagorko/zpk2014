@@ -1,8 +1,15 @@
 #ifndef __BOARD_H__
 #define __BOARD_H__
 
+struct lvl{
+    ALLEGRO_BITMAP *background;
+    int ObstacleLevel;
+    double multiplier;
+};
+
+
 class Board{
-    ALLEGRO_BITMAP *hero, *background[5], *obstacle_up, *obstacle_down, *endgame, *lvl_win, *helper;
+    ALLEGRO_BITMAP *hero, *obstacle_up, *obstacle_down, *endgame, *lvl_win, *helper;
     ALLEGRO_FONT *MenuFont;
 
 public:
@@ -11,12 +18,13 @@ public:
     void refresh_hero(double, double, double);
     void refresh_pipe(double, double);
     void refresh_background(int);
-    void refresh_counter(int, int);
+    void refresh_counter(int, int, int);
+    void pause();
     void win_lvl();
     void show();
     void end_game();
     const int w=800, h=600;
-    int ObstacleLevel[5];
+    lvl level[5];
 };
 
 #endif
