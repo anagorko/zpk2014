@@ -1,0 +1,17 @@
+24-06-2015 22:38:34
+Ponizszy raport przedstawia:
+- odsetek niezadowolonych agentow w kolejnych iteracjach
+- sredni odsetek podobnych w kolejnych iteracjach
+
+Iteracja	| Odsetek niezadowolonych	| Sredni odsetek podobnych
+1		| 0.220000			| 0.574365
+2		| 0.130000			| 0.665352
+3		| 0.058000			| 0.709955
+4		| 0.028000			| 0.733429
+5		| 0.020000			| 0.747986
+6		| 0.004000			| 0.755386
+7		| 0.006000			| 0.760591
+8		| 0.010000			| 0.765383
+9		| 0.004000			| 0.766095
+10		| 0.004000			| 0.765738
+11		| 0.000000			| 0.769429
