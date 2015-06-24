@@ -1,0 +1,15 @@
+woda
+deszcz
+wiatr
+pies
+kot
+ekonomia
+ulica
+zamek
+piasek
+dom
+era
+program
+plus
+minus
+polimorfizm
