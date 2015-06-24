@@ -8,19 +8,17 @@
 
 #include<clsPlansza.h>
 using namespace std;
-#include <iostream>
+#include <string>
 
 class clsMenu
 {
+    static const string plik_z_menu[1];
+    ALLEGRO_BITMAP* wskMenu[1];
 
 public:
-    void WyswietlKomunikat(ALLEGRO_FONT* font);
 
+    void WyswietlMenu();
 
-static const string plik_z_menu[1];
-
-ALLEGRO_BITMAP* wskMenu[1];
-void WyswietlMenu();
 };
 
 #endif // CLSMENU_H

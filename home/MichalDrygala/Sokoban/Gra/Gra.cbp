@@ -21,7 +21,7 @@
 					<Add directory="C:/Users/Piotrek/Documents/GitHub/zpk2014/home/MichalDrygala/Sokoban/Gra/include" />
 				</Compiler>
 				<Linker>
-					<Add library="D:\allegro.code_blocks\lib\liballegro-5.0.10-monolith-mt-debug.a" />
+					<Add library="..\..\..\..\..\..\..\..\..\allegro\allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-mt-debug.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -35,7 +35,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="D:\allegro.code_blocks\lib\liballegro-5.0.10-monolith-mt.a" />
+					<Add library="..\..\..\..\..\..\..\..\..\allegro\allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-mt.a" />
 				</Linker>
 			</Target>
 		</Build>
@@ -46,13 +46,11 @@
 		</Compiler>
 		<Unit filename="include/clsLudzik.h" />
 		<Unit filename="include/clsMenu.h" />
-		<Unit filename="include/clsObiektyRuchome.h" />
 		<Unit filename="include/clsPlansza.h" />
 		<Unit filename="include/clsSkrzynka.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/clsLudzik.cpp" />
 		<Unit filename="src/clsMenu.cpp" />
-		<Unit filename="src/clsObiektyRuchome.cpp" />
 		<Unit filename="src/clsPlansza.cpp" />
 		<Unit filename="src/clsSkrzynka.cpp" />
 		<Extensions>

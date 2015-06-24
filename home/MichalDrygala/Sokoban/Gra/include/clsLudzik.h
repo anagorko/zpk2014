@@ -1,17 +1,14 @@
 #ifndef CLSLUDZIK_H
 #define CLSLUDZIK_H
 
-//#include <clsObiektyRuchome.h>
 #include "clsPlansza.h"
 class clsPlansza;
 
-class clsLudzik //: public clsObiektyRuchome
+class clsLudzik
 {
-
     int intPozycjaWiersz;
     int intPozycjaKolumna;
-    int intLiczbaRuchow = 0;
-    int intEnergia = 100;
+    int intEnergia = 0;
 
 public:
 //konstruktor

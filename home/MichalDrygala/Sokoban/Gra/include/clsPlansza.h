@@ -19,8 +19,8 @@ class clsPlansza
     static const int k_sz = 32; //szerokosc kafelka
     static const int k_wy = 32;
 
-    static const int intWiersze = 7;    //liczba wierszy planszy
-    static const int intKolumny = 7;
+    static const int intWiersze = 12;    //liczba wierszy planszy
+    static const int intKolumny = 12;
 
     static const int intXStart = (((600 / k_wy) - intWiersze) / 2) * k_wy;  //wspolrzedna X gdzie ma zaczac wyswietlac plansze tak by byla na srodku
     static const int intYStart = (((1240 / k_sz) - intKolumny) / 2) * k_sz;
@@ -33,6 +33,7 @@ class clsPlansza
         skrzynka,
         skrzynkaNaCelu,
         cel,
+        puste,
         liczba_kafelkow
     };
 
@@ -41,7 +42,6 @@ class clsPlansza
     static const string plik_z_kafelkiem[liczba_kafelkow]; //sciezka do bitmap
 
 //tabele z danymi potrzebnymi do rysowania planszy
-    char tblDane[intWiersze][intKolumny];   //tabela z # $ itp.
     int tblPodloga[intWiersze][intKolumny];//tabela z informacja czy to jest podloga 0, scioana 1 albo cel 6
     int tblSkrzynkiP[intWiersze][intKolumny];// tabela z informacja czy jest skrzynka 1, albo czy jej nie ma 0
 
@@ -52,7 +52,7 @@ class clsPlansza
 //ukonczone plansze
     int level;
 
-    static const int intLiczbaPlansz = 2;
+    static const int intLiczbaPlansz = 5;
     bool *wskTblUkonczone = new bool[intLiczbaPlansz];
 
 public:
@@ -64,10 +64,8 @@ public:
     void rysuj_statyczne();
     void rysuj_ruchome(clsLudzik l, clsSkrzynka s, int wersja);
 
-    void WczytajDane();
     void KonwertujDane();
 
-    //void WyswietlMenu();
     bool CzySaNieukonczone(int pintNumerPlanszy); //sprawdza czy sa jeszcze jakies nie ukonczone plansze
 
     int PozycjaLudzikaWiersz()  { return xLudzik;}
@@ -87,5 +85,7 @@ public:
     void set_level(int _level) {level = _level;}
 
     int get_LiczbaPlansz() { return intLiczbaPlansz; }
+
+    void WyswietlKomunikat(ALLEGRO_FONT* font, ALLEGRO_FONT* font2);
 };
 #endif // CLSPLANSZA_H

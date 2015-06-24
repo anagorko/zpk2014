@@ -21,9 +21,7 @@ const int energia_ruchu = 7;
 int czas = 0;
 bool key[ALLEGRO_KEY_MAX];  // wciśnięte klawisze
 
-void rysuj_ruchome(clsLudzik, clsSkrzynka, int);
 int ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s);
-
 int WybierzLevel(ALLEGRO_EVENT_QUEUE *event_queue);
 
 int main(){
@@ -32,8 +30,7 @@ int main(){
 /*Inicjalizacja allegro                                                                                                */
 /* ******************************************************************************************************************* */
 
-//inicjalizacja czcionek
- al_init_font_addon();
+    al_init_font_addon();  //inicjalizacja czcionek
 
 //inicjalizacja allegro + klawiatury + obrazow + czcionek ttf
     if (!al_init() || !al_install_keyboard()  || !al_init_image_addon() || !al_init_ttf_addon())
@@ -42,35 +39,43 @@ int main(){
         return 1;
     }
 
-//inicjalizacja muzyki + kodeki
+// wskazniki na ekran, czas, kolejke zdarzen, czcionke
+    ALLEGRO_DISPLAY *display = al_create_display(screen_w, screen_h);
+    ALLEGRO_TIMER *timer = al_create_timer(1.0 / FPS);
+    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+    ALLEGRO_FONT *font = al_load_ttf_font("arial.ttf", 34, 0 );
+    ALLEGRO_FONT *font2 = al_load_ttf_font("arial.ttf", 24, 0 );
+
+    al_set_window_title( display,"SOKOBAN VERSION 3.0 Drygala & Lemberski");//nazwa okna
+
+//sprawdzenie poprawnosci wskaznikow
+//
+    if (display == NULL || timer == NULL || event_queue == NULL || font == NULL)
+    {
+        cout << "Blad inicjalizacji 2." << endl;
+        return -1;
+    }
+
+//muzyka
+
+    //inicjalizacja muzyki + kodeki
      if (!al_install_audio() || !al_init_acodec_addon() )
     {
         cout << "Blad inicjalizacji audio." << endl;
         return 1;
     }
 
-// wskazniki na ekran, czas, kolejke zdarzen, czcionke
-    ALLEGRO_DISPLAY *display = al_create_display(screen_w, screen_h);
-    ALLEGRO_TIMER *timer = al_create_timer(1.0 / FPS);
-    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-    ALLEGRO_FONT *font = al_load_ttf_font("arial.ttf", 12, 0 );
-
-    al_set_window_title( display,"SOKOBAN VERSION 3.0 Drygala & Lemberski");//nazwa okna
-
-//muzyka
-    ALLEGRO_SAMPLE *songE = al_load_sample("0788.ogg");
+    ALLEGRO_SAMPLE *songE = al_load_sample("music/0788.ogg");
     al_reserve_samples(1);
     ALLEGRO_SAMPLE_INSTANCE *songInstance = al_create_sample_instance(songE);
     al_set_sample_instance_playmode(songInstance, ALLEGRO_PLAYMODE_LOOP);
     al_attach_sample_instance_to_mixer(songInstance, al_get_default_mixer());
     al_play_sample_instance(songInstance);
 
-//sprawdzenie poprawnosci wskaznikow
-//
-    if (display == NULL || timer == NULL || event_queue == NULL || font == NULL || songE == NULL || songInstance == NULL)
+    if (songE == NULL || songInstance == NULL)
     {
         cout << "Blad inicjalizacji 2." << endl;
-        return 2;
+        return -1;
     }
 
 //kolejka zdarzen
@@ -90,31 +95,31 @@ while(!menu)
 
     clsPlansza objPlansza(WybierzLevel(event_queue));
 
-//al_play_sample(songE,1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE,0);
-
 /* ********************************************************************************************************************************************** */
 /* Petla tworzaca plansze.                                                                                                                                 */
 /* ********************************************************************************************************************************************** */
     bool plansza = false;
     while(!plansza)
     {
-    objPlansza.WczytajDane();
     objPlansza.KonwertujDane();
     objPlansza.przygotuj_bitmapy();
     objPlansza.rysuj_statyczne();
+    objPlansza.WyswietlKomunikat(font, font2);
     clsLudzik objLudzik(objPlansza.PozycjaLudzikaWiersz(), objPlansza.PozycjaLudzikaKolumna()); //tworzy obiekt ze wspolrzedntmi
     clsSkrzynka objSkrzynka(objPlansza);
 
 /* ********************************************************************************************************************************************** */
 /* Glowna petla                                                                                                                                   */
 /* ********************************************************************************************************************************************** */
-        bool wyjdz = false;
-        while(!wyjdz)
-        {
+bool wyjdz = false;
+while(!wyjdz)
+{
 
 //animacja
     czas++;
     int x = (czas / 40) % 4;
+    objPlansza.rysuj_statyczne();
+    objPlansza.WyswietlKomunikat(font, font2);
     objPlansza.rysuj_ruchome(objLudzik, objSkrzynka, x);
 
 
@@ -129,12 +134,10 @@ while(!menu)
             if (a == 2) {wyjdz = true; plansza = true;}
         }
         else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
-            key[ev.keyboard.keycode] = true;
+        {   key[ev.keyboard.keycode] = true;
         }
         else if (ev.type == ALLEGRO_EVENT_KEY_UP)
-        {
-            key[ev.keyboard.keycode] = false;
+        {   key[ev.keyboard.keycode] = false;
 
             if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
             {
@@ -143,8 +146,7 @@ while(!menu)
                 menu = true;
             }
             if (ev.keyboard.keycode == ALLEGRO_KEY_R)
-            {
-                wyjdz = true;
+            {   wyjdz = true;
             }
             if (ev.keyboard.keycode == ALLEGRO_KEY_M)
             {
@@ -152,6 +154,8 @@ while(!menu)
                 plansza = true;
             }
         }
+
+        al_flip_display();
 
         }//koniet petli while(!wyjdz)
     }//koniet petli while(!plansze)
@@ -173,9 +177,7 @@ int ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s)
     if (key[ALLEGRO_KEY_LEFT] && energia > energia_ruchu)
     {
         if ((plansza1.get_tblPodloga(x, y - 1)== 0 || plansza1.get_tblPodloga(x, y - 1)== 6) && (s.get_tblSkrzynkiS(x, y - 1) == 0))
-        {
-            energia = 0; y--;
-
+        {   energia = 0; y--;
         }
         else if ((s.get_tblSkrzynkiS(x, y - 1) == 1) && (s.get_tblSkrzynkiS(x, y - 2) == 0) && (plansza1.get_tblPodloga(x, y - 2) == 0 || plansza1.get_tblPodloga(x, y - 2) == 6))
         {
@@ -186,8 +188,7 @@ int ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s)
     }
     if (key[ALLEGRO_KEY_RIGHT] && energia > energia_ruchu)
     {   if ((plansza1.get_tblPodloga(x, y + 1) == 0 || plansza1.get_tblPodloga(x, y + 1) == 6) && (s.get_tblSkrzynkiS(x, y + 1) == 0))
-        {
-            energia = 0; y++;
+        {   energia = 0; y++;
         }
         else if ((s.get_tblSkrzynkiS(x, y + 1) == 1) && (s.get_tblSkrzynkiS(x, y + 2) == 0) && (plansza1.get_tblPodloga(x, y + 2) == 0 || plansza1.get_tblPodloga(x, y + 2) == 6))
         {
@@ -199,8 +200,7 @@ int ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s)
     if (key[ALLEGRO_KEY_DOWN] && energia > energia_ruchu)
     {
         if ((plansza1.get_tblPodloga(x + 1, y) == 0 || plansza1.get_tblPodloga(x + 1, y) == 6) && (s.get_tblSkrzynkiS(x + 1, y) == 0))
-        {
-            energia = 0; x++;
+        {   energia = 0; x++;
         }
         else if ((s.get_tblSkrzynkiS(x + 1, y) == 1) && (s.get_tblSkrzynkiS(x + 2, y) == 0) && (plansza1.get_tblPodloga(x + 2, y) == 0 || plansza1.get_tblPodloga(x + 2, y) == 6))
         {
@@ -212,8 +212,7 @@ int ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s)
     if (key[ALLEGRO_KEY_UP] && energia > energia_ruchu)
     {
         if ((plansza1.get_tblPodloga(x - 1, y) == 0 || plansza1.get_tblPodloga(x - 1, y) == 6) && (s.get_tblSkrzynkiS(x - 1, y) == 0))
-        {
-            energia = 0; x--;
+        {   energia = 0; x--;
         }
         else if ((s.get_tblSkrzynkiS(x - 1, y) == 1) && (s.get_tblSkrzynkiS(x - 2, y) == 0) && (plansza1.get_tblPodloga(x - 2, y) == 0 || plansza1.get_tblPodloga(x - 2, y) ==  6))
         {
@@ -226,7 +225,7 @@ int ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s)
     on.set_X(x);
     on.set_Y(y);
     on.set_energia(energia);
-    plansza1.rysuj_statyczne();
+//    plansza1.rysuj_statyczne();
 
     return s.CzyUkonczono(plansza1);
 }
@@ -235,33 +234,36 @@ int ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s)
 
 int WybierzLevel(ALLEGRO_EVENT_QUEUE *event_queue)
 {
-
     bool wyjdz = false;
-
     while(!wyjdz)
     {
         ALLEGRO_EVENT ev;
         al_wait_for_event(event_queue, &ev);
 
         if(ev.type == ALLEGRO_EVENT_TIMER)  // minęła 1/60 (1/FPS) część sekundy
-        {   if (key[ALLEGRO_KEY_1] || key[ALLEGRO_KEY_PAD_1])
+        {
+            if (key[ALLEGRO_KEY_1] || key[ALLEGRO_KEY_PAD_1])
             {   return 1;  }
 
             if (key[ALLEGRO_KEY_2] || key[ALLEGRO_KEY_PAD_2])
             {   return 2; }
 
+            if (key[ALLEGRO_KEY_3] || key[ALLEGRO_KEY_PAD_3])
+            {   return 3; }
+
+            if (key[ALLEGRO_KEY_4] || key[ALLEGRO_KEY_PAD_4])
+            {   return 4; }
+
+            if (key[ALLEGRO_KEY_5] || key[ALLEGRO_KEY_PAD_5])
+            {   return 5; }
         }
         else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
-            key[ev.keyboard.keycode] = true;
+        {   key[ev.keyboard.keycode] = true;
         }
         else if (ev.type == ALLEGRO_EVENT_KEY_UP)
-        {
-            key[ev.keyboard.keycode] = false;
-
+        {   key[ev.keyboard.keycode] = false;
             if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
-            {
-                exit(0);
+            {   exit(0);
             }
         }
     }
