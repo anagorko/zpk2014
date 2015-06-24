@@ -28,7 +28,6 @@ al_clear_to_color(al_map_rgb(0,0,0));
 al_draw_bitmap_region(wskMenu[0], 0, 0, 1240, 600, 0, 0, 0);
 
              al_flip_display();
-cout << "przelecial" << endl;
 }
 
 

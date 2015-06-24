@@ -5,7 +5,6 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
-
 #include <iostream>
 using namespace std;
 
@@ -18,14 +17,11 @@ const int screen_w = 1240;
 const int screen_h = 600;
 const float FPS = 60.0;
 const int energia_ruchu = 7;
-
-bool key[ALLEGRO_KEY_MAX];  // wciśnięte klawisze
-
 int czas = 0;
+bool key[ALLEGRO_KEY_MAX];  // wciśnięte klawisze
 
 void rysuj_ruchome(clsLudzik, clsSkrzynka, int);
 bool ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s);
-int menu_przyciski();
 
 int WybierzLevel(ALLEGRO_EVENT_QUEUE *event_queue);
 
@@ -36,7 +32,7 @@ int main(){
 /* ******************************************************************************************************************* */
 
 //inicjalizacja czcionek
-    al_init_font_addon();
+ al_init_font_addon();
 
 //inicjalizacja allegro + klawiatury + obrazow + czcionek ttf
     if (!al_init() || !al_install_keyboard()  || !al_init_image_addon() || !al_init_ttf_addon())
@@ -58,9 +54,9 @@ int main(){
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
     ALLEGRO_FONT *font = al_load_ttf_font("arial.ttf", 12, 0 );
 
- al_set_window_title( display,"SOKOBAN VERSION 3.0 Drygala & Lemberski");//nazwa okna
+    al_set_window_title( display,"SOKOBAN VERSION 3.0 Drygala & Lemberski");//nazwa okna
 
-
+//muzyka
     ALLEGRO_SAMPLE *songE = al_load_sample("songE.ogg");
     al_reserve_samples(1);
     ALLEGRO_SAMPLE_INSTANCE *songInstance = al_create_sample_instance(songE);
@@ -69,41 +65,38 @@ int main(){
     al_play_sample_instance(songInstance);
 
 //sprawdzenie poprawnosci wskaznikow
-    if (display == NULL || timer == NULL || event_queue == NULL || font == NULL)
+//
+    if (display == NULL || timer == NULL || event_queue == NULL || font == NULL || songE == NULL || songInstance == NULL)
     {
         cout << "Blad inicjalizacji 2." << endl;
         return 2;
     }
 
+//kolejka zdarzen
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_start_timer(timer);
 
-//   al_clear_to_color(al_map_rgb(0,0,0));
-/*    al_flip_display();
-
-*/
-
-/* ******************************************************************************************************************* */
-/*Wyswietlenie MENU wraz z komunikatem powitalnym. Mozliwosc wybrania odpowiedniej planszy oraz wyjscia z programu.    */
-/* ******************************************************************************************************************* */
-
-    menu:
-
+/* ********************************************************************************************************************************************** */
+/* Petla MENU.                                                                                                                                 */
+/* ********************************************************************************************************************************************** */
+bool menu = false;
+while(!menu)
+{
     clsMenu objMenu;
     objMenu.WyswietlMenu();
 
-//al_play_sample(songE,1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE,0);
-
-    cout << WybierzLevel(event_queue);
-
-//<> wy³¹cza program (decyduje u¿ytkownik)
-
     clsPlansza objPlansza(WybierzLevel(event_queue));
 
-    plansze:
+//al_play_sample(songE,1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE,0);
 
+/* ********************************************************************************************************************************************** */
+/* Petla tworzaca plansze.                                                                                                                                 */
+/* ********************************************************************************************************************************************** */
+    bool plansza = false;
+    while(!plansza)
+    {
     objPlansza.WczytajDane();
     objPlansza.KonwertujDane();
     objPlansza.przygotuj_bitmapy();
@@ -111,15 +104,12 @@ int main(){
     clsLudzik objLudzik(objPlansza.PozycjaLudzikaWiersz(), objPlansza.PozycjaLudzikaKolumna()); //tworzy obiekt ze wspolrzedntmi
     clsSkrzynka objSkrzynka(objPlansza);
 
-
 /* ********************************************************************************************************************************************** */
 /* Glowna petla                                                                                                                                   */
 /* ********************************************************************************************************************************************** */
-    char znak = ' ';
-    bool wyjdz = false;
-
-    while(!wyjdz)
-    {
+        bool wyjdz = false;
+        while(!wyjdz)
+        {
 
 //animacja
     czas++;
@@ -134,7 +124,6 @@ int main(){
         {
             objLudzik.set_energia(objLudzik.get_energia() + 1);
             wyjdz = ruchy(objPlansza, objLudzik, objSkrzynka);
-            if(wyjdz)  {znak = 'P';};
         }
         else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
         {
@@ -147,22 +136,23 @@ int main(){
             if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
             {
                 wyjdz = true;
+                plansza = true;
+                menu = true;
             }
             if (ev.keyboard.keycode == ALLEGRO_KEY_R)
             {
                 wyjdz = true;
-                znak = 'R';
             }
             if (ev.keyboard.keycode == ALLEGRO_KEY_M)
             {
                 wyjdz = true;
-                znak = 'M';
+                plansza = true;
             }
         }
-    }
 
-if(znak == 'P' || znak == 'R') { goto plansze; }
-if(znak == 'M') { goto menu; }
+        }//koniet petli while(!wyjdz)
+    }//koniet petli while(!plansze)
+}//koniec petli while(!menu)
 
     return 0;
 }

@@ -16,8 +16,6 @@ class clsMenu
 public:
     void WyswietlKomunikat(ALLEGRO_FONT* font);
 
-    //Koñczy program na ¿¹danie u¿ytkownika
-    //void WyswietlPlansze(int pintNumerPlanszy);
 
 static const string plik_z_menu[1];
 
