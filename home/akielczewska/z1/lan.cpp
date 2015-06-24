@@ -2,13 +2,9 @@
 using namespace std;
 
 main() {
-    int t, r; //t - nr tel, r -rok ur.
-    cin >> t >> r;
-    t %= 10;
-    t *= 2;
-    t += 5;
-    t *= 50;
-    t += 1764;
-    t -= r;
-    cout << t;
+   char szest1, szest2;
+   cin >> szest1 >>  szest2;
+   int ascii;
+   ascii = int(szest1) * 16 + int(szest2);
+   cout << ascii;
 }
