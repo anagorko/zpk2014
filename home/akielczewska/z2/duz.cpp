@@ -57,7 +57,7 @@ main() {
             p = false;
         }
     }
-    // cout << p << endl;
-    if (p == true) cout << "TAK";
-    else cout << "NIE";
+     cout << p << endl;
+    /*if (p == true) cout << "TAK";
+    else cout << "NIE";*/
 }

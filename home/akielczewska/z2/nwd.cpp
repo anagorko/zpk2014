@@ -14,9 +14,9 @@ int NWD(int a, int b) {
 int main() {
     int n;
     cin >> n;
-    int x,y;
+    int x, y;
     cin >> x;
-    for (int i=1; i <=n; i++) {
+    for (int i = 1; i <= n; i++) {
         cin >> y;
         x = NWD(x,y);
         // cout << x << " " << y << endl;

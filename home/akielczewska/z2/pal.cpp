@@ -6,7 +6,7 @@ main() {
     string s;
     cin >> s;
     int n = s.size();
-    string o = s; // ¿eby napis o by³ takiej d³ugoœci jak s
+    string o = s; // zeby napis o byl takiej dlugosci jak s
     // cout << n << endl;
     for (int i = n-1, j = 0; i >= 0; i--, j++) {
         o[j] = s[i];

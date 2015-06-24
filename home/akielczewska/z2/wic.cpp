@@ -8,8 +8,8 @@ main () {
     cin >> p;
     int d = 0; // drugi najlepszy wynik
     //cout << d << " " << p << endl;
-    int x; //pomocnicza zmienna do przechowywania aktualnie wczytywanej wartoœci
-    for (int i=1; i < n; i++) {
+    int x; //pomocnicza zmienna do przechowywania aktualnie wczytywanej wartosci
+    for (int i = 1; i < n; i++) {
         cin >> x;
         if (x >= p) {
             d = p;
