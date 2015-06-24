@@ -4,6 +4,7 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
+#include <ctime>
 
 #include <iostream>
 using namespace std;
@@ -21,7 +22,7 @@ int czas = 0;
 bool key[ALLEGRO_KEY_MAX];  // wciśnięte klawisze
 
 void rysuj_ruchome(clsLudzik, clsSkrzynka, int);
-bool ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s);
+int ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s);
 
 int WybierzLevel(ALLEGRO_EVENT_QUEUE *event_queue);
 
@@ -57,7 +58,7 @@ int main(){
     al_set_window_title( display,"SOKOBAN VERSION 3.0 Drygala & Lemberski");//nazwa okna
 
 //muzyka
-    ALLEGRO_SAMPLE *songE = al_load_sample("songE.ogg");
+    ALLEGRO_SAMPLE *songE = al_load_sample("0788.ogg");
     al_reserve_samples(1);
     ALLEGRO_SAMPLE_INSTANCE *songInstance = al_create_sample_instance(songE);
     al_set_sample_instance_playmode(songInstance, ALLEGRO_PLAYMODE_LOOP);
@@ -123,7 +124,9 @@ while(!menu)
         if(ev.type == ALLEGRO_EVENT_TIMER)  // minęła 1/60 (1/FPS) część sekundy
         {
             objLudzik.set_energia(objLudzik.get_energia() + 1);
-            wyjdz = ruchy(objPlansza, objLudzik, objSkrzynka);
+            int a = ruchy(objPlansza, objLudzik, objSkrzynka);
+            if (a == 1) {wyjdz = true;}
+            if (a == 2) {wyjdz = true; plansza = true;}
         }
         else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
         {
@@ -161,7 +164,7 @@ while(!menu)
 /* FUNKCJE                                                                                                                                     */
 /* ******************************************************************************************************************************************* */
 
-bool ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s)
+int ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s)
 {
     int x = on.get_X();
     int y = on.get_Y();
@@ -225,11 +228,7 @@ bool ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s)
     on.set_energia(energia);
     plansza1.rysuj_statyczne();
 
-    if(s.CzyUkonczono(plansza1))
-    {   cout << "wow. Kozak!";
-        return true;
-    }
-    return false;
+    return s.CzyUkonczono(plansza1);
 }
 
 /* *************************************************************************************************************************************************/

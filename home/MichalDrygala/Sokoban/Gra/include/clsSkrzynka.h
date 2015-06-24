@@ -14,7 +14,7 @@ class clsSkrzynka //: public clsObiektyRuchome
 public:
 
     clsSkrzynka(clsPlansza p); //konstruktor
-    ~clsSkrzynka(); //destruktor
+    //~clsSkrzynka(); //destruktor
 
     int get_tblSkrzynkiS(int x, int y) { return tblSkrzynkiS[x][y];}
     void set_tblSkrzynkiS(int x, int y, int wartosc) { tblSkrzynkiS[x][y] = wartosc;}
@@ -24,7 +24,12 @@ public:
     //bool MozliwyRuch(char pchrKierunek);
     //void Ruch(int pintPozycjaWiersz, int pintPozycjaKolumna, char pchrKierunek);
 
-    bool CzyUkonczono(clsPlansza& p); // sprawdza czy ukonczona te plansze
+    int CzyUkonczono(clsPlansza& p); // sprawdza czy ukonczona te plansze
+
+static const string plik_z_grat[1];
+ALLEGRO_BITMAP* wskGrat[1];
+void WyswietlGrat();
+void zwloka(int sekund);
 };
 
 #endif // CLSSKRZYNKA_H
