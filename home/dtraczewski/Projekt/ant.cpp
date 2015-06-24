@@ -261,31 +261,29 @@ float rozmiar (const set<Point> &czarne, const vector<Ant> &mrowki) {
     int x_max = prawyGorny.getX();
     int y_max = prawyGorny.getY();
 
-    float roz = 30.0;
+    float roz = 10000.0;
 
-    if ((screen_w - 170) / (x_max - x_min + 1) < roz) {
-        roz = (float) (screen_w - 170) / (x_max - x_min + 1);
+    if ((screen_w - 150) / (x_max - x_min + 1) < roz) {
+        roz = (float) (screen_w - 150) / (x_max - x_min + 1);
     }
-    if ((screen_h - 20)/ (y_max - y_min + 1) < roz) {
-        roz = (float) (screen_h - 20) / (y_max - y_min + 1);
+    if (screen_h/ (y_max - y_min + 1) < roz) {
+        roz = (float) (screen_h) / (y_max - y_min + 1);
     }
 
     return roz;
 
 }
 
-void rysuj (set<Point> &czarne, const vector<Ant> &mrowki) {
+void rysuj (set<Point> &czarne, const vector<Ant> &mrowki, float roz_planszy) {
 
     Point lewyGorny = lg(czarne, mrowki);
 
-    float roz = rozmiar(czarne, mrowki);
-
     for(Point p: czarne) {
-        rysujPole(lewyGorny, p, roz);
+        rysujPole(lewyGorny, p, roz_planszy);
     }
 
     for(Ant a: mrowki) {
-        rysujMrowke(lewyGorny, a, roz);
+        rysujMrowke(lewyGorny, a, roz_planszy);
     }
 }
 
@@ -294,6 +292,7 @@ int main(int, char**) {
     bool czyRuch = false;
     float FPS = 10.0;
     int it = 0;
+    float roz = 50.0;
 
     al_init();
     al_init_primitives_addon();
@@ -379,10 +378,12 @@ int main(int, char**) {
         al_draw_text(element, al_map_rgb(255, 255, 255), screen_w - 75, screen_h / 2 + 180, ALLEGRO_ALIGN_CENTRE, "ENTER = Wyczyść planszę");
         al_draw_text(element, al_map_rgb(255, 255, 255), screen_w - 75, screen_h / 2 + 210, ALLEGRO_ALIGN_CENTRE, "ESC = Powrót do menu");
 
-        rysuj(czarne, mrowki);
-
         Point lewyGorny = lg(czarne, mrowki);
-        float roz = rozmiar(czarne, mrowki);
+
+        if (rozmiar(czarne, mrowki) < roz)
+            roz = rozmiar(czarne, mrowki) * 0.9; // dla bezpieczeństwa
+
+        rysuj(czarne, mrowki, roz);
 
         al_flip_display();
 
