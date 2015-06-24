@@ -23,7 +23,9 @@ struct wynik {  //Trzyma highscores
 
 const int n = 10;
 
-wynik wyniki[n];
+wynik wyniki[n]; //tablica najlepszych wynikow
+
+string imie_gracza;  //imie aktualnie grajacego
 
 void czytaj_wyniki() //czyta wyniki z pliku (lub wczytuje domyslne w przypadku braku pliku)
 {
@@ -46,11 +48,11 @@ void czytaj_wyniki() //czyta wyniki z pliku (lub wczytuje domyslne w przypadku b
         wyniki[5].imie = "JBJ";
         wyniki[6].punkty = 40;
         wyniki[6].imie = "LU";
-        wyniki[7].punkty = 30;
+        wyniki[7].punkty = 3;
         wyniki[7].imie = "JH";
-        wyniki[8].punkty = 20;
+        wyniki[8].punkty = 2;
         wyniki[8].imie = "PT";
-        wyniki[9].punkty = 10;
+        wyniki[9].punkty = 1;
         wyniki[9].imie = "FM";
     }
     else {
@@ -64,6 +66,22 @@ void czytaj_wyniki() //czyta wyniki z pliku (lub wczytuje domyslne w przypadku b
     plik.close();
 }
 
+void czytaj_imie() //czyta imie gracza z pliku (lub wczytuje domyslne w przypadku braku pliku)
+{
+    string dane;
+    fstream plik;
+    plik.open("imie.txt", ios::in);
+
+    if(!plik.good()){
+        imie_gracza = "PLAYER2";
+    }
+    else {
+        getline(plik, dane);
+        imie_gracza = dane;
+    }
+
+    plik.close();
+}
 
 void zapisz_wyniki() //zapisuje do pliku
 {
@@ -78,14 +96,14 @@ void zapisz_wyniki() //zapisuje do pliku
 
 void wypisz_wyniki() //wypisuje wyniki na ekranie
 {
-    const int x = 175;
+    const int x = 125;
     const int y = 150;
     const int czcionka = 36;
     ALLEGRO_FONT *font = al_load_ttf_font("pixelart.ttf",czcionka,0 );
     for (int i = 0; i < n; i++) {
         al_draw_textf(font, al_map_rgb(0,0,0), x, (y + czcionka*i),ALLEGRO_ALIGN_CENTRE, "%d", i+1);
-        al_draw_text(font, al_map_rgb(0,0,0), x + 100, (y + czcionka*i),ALLEGRO_ALIGN_CENTRE, wyniki[i].imie.c_str());
-        al_draw_textf(font, al_map_rgb(0,0,0), x + 400, (y + czcionka*i),ALLEGRO_ALIGN_CENTRE, "%d", wyniki[i].punkty);
+        al_draw_text(font, al_map_rgb(0,0,0), x + 60, (y + czcionka*i),ALLEGRO_ALIGN_LEFT, wyniki[i].imie.c_str());
+        al_draw_textf(font, al_map_rgb(0,0,0), x + 525, (y + czcionka*i),ALLEGRO_ALIGN_CENTRE, "%d", wyniki[i].punkty);
     }
 }
 
@@ -106,6 +124,54 @@ void dodaj_wynik(wynik w) //dodaje wynik i sortuje
     }
 
     wyniki[i] = w;
+}
+
+void rysuj_menu() //rysuje menu glowne
+{
+    ALLEGRO_FONT *font24 = al_load_ttf_font("pixelart.ttf",24,0 );
+    ALLEGRO_BITMAP *menu = al_load_bitmap("grafika/snake_menu.png");
+
+    al_clear_to_color(al_map_rgb(255,255,255));
+    al_draw_bitmap(menu,0,0,0);
+    al_draw_text(font24, al_map_rgb(0,0,0), 400, 482,ALLEGRO_ALIGN_CENTRE, "YOUR CURRENT NAME IS");
+    al_draw_text(font24, al_map_rgb(0,0,0), 400, 510,ALLEGRO_ALIGN_CENTRE, imie_gracza.c_str());
+    al_draw_text(font24, al_map_rgb(0,0,0), 400, 536,ALLEGRO_ALIGN_CENTRE, "MODIFY FILE IMIE.TXT IN GAME DIRECTORY AND PRESS R");
+    al_draw_text(font24, al_map_rgb(0,0,0), 400, 562,ALLEGRO_ALIGN_CENTRE, "IN ORDER TO CHANGE YOUR NAME");
+    al_flip_display();
+}
+
+void rysuj_highscores() //rysuje menu highscores
+{
+    ALLEGRO_FONT *font24 = al_load_ttf_font("pixelart.ttf",24,0 );
+    ALLEGRO_BITMAP *menu_wyniki = al_load_bitmap("grafika/highscores.png");
+    al_clear_to_color(al_map_rgb(255,255,255));
+    al_draw_bitmap(menu_wyniki,0,0,0);
+    wypisz_wyniki();
+    al_draw_text(font24, al_map_rgb(0,0,0), 320, 570,ALLEGRO_ALIGN_LEFT, "PRESS BACKSPACE FOR MAIN MENU");
+    al_flip_display();
+}
+
+void rysuj_game_over() //rysuje ekran game over
+{
+    ALLEGRO_FONT *font48 = al_load_ttf_font("pixelart.ttf",48,0 );
+    ALLEGRO_FONT *font24 = al_load_ttf_font("pixelart.ttf",24,0 );
+    al_clear_to_color(al_map_rgb(255,255,255));
+    al_draw_text(font48, al_map_rgb(0,0,0), 400, 100,ALLEGRO_ALIGN_CENTRE, "GAME OVER");
+    al_draw_text(font48, al_map_rgb(0,0,0), 400, 200,ALLEGRO_ALIGN_CENTRE, "YOUR SCORE");
+    al_draw_text(font24, al_map_rgb(0,0,0), 400, 500,ALLEGRO_ALIGN_CENTRE, "PRESS ENTER FOR HIGHSCORES OR");
+    al_draw_text(font24, al_map_rgb(0,0,0), 400, 530,ALLEGRO_ALIGN_CENTRE, "BACKSPACE FOR MAIN MENU");
+    al_flip_display();
+}
+
+void rysuj_tryb() //rysuje ekran wyboru trybu gry
+{
+    ALLEGRO_FONT *font72 = al_load_ttf_font("pixelart.ttf",72,0 );
+    ALLEGRO_FONT *font24 = al_load_ttf_font("pixelart.ttf",24,0 );
+    ALLEGRO_BITMAP *tryb = al_load_bitmap("grafika/tryb_menu.png");
+    al_draw_bitmap(tryb,0,0,0);
+    al_draw_text(font24, al_map_rgb(0,0,0), 320, 570,ALLEGRO_ALIGN_LEFT, "PRESS BACKSPACE FOR MAIN MENU");
+    al_draw_text(font72, al_map_rgb(0,0,0), 400, 0,ALLEGRO_ALIGN_CENTRE, "CHOOSE GAME MODE");
+    al_flip_display();
 }
 
 
@@ -438,8 +504,6 @@ public:
     }
 };
 
-
-
 int main(int, char**)
 {
     if (!al_init() || !al_install_keyboard() || !al_init_image_addon()) {
@@ -457,30 +521,21 @@ int main(int, char**)
     }
 
     al_register_event_source(event_queue, al_get_display_event_source(display));
-//    al_register_event_source(event_queue, al_get_timer_event_source(timer));
+    al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-    ALLEGRO_BITMAP *menu = al_load_bitmap("grafika/snake_menu.png");
-    ALLEGRO_BITMAP *wyniki = al_load_bitmap("grafika/highscores.png");
-    ALLEGRO_BITMAP *tryb = al_load_bitmap("grafika/tryb_menu.png");
 
     al_init_font_addon();
     al_init_ttf_addon();
-    ALLEGRO_FONT *font = al_load_ttf_font("pixelart.ttf",48,0 );
-
-    al_clear_to_color(al_map_rgb(255,255,255));
-
-    al_draw_bitmap(menu,0,0,0);
-    al_flip_display();
-
-//    al_start_timer(timer);
+    ALLEGRO_FONT *font48 = al_load_ttf_font("pixelart.ttf",48,0 );
 
     czytaj_wyniki();
-    int kod = 0;
+    czytaj_imie();
     Plansza *gra;
 
+    rysuj_menu();
 
     int poziom_menu = 1; //1 - menu glowne, 2 - tryb, 3 -  highscores, 4 - gra, 5 - game over
+    bool lista; //czy zakfalifikowany do highscores?
 
     while (true)
     {
@@ -497,16 +552,17 @@ int main(int, char**)
         }
         //obsluga menu
         if (poziom_menu == 1){
-            if(ev.keyboard.keycode == ALLEGRO_KEY_S) {
-                al_draw_bitmap(tryb,0,0,0);
-                al_flip_display();
+
+            if(ev.keyboard.keycode == ALLEGRO_KEY_R) {
+                czytaj_imie();
+                rysuj_menu();
+            }
+            else if(ev.keyboard.keycode == ALLEGRO_KEY_S) {
+                rysuj_tryb();
                 poziom_menu = 2;
             }
             else if(ev.keyboard.keycode == ALLEGRO_KEY_H) {
-                al_clear_to_color(al_map_rgb(255,255,255));
-                al_draw_bitmap(wyniki,0,0,0);
-                wypisz_wyniki();
-                al_flip_display();
+                rysuj_highscores();
                 poziom_menu = 3;
             }
         }
@@ -526,15 +582,12 @@ int main(int, char**)
         }
         if (poziom_menu == 2 || poziom_menu == 3 || poziom_menu == 4 || poziom_menu == 5){
             if(ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE) {
-                al_draw_bitmap(menu,0,0,0);
-                al_flip_display();
+                rysuj_menu();
                 poziom_menu = 1;
-                delete gra;
                 gra = new Plansza(1);
             }
         }
         if(poziom_menu == 4){
-            al_register_event_source(event_queue, al_get_timer_event_source(timer));
             al_start_timer(timer);
             al_clear_to_color(al_map_rgb(255,255,255));
             gra->wyswietl();
@@ -563,36 +616,33 @@ int main(int, char**)
             }
 
             if(gra->czy_kolizja()){
-
-                al_clear_to_color(al_map_rgb(255,255,255));
-                al_draw_text(font, al_map_rgb(0,0,0), 400, 100,ALLEGRO_ALIGN_CENTRE, "GAME OVER");
-                al_draw_text(font, al_map_rgb(0,0,0), 400, 200,ALLEGRO_ALIGN_CENTRE, "YOUR SCORE");
-                al_draw_textf(font, al_map_rgb(0,0,0), 400, 250,ALLEGRO_ALIGN_CENTRE, "%d", gra->get_wynik());
-//                al_draw_text(font, al_map_rgb(0,0,0), 400, 350,ALLEGRO_ALIGN_CENTRE, "ENTER YOUR INITIALS");
+                rysuj_game_over();
+                al_draw_textf(font48, al_map_rgb(0,0,0), 400, 250,ALLEGRO_ALIGN_CENTRE, "%d", gra->get_wynik());
+                if(gra->get_wynik() > wyniki[9].punkty){
+                    al_draw_text(font48, al_map_rgb(0,0,0), 400, 400,ALLEGRO_ALIGN_CENTRE, "HIGHSCORE! CONGRATS!");
+                    lista = 1;
+                }
                 al_flip_display();
                 poziom_menu = 5;
                 al_stop_timer(timer);
             }
         }
         if(poziom_menu == 5){
-
+            delete gra;
+            if(lista){
+                czytaj_wyniki();
+                wynik nowy;
+                nowy.imie = imie_gracza;
+                nowy.punkty = gra->get_wynik();
+                dodaj_wynik(nowy);
+                zapisz_wyniki();
+                lista = 0;
+            }
             if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER) {
-                al_clear_to_color(al_map_rgb(255,255,255));
-                al_draw_bitmap(wyniki,0,0,0);
-                wypisz_wyniki();
-                al_flip_display();
+                rysuj_highscores();
                 poziom_menu = 3;
             }
         }
     }
-
-    zapisz_wyniki();
-
-/*    wynik test;
-    cout << "punkty: "; cin >> test.punkty;
-    cout << "imie: "; cin >> test.imie;
-
-    dodaj_wynik(test);
-*/
     return 0;
 }

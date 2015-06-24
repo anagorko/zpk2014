@@ -1,0 +1,20 @@
+Wê¿em porusza siê strza³kami.
+S¹ 2 tryby gry, ze œcianami i bez. 
+W trybie bez œcian w¹¿ po wyjœciu poza krawêdŸ, pojawia siê po drugiej stronie.
+Liczba zdobytych punktów to liczba zjedzonych jab³ek.
+W¹¿ wyd³u¿a siê o jedno pole po zjedzeniu ka¿dego jab³ka.
+
+Z ka¿dego ekranu mo¿na wróciæ do MENU po naciœniêciu BACKSPACE, 
+lub wyjœæ z gry po naciœniêciu Q lub wy³¹czeniu okna guzikiem X.
+
+Lista najlepszych wyników i imiê gracza ³adowane s¹ z plikow wyniki.txt, imie.txt.
+W przypadku braku plikow, zaladuja sie domyslne wartosci.
+W pliku wyniki.txt jest 20 linii, imie gracza i wynik s¹ zapisywane w kolejnych liniach.
+
+Do zaktualizowania imienia gracza niepotrzebne jest wyjœcie z gry,
+wystarczy zmodyfikowaæ plik i nacisn¹æ R (instrukcja jest te¿ w grze).
+
+Plik pixelart.ttf zawiera wykorzystywan¹ w grze czcionkê.
+
+
+

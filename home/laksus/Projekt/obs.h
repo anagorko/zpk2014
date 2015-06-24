@@ -1,3 +1,6 @@
+#ifndef __OBS_H__
+#define __OBS_H__
+
 class Pipe{
 
 public:
@@ -12,3 +15,5 @@ public:
     double getY();
     void move(int);
 };
+
+#endif

@@ -2,6 +2,9 @@
 #include <allegro5/allegro_font.h>
 #include<allegro5/allegro_image.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
+
 
 #include <iostream>
 using namespace std;
@@ -11,12 +14,20 @@ using namespace std;
 #include<clsLudzik.h>
 #include<clsSkrzynka.h>
 
-const int screen_w = 800;
+const int screen_w = 1240;
 const int screen_h = 600;
 const float FPS = 60.0;
+const int energia_ruchu = 7;
 
-int PozycjaLudzikaWiersz(clsPlansza);
-int PozycjaLudzikaKolumna(clsPlansza);
+bool key[ALLEGRO_KEY_MAX];  // wciÅ›niÄ™te klawisze
+
+int czas = 0;
+
+void rysuj_ruchome(clsLudzik, clsSkrzynka, int);
+void ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s);
+int menu_przyciski();
+
+int WybierzLevel();
 
 int main(){
 
@@ -26,6 +37,8 @@ int main(){
 
 //inicjalizacja czcionek
     al_init_font_addon();
+//al_install_audio();//bÅ‚ad biblioteki
+//al_init_acodec_addon();
 
 //inicjalizacja allegro + klawiatury + obrazow + czcionek ttf
     if (!al_init() || !al_install_keyboard()  || !al_init_image_addon() || !al_init_ttf_addon())
@@ -40,6 +53,16 @@ int main(){
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
     ALLEGRO_FONT *font = al_load_ttf_font("arial.ttf", 12, 0 );
 
+ al_set_window_title( display,"SOKOBAN VERSION 3.0 Drygala & Lemberski");//nazwa okna
+
+
+//ALLEGRO_SAMPLE *songE = al_load_sample("songE.ogg");
+//al_reserve_samples(1);
+//ALLEGRO_SAMPLE_INSTANCE *songInstance = al_create_sample_instance(song);
+//al_set_sample_instance_playmode(songInstance, ALLEGRO_PLAYMODE_LOOP);
+//al_attach_sample_instance_to_mixer(songInstance, al_get_default_mixer());
+//al_play_sample_instance(songInstance);
+
 //sprawdzenie poprawnosci wskaznikow
     if (display == NULL || timer == NULL || event_queue == NULL || font == NULL)
     {
@@ -47,13 +70,11 @@ int main(){
         return 2;
     }
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
+    al_register_event_source(event_queue, al_get_keyboard_event_source());
+    al_register_event_source(event_queue, al_get_display_event_source(display));
     al_start_timer(timer);
 
- /*   al_register_event_source(event_queue, al_get_display_event_source(display));
-    al_register_event_source(event_queue, al_get_timer_event_source(timer));
-    al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-*/    al_clear_to_color(al_map_rgb(0,0,0));
+//   al_clear_to_color(al_map_rgb(0,0,0));
 /*    al_flip_display();
 
 */
@@ -63,14 +84,15 @@ int main(){
 /* ******************************************************************************************************************* */
 
     clsMenu objMenu;
-    objMenu.WyswietlKomunikat(font);
+    objMenu.WyswietlMenu();
+int a;
+cin >> a;
+//al_play_sample(songE,1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE,0);
+    //cout << WybierzLevel();
 
-    int a;
-    cin >> a;
 
-
-//<> wybiera odpowiedni¹ planszê (decyduje u¿ytkownik)
-//<> wy³¹cza program (decyduje u¿ytkownik)
+//<> wybiera odpowiedniÂ¹ planszÃª (decyduje uÂ¿ytkownik)
+//<> wyÂ³Â¹cza program (decyduje uÂ¿ytkownik)
 
 
 
@@ -80,74 +102,191 @@ int main(){
 
     clsPlansza objPlansza;
     objPlansza.WczytajDane();
-    objPlansza.WypiszDane();
     objPlansza.KonwertujDane();
     objPlansza.przygotuj_bitmapy();
     objPlansza.rysuj_statyczne();
-    objPlansza.rysuj_ruchome(0);
 
-    //objPlansza.WyswietlMenu();
-// Rysuje siê na okr¹g³o.
+    clsLudzik objLudzik(objPlansza.PozycjaLudzikaWiersz(), objPlansza.PozycjaLudzikaKolumna()); //tworzy obiekt ze wspolrzedntmi
+    clsSkrzynka objSkrzynka(objPlansza);    //tworzy obiekt kopiujac z objPlansza tabele tblSkrzynka
 
-/* ******************************************************************************************************************* */
-/*  Poruszanie ludzikiem, sprawdzenie czy ma energie, czy ruch mozliwy, czy stoi obok skrzynki -> ruch Skrzynka        */
-/* ******************************************************************************************************************* */
-        int x = objPlansza.PozycjaLudzikaWiersz();
-        int y = objPlansza.PozycjaLudzikaKolumna();
-        clsLudzik objLudzik(x, y);
-        cout << endl << endl << "Ludzik - wiersz: " << x + 1 << endl << "Ludzik - kolumna: " << y + 1;
-         cin >> a;
-//        cout << endl << "czy mozna ruszyc sie w D: " << objLudzik.MozliwyRuch(objPlansza, 'D') << " G: " << objLudzik.MozliwyRuch(objPlansza, 'G');
- //       cout    << " L: " << objLudzik.MozliwyRuch(objPlansza, 'L') << " P: " << objLudzik.MozliwyRuch(objPlansza, 'P');
 
-/*
-while(true)
+/* ********************************************************************************************************************************************** */
+/* Glowna petla                                                                                                                                   */
+/* ********************************************************************************************************************************************** */
+
+    bool wyjdz = false;
+
+    while(!wyjdz)
     {
+
+    //animacja
+    czas++;
+    int x = (czas / 40) % 4;
+    objPlansza.rysuj_ruchome(objLudzik, objSkrzynka, x);
+
+
         ALLEGRO_EVENT ev;
         al_wait_for_event(event_queue, &ev);
 
-int x = 0;
-if (static_cast<long int>(time(NULL))%4 == 0)
-{  x = 1;  }
-
-cout << x << " " << timer << " " ;
-objPlansza.rysuj_ruchome(x);
-
-
-        if (ev.type == ALLEGRO_EVENT_KEY_UP)
+        if(ev.type == ALLEGRO_EVENT_TIMER)  // minÄ™Å‚a 1/60 (1/FPS) czÄ™Å›Ä‡ sekundy
         {
-            if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-                break;
+            objLudzik.set_energia(objLudzik.get_energia() + 1);
+            ruchy(objPlansza, objLudzik, objSkrzynka);
+        }
+        else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
+        {
+            key[ev.keyboard.keycode] = true;
+        }
+        else if (ev.type == ALLEGRO_EVENT_KEY_UP)
+        {
+            key[ev.keyboard.keycode] = false;
+
+            if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+            {
+                wyjdz = true;
             }
         }
-    }*/
-
-//<> jeœli U¿ytkownik wykona³ ruch Ludzikiem:
-    //objLudzik.SprawdzEnergie();
-    //objLudzik.MozliwyRuch();
-    //objLudzik.ObokSkrzynka();
-    //objLudzik.Ruch();
-
-/* ******************************************************************************************************************* */
-/*  Poruszanie Skrzynka, sprawdzenie czy ruch mozliwy, czy ukonczono Plansze ->                                        */
-/*  -> zapisanie ze ukonczono plansze, sprawdzenie czy sa jakies nieukonczone plansze -> narysowanie / koniec gry      */
-/* ******************************************************************************************************************* */
-
-    //clsSkrzynka objSkrzynka;
-    //objSkrzynka.MozliwyRuch();
-    //objSkrzynka.Ruch();
-
-/*    if (objSkrzynka.CzyUkonczono()) // sprawdza czy ukonczono plansze
-    {
-       objPlansza.Ukonczono();    // zapisanie ze plansze ukonczono
-
-        if (objPlansza.CzySaNieukonczone()) // sprawdcza czy sa jescze jakies nieukonczone plansze
-        {
-            // Rysuje nasteppna planszê
-        }
-        else
-            // Koñczy program (jeœli to ostatnia ukoñczona plansza).
     }
-*/
+
+
+
+
     return 0;
 }
+
+/* ******************************************************************************************************************************************* */
+/* FUNKCJE                                                                                                                                     */
+/* ******************************************************************************************************************************************* */
+/*
+int menu_przyciski()
+{
+    if (key[ALLEGRO_KEY_1] || key[ALLEGRO_KEY_PAD_1])
+    {
+        return 1;
+    cout << "1111111111" << endl;
+    }
+
+    if (key[ALLEGRO_KEY_2] || key[ALLEGRO_KEY_PAD_2])
+    {
+        return 2;
+    cout << "222" << endl;
+    }
+
+} */
+
+void ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s)
+{
+    int x = on.get_X();
+    int y = on.get_Y();
+    int energia = on.get_energia();
+
+    if (key[ALLEGRO_KEY_LEFT] && energia > energia_ruchu)
+    {
+        if ((plansza1.get_tblPodloga(x, y - 1)== 0 || plansza1.get_tblPodloga(x, y - 1)== 6) && (s.get_tblSkrzynkiS(x, y - 1) == 0))
+        {
+            energia = 0; y--;
+
+        }
+        else if ((s.get_tblSkrzynkiS(x, y - 1) == 1) && (s.get_tblSkrzynkiS(x, y - 2) == 0) && (plansza1.get_tblPodloga(x, y - 2) == 0 || plansza1.get_tblPodloga(x, y - 2) == 6))
+        {
+            s.set_tblSkrzynkiS(x, y - 1, 0);
+            s.set_tblSkrzynkiS(x, y - 2, 1);
+            energia = 0; y--;
+        }
+        plansza1.rysuj_statyczne();
+        if(s.CzyUkonczono(plansza1)){cout << "wow. Kozak!";}
+    }
+    if (key[ALLEGRO_KEY_RIGHT] && energia > energia_ruchu)
+    {   if ((plansza1.get_tblPodloga(x, y + 1) == 0 || plansza1.get_tblPodloga(x, y + 1) == 6) && (s.get_tblSkrzynkiS(x, y + 1) == 0))
+        {
+            energia = 0; y++;
+        }
+        else if ((s.get_tblSkrzynkiS(x, y + 1) == 1) && (s.get_tblSkrzynkiS(x, y + 2) == 0) && (plansza1.get_tblPodloga(x, y + 2) == 0 || plansza1.get_tblPodloga(x, y + 2) == 6))
+        {
+            s.set_tblSkrzynkiS(x, y + 1, 0);
+            s.set_tblSkrzynkiS(x, y + 2, 1);
+            energia = 0; y++;
+        }
+        plansza1.rysuj_statyczne();
+        if(s.CzyUkonczono(plansza1)){cout << "wow. Kozak!";}
+    }
+    if (key[ALLEGRO_KEY_DOWN] && energia > energia_ruchu)
+    {
+        if ((plansza1.get_tblPodloga(x + 1, y) == 0 || plansza1.get_tblPodloga(x + 1, y) == 6) && (s.get_tblSkrzynkiS(x + 1, y) == 0))
+        {
+            energia = 0; x++;
+        }
+        else if ((s.get_tblSkrzynkiS(x + 1, y) == 1) && (s.get_tblSkrzynkiS(x + 2, y) == 0) && (plansza1.get_tblPodloga(x + 2, y) == 0 || plansza1.get_tblPodloga(x + 2, y) == 6))
+        {
+            s.set_tblSkrzynkiS(x + 1, y, 0);
+            s.set_tblSkrzynkiS(x + 2, y, 1);
+            energia = 0; x++;
+        }
+        plansza1.rysuj_statyczne();
+        if(s.CzyUkonczono(plansza1)){cout << "wow. Kozak!";}
+    }
+    if (key[ALLEGRO_KEY_UP] && energia > energia_ruchu)
+    {
+        if ((plansza1.get_tblPodloga(x - 1, y) == 0 || plansza1.get_tblPodloga(x - 1, y) == 6) && (s.get_tblSkrzynkiS(x - 1, y) == 0))
+        {
+            energia = 0; x--;
+        }
+        else if ((s.get_tblSkrzynkiS(x - 1, y) == 1) && (s.get_tblSkrzynkiS(x - 2, y) == 0) && (plansza1.get_tblPodloga(x - 2, y) == 0 || plansza1.get_tblPodloga(x - 2, y) ==  6))
+        {
+            s.set_tblSkrzynkiS(x - 1, y, 0);
+            s.set_tblSkrzynkiS(x - 2, y, 1);
+            energia = 0; x--;
+        }
+        plansza1.rysuj_statyczne();
+        if(s.CzyUkonczono(plansza1)){cout << "wow. Kozak!";}
+    }
+
+    on.set_X(x);
+    on.set_Y(y);
+    on.set_energia(energia);
+}
+
+/*
+int WybierzLevel()
+{
+
+    bool wyjdz = false;
+
+    while(!wyjdz)
+    {
+
+        ALLEGRO_EVENT ev;
+        al_wait_for_event(event_queue, &ev);
+
+        if(ev.type == ALLEGRO_EVENT_TIMER)  // minÄ™Å‚a 1/60 (1/FPS) czÄ™Å›Ä‡ sekundy
+        {
+          if (key[ALLEGRO_KEY_1] || key[ALLEGRO_KEY_PAD_1])
+            {
+                return 1;
+                //cout << "1111111111" << endl;
+            }
+
+            if (key[ALLEGRO_KEY_2] || key[ALLEGRO_KEY_PAD_2])
+            {
+                    return 2;
+                //cout << "222" << endl;
+            }
+
+        }
+        else if (ev.type == ALLEGRO_EVENT_KEY_DOWN)
+        {
+            key[ev.keyboard.keycode] = true;
+        }
+        else if (ev.type == ALLEGRO_EVENT_KEY_UP)
+        {
+            key[ev.keyboard.keycode] = false;
+
+            if (ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+            {
+                //wyjdz = true;
+                return 0;
+            }
+        }
+    }
+}
+*/

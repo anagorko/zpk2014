@@ -22,17 +22,17 @@ void Bird::show_position(){
     cout << "Pozycja x: " << pos_x+30 << ", pozycja y: " << pos_y+30 << endl;
 }
 
-double Bird::getX(){
+double Bird::getXb(){
     return pos_x;
 }
 
-double Bird::getY(){
+double Bird::getYb(){
     return pos_y;
 }
 
 bool Bird::collision_ground(){
     if(pos_y >= 460)
-        return true;
+        return false;
     else
         return false;
 }
@@ -51,4 +51,9 @@ bool Bird::collision_obstacle(double obs_x, double obs_y){ //ptak jest dla mnie 
         }
     }
     return false;
+}
+
+
+void Bird::reset(){
+    pos_y = 150;
 }

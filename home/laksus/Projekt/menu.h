@@ -1,3 +1,7 @@
+#ifndef __MENU_H__
+#define __MENU_H__
+
+
 class Menu{
     public:
     virtual void display() = 0;
@@ -11,7 +15,6 @@ class MainMenu: public Menu{
     public:
     const int ButtonCount = 3;
     int actButton;
-    ALLEGRO_DISPLAY *menu = NULL;
     ALLEGRO_BITMAP *title, *background;
     ALLEGRO_BITMAP *buttons[3];
 
@@ -32,7 +35,6 @@ class SettingsMenu: public Menu{
     public:
     const int ButtonCount = 3;
     int actButton;
-    ALLEGRO_DISPLAY *menu = NULL;
     ALLEGRO_BITMAP *title, *background;
     ALLEGRO_BITMAP *buttons[3];
 
@@ -48,3 +50,6 @@ class SettingsMenu: public Menu{
     const int w = 800;
     const int h = 600;
 };
+
+
+#endif

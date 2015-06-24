@@ -4,7 +4,6 @@
 #include<algorithm>
 
 
-
 Pipe::Pipe(){
     srand(time(NULL));
     type = 0;

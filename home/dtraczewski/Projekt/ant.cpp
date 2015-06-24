@@ -16,6 +16,11 @@ using namespace std;
 const int screen_w = 800;
 const int screen_h = 600;
 
+const int north = 1;
+const int east = 2;
+const int south = 3;
+const int west = 4;
+
 class Point
 {
     double x, y;
@@ -58,7 +63,7 @@ public:
 
 };
 
-Point roundMe (Point p) {
+Point roundMe (const Point &p) {
     Point nowy(floor(p.getX()), floor(p.getY()));
     return nowy;
 }
@@ -68,17 +73,14 @@ Point operator*(Point v, float f) {
     return v;
 }
 
-Point operator+(Point v1, Point v2) {
+Point operator+(Point v1, const Point &v2) {
     v1 += v2;
     return v1;
 }
 
-class Ant: public Point {
-
-    /*ALLEGRO_BITMAP* bitmap; */
+class Ant {
 
     Point p;
-    float a;
     unsigned short kierunek;
 
 public:
@@ -88,38 +90,40 @@ public:
     Ant(double _x, double _y) {
         p.setX(_x);
         p.setY(_y);
-        kierunek = 1;
+        kierunek = north;
     }
 
     Ant(Point _p) {
         p.setX(_p.getX());
         p.setY(_p.getY());
-        kierunek = 1;
+        kierunek = north;
     }
 
-    Point getPosition() {
+    Point getPosition() const {
         return p;
     }
 
-    unsigned short getDirection() const {return kierunek;}
+    unsigned short getDirection() const {
+        return kierunek;
+    }
 
     void lewo() {
         switch(kierunek) {
-            case 1:
+            case north:
                 p.setX(p.getX() - 1);
-                kierunek = 4;
+                kierunek = west;
                 break;
-            case 2:
+            case east:
                 p.setY(p.getY() - 1);
-                kierunek = 1;
+                kierunek = north;
                 break;
-            case 3:
+            case south:
                 p.setX(p.getX() + 1);
-                kierunek = 2;
+                kierunek = east;
                 break;
-            case 4:
+            case west:
                 p.setY(p.getY() + 1);
-                kierunek = 3;
+                kierunek = south;
                 break;
         }
     }
@@ -128,19 +132,19 @@ public:
         switch(kierunek) {
             case 1:
                 p.setX(p.getX() + 1);
-                kierunek = 2;
+                kierunek = east;
                 break;
             case 2:
                 p.setY(p.getY() + 1);
-                kierunek = 3;
+                kierunek = south;
                 break;
             case 3:
                 p.setX(p.getX() - 1);
-                kierunek = 4;
+                kierunek = west;
                 break;
             case 4:
                 p.setY(p.getY() - 1);
-                kierunek = 1;
+                kierunek = north;
                 break;
         }
     }
@@ -156,7 +160,6 @@ vector<Ant> mrowki;
 
 void ruch(set<Point> &czarne, vector<Ant> &mrowki) {
 
-    set<Point>::iterator it;
     bool czyCzarne;
     Point pozycja;
 
@@ -179,27 +182,27 @@ void ruch(set<Point> &czarne, vector<Ant> &mrowki) {
     }
 }
 
-void rysujPole (Point lg, Point p, float rozmiar) {
+void rysujPole (const Point &lg, const Point &p, float rozmiar) {
     al_draw_filled_rectangle(rozmiar * (p.getX() - lg.getX()), rozmiar * (p.getY()  - lg.getY()), rozmiar * (p.getX()  - lg.getX()) + rozmiar, rozmiar * (p.getY() - lg.getY()) + rozmiar ,al_map_rgb(0,0,0));
 }
-void rysujMrowke (Point lg, Ant a, float rozmiar) {
+void rysujMrowke (const Point &lg, const Ant &a, float rozmiar) {
     switch (a.getDirection()){
-        case 1:
+        case north:
             al_draw_ellipse(rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2, rozmiar / 4, rozmiar / 2 - ((5 * rozmiar) / (40 * 2)), al_map_rgb(0,0,255), ((5 * rozmiar) / 40));
             break;
-        case 2:
+        case east:
             al_draw_ellipse(rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2, rozmiar / 2 - ((5 * rozmiar) / (40 * 2)), rozmiar / 4 , al_map_rgb(0,0,255), ((5 * rozmiar) / 40));
             break;
-        case 3:
+        case south:
             al_draw_ellipse(rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2, rozmiar / 4, rozmiar / 2 - ((5 * rozmiar) / (40 * 2)), al_map_rgb(0,0,255), ((5 * rozmiar) / 40));
             break;
-        case 4:
+        case west:
             al_draw_ellipse(rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2, rozmiar / 2 - ((5 * rozmiar) / (40 * 2)), rozmiar / 4 , al_map_rgb(0,0,255), ((5 * rozmiar) / 40));
             break;
     }
 }
 
-Point lg(set<Point> czarne, vector<Ant> mrowki) {
+Point lg(const set<Point> &czarne, const vector<Ant> &mrowki) {
 
     int x_min = 1000000000;
     int y_min = 1000000000;
@@ -223,7 +226,7 @@ Point lg(set<Point> czarne, vector<Ant> mrowki) {
     return p;
 }
 
-Point pg (set<Point> czarne, vector<Ant> mrowki) {
+Point pg (const set<Point> &czarne, const vector<Ant> &mrowki) {
 
     int x_max = -1000000000;
     int y_max = -1000000000;
@@ -249,7 +252,7 @@ Point pg (set<Point> czarne, vector<Ant> mrowki) {
 
 }
 
-float rozmiar (set<Point> czarne, vector<Ant> mrowki) {
+float rozmiar (const set<Point> &czarne, const vector<Ant> &mrowki) {
 
     Point lewyGorny = lg(czarne, mrowki);
     Point prawyGorny = pg(czarne, mrowki);
@@ -272,7 +275,7 @@ float rozmiar (set<Point> czarne, vector<Ant> mrowki) {
 
 }
 
-void rysuj (set<Point> czarne, vector<Ant> mrowki) {
+void rysuj (const set<Point> &czarne, const vector<Ant> &mrowki) {
 
     Point lewyGorny = lg(czarne, mrowki);
 

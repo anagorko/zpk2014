@@ -1,9 +1,11 @@
 # depslib dependency file v1.0
-1435003425 source:e:\programowanie\flappy_bird\main.cpp
-	<iostream>
+1435132408 source:e:\programowanie\flappy_bird\main.cpp
 	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_ttf.h>
+	<allegro5/allegro_primitives.h>
+	<iostream>
 	<queue>
 	<cmath>
 	"bird.h"
@@ -14,7 +16,7 @@
 1434491067 e:\programowanie\flappy_bird\flappy.h
 	<iostream>
 
-1435003217 e:\programowanie\flappy_bird\board.h
+1435132329 e:\programowanie\flappy_bird\board.h
 
 1372624732 e:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro.h
 	"allegro5/base.h"
@@ -248,23 +250,23 @@
 
 1434493407 e:\programowanie\flappy_bird\obstacle.h
 
-1435003211 source:e:\programowanie\flappy_bird\board.cpp
+1435133285 source:e:\programowanie\flappy_bird\board.cpp
 	<allegro5/allegro.h>
-	<allegro5/allegro_image.h>
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_ttf.h>
+	<allegro5/allegro_primitives.h>
 	<iostream>
 	"board.h"
 
-1435003295 source:e:\programowanie\flappy_bird\bird.cpp
+1435108334 source:e:\programowanie\flappy_bird\bird.cpp
 	"Bird.h"
 	<iostream>
 
-1434741756 e:\programowanie\flappy_bird\bird.h
+1435108381 e:\programowanie\flappy_bird\bird.h
 
-1434701083 e:\programowanie\flappy_bird\obs.h
+1435093262 e:\programowanie\flappy_bird\obs.h
 
-1434703680 source:e:\programowanie\flappy_bird\obs.cpp
+1435008405 source:e:\programowanie\flappy_bird\obs.cpp
 	"obs.h"
 	<cstdlib>
 	<ctime>
@@ -277,12 +279,12 @@
 	"allegro5/allegro.h"
 	"allegro5/allegro_font.h"
 
-1435002835 source:e:\programowanie\flappy_bird\menu.cpp
+1435107796 source:e:\programowanie\flappy_bird\menu.cpp
 	<allegro5/allegro.h>
 	<allegro5/allegro_image.h>
 	<allegro5/allegro_primitives.h>
 	<iostream>
 	"menu.h"
 
-1435002776 e:\programowanie\flappy_bird\menu.h
+1435093345 e:\programowanie\flappy_bird\menu.h
 

@@ -1,40 +1,61 @@
 #include <allegro5/allegro.h>
-#include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
-
+#include <allegro5/allegro_primitives.h>
 #include<iostream>
 #include "board.h"
 
 using namespace std;
 
 void Board::init(int bird_type){
+    ALLEGRO_PATH *path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+    al_append_path_component(path, "images");
 
-    if(!al_init()) {
-        cerr << "Blad podczas inicjalizacji allegro." << endl;
-        assert(false);
+    if(bird_type == 0){
+        al_set_path_filename(path, "hero.png");
+        hero = al_load_bitmap(al_path_cstr(path, '/'));
     }
-    al_init_image_addon();
 
-    board = al_create_display(w, h);
-    al_set_window_title(board,"Flappy Bird v. 1.0alfa");
+    al_set_path_filename(path, "background1.jpg");
+    level[0].background = al_load_bitmap(al_path_cstr(path, '/'));
 
-    if(!board) {
-        cerr << "Blad podczas inicjalizacji ekranu." << endl;
-        assert(false);
+    al_set_path_filename(path, "background2.png");
+    level[1].background = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "background3.jpeg");
+    level[2].background = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "background4.jpeg");
+    level[3].background = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "background5.jpeg");
+    level[4].background = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "Mario_pipe_up.png");
+    obstacle_up = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "Mario_pipe_down.png");
+    obstacle_down = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "helper.png");
+    helper = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "win.png");
+    lvl_win = al_load_bitmap(al_path_cstr(path, '/'));
+
+    al_set_path_filename(path, "game_over.jpg");
+    endgame = al_load_bitmap(al_path_cstr(path, '/'));
+
+    path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+    al_append_path_component(path, "fonts");
+    al_set_path_filename(path, "arial.ttf");
+    MenuFont = al_load_ttf_font(al_path_cstr(path, '/'),20,0);
+    if(MenuFont == NULL)
+        cout << "problem font" << endl;
+
+    for(int i = 0; i < 5; i++){
+        level[i].ObstacleLevel=10/(i+1);
     }
-    if(bird_type == 0)
-        hero = al_load_bitmap("images/flappy-bird.png");
-    background = al_load_bitmap("images/background.jpg");
-    obstacle_up = al_load_bitmap("images/mario_pipe_up.png");
-    obstacle_down = al_load_bitmap("images/mario_pipe_down.png");
-    endgame = al_load_bitmap("images/game_over.jpg");
-    al_draw_scaled_bitmap(background,0,0,400,300,0,0,w,h,0);
-    al_flip_display();
-}
-
-void Board::close(){
-    al_destroy_display(board);
 }
 
 void Board::refresh_hero(double b_x, double b_y, double angle){
@@ -43,15 +64,15 @@ void Board::refresh_hero(double b_x, double b_y, double angle){
 }
 
 void Board::refresh_pipe(double p_x, double p_y){
-        al_draw_scaled_bitmap(obstacle_down,0,0,183,213,p_x+15,p_y+45,70,h-p_y-40,0);
-        al_draw_scaled_bitmap(obstacle_up,0,0,233,88,p_x,p_y,100,50,0);
+    al_draw_scaled_bitmap(obstacle_down,0,0,183,213,p_x+15,p_y+45,70,h-p_y-40,0);
+    al_draw_scaled_bitmap(obstacle_up,0,0,233,88,p_x,p_y,100,50,0);
 
-        al_draw_scaled_bitmap(obstacle_down,0,0,183,213,p_x+15,0,70,p_y-140,0);
-        al_draw_scaled_bitmap(obstacle_up,0,0,233,88,p_x,p_y-150,100,50,0);
+    al_draw_scaled_bitmap(obstacle_down,0,0,183,213,p_x+15,0,70,p_y-140,0);
+    al_draw_scaled_bitmap(obstacle_up,0,0,233,88,p_x,p_y-150,100,50,0);
 }
 
-void Board::refresh_background(){
-    al_draw_scaled_bitmap(background,0,0,400,300,0,0,w,h,0);
+void Board::refresh_background(int _lvl){
+    al_draw_scaled_bitmap(level[_lvl].background,0,0,400,300,0,0,w,h,0);
 }
 
 void Board::show(){
@@ -59,6 +80,38 @@ void Board::show(){
 }
 
 void Board::end_game(){
-    al_draw_scaled_bitmap(endgame,0,0,480,480,0,0,w,h,0);
+    al_draw_scaled_bitmap(endgame,0,0,480,480,w/2,h/2,w/2,h/2,0);
+    show();
+}
+
+void Board::refresh_counter(int _cnt, int lvl_req, int _lvl){
+    al_draw_filled_rectangle(30,30,270,70,al_map_rgb(255,255,255));
+    al_draw_rectangle(30,30,270,70,al_map_rgb(0,0,0),3);
+    al_draw_textf(MenuFont,al_map_rgb(0,0,0),145,40,ALLEGRO_ALIGN_CENTER,"Lvl: %d  Przeszkody: %d / %d",_lvl, _cnt,lvl_req);
+}
+
+void Board::win_lvl(){
+    double scale, angl;
+    while(313*scale <= 600){
+        al_draw_scaled_rotated_bitmap(lvl_win,156,116,w/2,h/2,scale,scale,0,0);
+        show();
+        scale += 0.01;
+        Sleep(25);
+    }
+}
+
+void Board::welcome(){
+    refresh_background(0);
+    refresh_hero(80,150,0);
+    //al_draw_filled_rectangle(180,100,700,500,al_map_rgb(255,255,255));
+    al_draw_scaled_bitmap(helper,0,0,400,300,180,100,520,400,0);
+    show();
+    Sleep(4000);
+}
+
+
+void Board::pause(){
+    al_draw_filled_rectangle(100,100,700,500,al_map_rgb(255,255,255));
+    al_draw_text(MenuFont,al_map_rgb(0,0,0),400,300,ALLEGRO_ALIGN_CENTER,"PAUSE: enter lub c");
     show();
 }
