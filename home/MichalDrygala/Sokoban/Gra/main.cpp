@@ -17,7 +17,7 @@ using namespace std;
 const int screen_w = 1240;
 const int screen_h = 600;
 const float FPS = 60.0;
-const int energia_ruchu = 7;
+const int energia_ruchu = 10;
 int czas = 0;
 bool key[ALLEGRO_KEY_MAX];  // wciśnięte klawisze
 

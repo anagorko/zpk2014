@@ -8,7 +8,7 @@ class clsLudzik
 {
     int intPozycjaWiersz;
     int intPozycjaKolumna;
-    int intEnergia = 0;
+    int intEnergia = -5;
 
 public:
 //konstruktor
