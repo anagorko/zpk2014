@@ -1,3 +1,11 @@
+/* ***************************************************************************** */
+/*     Projekt na zaliczenie przedmiotu Zaawansowane programowanie komputerowe   */
+/*                                                                               */
+/*                             "Space Invaders"                                  */
+/*                                                                               */
+/*                            Agnieszka Å»ukowska                                 */
+/* ***************************************************************************** */
+
 #include<iostream>
 #include<vector>
 #include<math.h>
@@ -104,7 +112,7 @@ public:
 
     bool collidesWith(Moving* f) const
     //traktujemy obiekty jako kola o srednicach;
-    //kolizja, gdy srednice dwóch obiektów naloza sie na siebie;
+    //kolizja, gdy srednice dwÃ³ch obiektÃ³w naloza sie na siebie;
     {
         return getPosition().distanceTo(f -> getPosition()) <
                 (diameter() + f -> diameter()) / 2;
@@ -888,7 +896,7 @@ int main(int, char**)
     ALLEGRO_TIMER *timer = al_create_timer(1.0 / FPS); //stworzenie timera
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();//stworzenie kolejki zdarzen
 
-    //gdy nie stworzy któregos z powyzszych
+    //gdy nie stworzy ktÃ³regos z powyzszych
     if (display == NULL || timer == NULL || event_queue == NULL) {
         cout << "Blad inicjalizacji." << endl;
         return 2;
