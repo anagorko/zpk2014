@@ -302,18 +302,20 @@
 1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_primitives.h
 	<allegro5/allegro.h>
 
-1435098604 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\main.cpp
+1435142804 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\main.cpp
 	<allegro5/allegro5.h>
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_image.h>
 	<allegro5/allegro_ttf.h>
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
 	<iostream>
 	<clsMenu.h>
 	<clsPlansza.h>
 	<clsLudzik.h>
 	<clsSkrzynka.h>
 
-1435097886 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsmenu.h
+1435138090 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsmenu.h
 	<allegro5/allegro5.h>
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_image.h>
@@ -321,39 +323,38 @@
 	<clsPlansza.h>
 	<iostream>
 
-1435097886 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsplansza.h
+1435148794 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsplansza.h
 	<clsMenu.h>
 	<allegro5/allegro.h>
 	<allegro5/allegro_primitives.h>
 	"allegro5/allegro_image.h"
-	"clsLudzik.h"
 	<iostream>
 
-1435078340 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsludzik.h
+1435138090 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsludzik.h
 	"clsPlansza.h"
 
-1435057028 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsobiektyruchome.h
+1435138090 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsobiektyruchome.h
 
-1435077976 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsskrzynka.h
+1435143378 c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\include\clsskrzynka.h
 	<clsPlansza.h>
 
-1435078319 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsludzik.cpp
+1435138090 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsludzik.cpp
 	"clsLudzik.h"
 
-1435097886 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsmenu.cpp
+1435138090 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsmenu.cpp
 	"clsMenu.h"
 	<string>
 
-1435057028 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsobiektyruchome.cpp
+1435138090 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsobiektyruchome.cpp
 	"clsObiektyRuchome.h"
 
-1435098588 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsplansza.cpp
+1435144485 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsplansza.cpp
 	"clsPlansza.h"
 	"clsMenu.h"
 	"clsLudzik.h"
 	"clsSkrzynka.h"
 
-1435099094 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsskrzynka.cpp
+1435144545 source:c:\users\mdrygala\documents\github\zpk2014\home\michaldrygala\sokoban\gra\src\clsskrzynka.cpp
 	"clsSkrzynka.h"
 
 1435111440 source:c:\users\piotrek\documents\github\zpk2014\home\michaldrygala\sokoban\gra\main.cpp
@@ -656,6 +657,13 @@
 	"allegro5/allegro.h"
 
 1362327500 d:\allegro.code_blocks\include\allegro5\allegro_acodec.h
+	"allegro5/allegro.h"
+	"allegro5/allegro_audio.h"
+
+1434965754 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_audio.h
+	"allegro5/allegro.h"
+
+1434965753 c:\allegro\allegro-5.0.10-mingw-4.7.0\include\allegro5\allegro_acodec.h
 	"allegro5/allegro.h"
 	"allegro5/allegro_audio.h"
 

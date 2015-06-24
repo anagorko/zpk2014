@@ -16,7 +16,7 @@
     }
 
 //funkcja
-    bool clsSkrzynka::CzyUkonczono(clsPlansza p)
+    bool clsSkrzynka::CzyUkonczono(clsPlansza& p)
     {   bool ukonczono = 1;
 
         for(int i = 0; i < intWiersze; i++)
@@ -26,5 +26,17 @@
                 }
             }
         }
+
+        if (ukonczono)
+        {   p.set_tblUkonczone(ukonczono);
+
+            int a = p.get_level() + 1;
+            p.set_level(a);
+       }
+
+       if(p.get_level() > p.get_LiczbaPlansz()) // jesli to ostania plansza
+       {
+           cout << "To jest juz koniec!";
+       }
         return ukonczono;
     }

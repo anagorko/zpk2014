@@ -6,9 +6,6 @@
 #include <allegro5/allegro_primitives.h>
 #include "allegro5/allegro_image.h"
 
-//#include "clsObiektyRuchome.h"
-#include "clsLudzik.h"
-
 #include <iostream>
 using namespace std;
 
@@ -44,7 +41,6 @@ class clsPlansza
     static const string plik_z_kafelkiem[liczba_kafelkow]; //sciezka do bitmap
 
 //tabele z danymi potrzebnymi do rysowania planszy
-
     char tblDane[intWiersze][intKolumny];   //tabela z # $ itp.
     int tblPodloga[intWiersze][intKolumny];//tabela z informacja czy to jest podloga 0, scioana 1 albo cel 6
     int tblSkrzynkiP[intWiersze][intKolumny];// tabela z informacja czy jest skrzynka 1, albo czy jej nie ma 0
@@ -53,19 +49,22 @@ class clsPlansza
     int xLudzik;
     int yLudzik;
 
+//ukonczone plansze
+    int level;
 
-    //int intNumerPlanszy;
-    //static bool tblnUkonczonePlansze[];
-    //static int intLiczbaPlansz;
+    static const int intLiczbaPlansz = 2;
+    bool *wskTblUkonczone = new bool[intLiczbaPlansz];
 
 public:
+
+//konstruktor
+    clsPlansza(int x){ level = x; wskTblUkonczone += level - 1;}
 
     bool przygotuj_bitmapy();
     void rysuj_statyczne();
     void rysuj_ruchome(clsLudzik l, clsSkrzynka s, int wersja);
 
     void WczytajDane();
-    void WypiszDane();
     void KonwertujDane();
 
     //void WyswietlMenu();
@@ -81,5 +80,12 @@ public:
     int get_intKolumny() {return intKolumny;}
 
     void ruchy(clsPlansza& plansza1, clsLudzik& on, clsSkrzynka& s);
+
+    void set_tblUkonczone(bool wynik);
+    bool get_tblUkonczone(int i) { return *wskTblUkonczone + i - 1;}
+    int get_level() { return level;}
+    void set_level(int _level) {level = _level;}
+
+    int get_LiczbaPlansz() { return intLiczbaPlansz; }
 };
 #endif // CLSPLANSZA_H

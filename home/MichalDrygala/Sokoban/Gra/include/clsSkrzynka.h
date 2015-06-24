@@ -24,7 +24,7 @@ public:
     //bool MozliwyRuch(char pchrKierunek);
     //void Ruch(int pintPozycjaWiersz, int pintPozycjaKolumna, char pchrKierunek);
 
-    bool CzyUkonczono(clsPlansza p); // sprawdza czy ukonczona te plansze
+    bool CzyUkonczono(clsPlansza& p); // sprawdza czy ukonczona te plansze
 };
 
 #endif // CLSSKRZYNKA_H
