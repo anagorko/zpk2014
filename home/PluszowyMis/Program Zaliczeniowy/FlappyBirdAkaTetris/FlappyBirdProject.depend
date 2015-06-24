@@ -1,0 +1,1126 @@
+# depslib dependency file v1.0
+1434911333 source:e:\kamil\cpp\flappybirdproject\main.cpp
+	<iostream>
+	<math.h>
+	<vector>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"mainFunctions.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\allegro.h
+	"allegro5/base.h"
+	"allegro5/altime.h"
+	"allegro5/bitmap.h"
+	"allegro5/bitmap_draw.h"
+	"allegro5/bitmap_io.h"
+	"allegro5/bitmap_lock.h"
+	"allegro5/blender.h"
+	"allegro5/color.h"
+	"allegro5/config.h"
+	"allegro5/debug.h"
+	"allegro5/display.h"
+	"allegro5/drawing.h"
+	"allegro5/error.h"
+	"allegro5/events.h"
+	"allegro5/file.h"
+	"allegro5/fixed.h"
+	"allegro5/fmaths.h"
+	"allegro5/fshook.h"
+	"allegro5/fullscreen_mode.h"
+	"allegro5/joystick.h"
+	"allegro5/keyboard.h"
+	"allegro5/memory.h"
+	"allegro5/monitor.h"
+	"allegro5/mouse.h"
+	"allegro5/mouse_cursor.h"
+	"allegro5/path.h"
+	"allegro5/system.h"
+	"allegro5/threads.h"
+	"allegro5/timer.h"
+	"allegro5/tls.h"
+	"allegro5/transformations.h"
+	"allegro5/utf8.h"
+	"allegro5/alcompat.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\base.h
+	<errno.h>
+	<limits.h>
+	<limits.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<sys/types.h>
+	<fortify/fortify.h>
+	<dmalloc.h>
+	"allegro5/internal/alconfig.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\internal\alconfig.h
+	"allegro5/platform/alplatf.h"
+	"allegro5/platform/alwatcom.h"
+	"allegro5/platform/almngw32.h"
+	"allegro5/platform/albcc32.h"
+	"allegro5/platform/almsvc.h"
+	"allegro5/platform/aliphonecfg.h"
+	"allegro5/platform/alosxcfg.h"
+	"allegro5/platform/alucfg.h"
+	"allegro5/platform/astdint.h"
+	"allegro5/platform/astdbool.h"
+
+1372625928 e:\kamil\cpp\allegro\include\allegro5\platform\alplatf.h
+
+1368966308 e:\kamil\cpp\allegro\include\allegro5\platform\alwatcom.h
+	<io.h>
+	<i86.h>
+	<conio.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1368966308 e:\kamil\cpp\allegro\include\allegro5\platform\almngw32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+	"allegro5/platform/alplatf.h"
+
+1368966308 e:\kamil\cpp\allegro\include\allegro5\platform\albcc32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1368966308 e:\kamil\cpp\allegro\include\allegro5\platform\almsvc.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+	"allegro5/platform/alplatf.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\platform\aliphonecfg.h
+	<fcntl.h>
+	<unistd.h>
+
+1368966308 e:\kamil\cpp\allegro\include\allegro5\platform\alosxcfg.h
+	"allegro5/platform/alplatf.h"
+
+1368966308 e:\kamil\cpp\allegro\include\allegro5\platform\alucfg.h
+	<fcntl.h>
+	<unistd.h>
+	"alunix.h"
+	"allegro5/platform/alplatf.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\platform\alunix.h
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\platform\astdint.h
+	<inttypes.h>
+	<stdint.h>
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\platform\astdbool.h
+	<stdbool.h>
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\altime.h
+	"allegro5/base.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\bitmap.h
+	"allegro5/color.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\color.h
+	"allegro5/base.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\bitmap_draw.h
+	"allegro5/bitmap.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\bitmap_io.h
+	"allegro5/bitmap.h"
+	"allegro5/file.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\file.h
+	"allegro5/base.h"
+	"allegro5/path.h"
+	"allegro5/utf8.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\path.h
+	"allegro5/base.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\utf8.h
+	"allegro5/base.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\bitmap_lock.h
+	"allegro5/bitmap.h"
+
+1372624684 e:\kamil\cpp\allegro\include\allegro5\blender.h
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\config.h
+	"allegro5/file.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\debug.h
+	<assert.h>
+	"allegro5/base.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\display.h
+	"allegro5/bitmap.h"
+	"allegro5/color.h"
+	"allegro5/events.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\events.h
+	"allegro5/altime.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\drawing.h
+	"allegro5/color.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\error.h
+	"allegro5/base.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\fixed.h
+	"allegro5/base.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\fmaths.h
+	"allegro5/base.h"
+	"allegro5/fixed.h"
+	"allegro5/inline/fmaths.inl"
+
+1368966308 e:\kamil\cpp\allegro\include\allegro5\inline\fmaths.inl
+	"allegro5/error.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\fshook.h
+	"allegro5/base.h"
+	"allegro5/file.h"
+	"allegro5/path.h"
+	<sys/types.h>
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\fullscreen_mode.h
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\joystick.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\keyboard.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+	"allegro5/keycodes.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\keycodes.h
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\memory.h
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\monitor.h
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\mouse.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\mouse_cursor.h
+	"allegro5/base.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\system.h
+	"allegro5/config.h"
+	"allegro5/path.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\threads.h
+	"allegro5/altime.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\timer.h
+	"allegro5/base.h"
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\tls.h
+	"allegro5/base.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\transformations.h
+	"allegro5/display.h"
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\alcompat.h
+
+1372624732 e:\kamil\cpp\allegro\include\allegro5\allegro_primitives.h
+	<allegro5/allegro.h>
+
+1362327500 e:\kamil\cpp\allegro\include\allegro5\allegro_image.h
+
+1434810428 source:e:\kamil\cpp\flappybirdproject\test.cpp
+
+1434792105 source:e:\kamil\cpp\flappybirdproject\trash.cpp
+
+1434810339 e:\kamil\cpp\flappybirdproject\mainfunctions.h
+	<iostream>
+
+1434914008 source:e:\kamil\cpp\flappybirdproject\cobject.cpp
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cObject.h"
+
+1434913962 e:\kamil\cpp\flappybirdproject\cobject.h
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cPoint.h"
+
+1434894251 e:\kamil\cpp\flappybirdproject\cpoint.h
+	<iostream>
+
+1434912093 source:e:\kamil\cpp\flappybirdproject\cpoint.cpp
+	<iostream>
+	<math.h>
+	"cPoint.h"
+
+1435105230 source:d:\dev\projects\flappybirdproject\cobject.cpp
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cObject.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\allegro.h
+	"allegro5/base.h"
+	"allegro5/altime.h"
+	"allegro5/bitmap.h"
+	"allegro5/bitmap_draw.h"
+	"allegro5/bitmap_io.h"
+	"allegro5/bitmap_lock.h"
+	"allegro5/blender.h"
+	"allegro5/color.h"
+	"allegro5/config.h"
+	"allegro5/debug.h"
+	"allegro5/display.h"
+	"allegro5/drawing.h"
+	"allegro5/error.h"
+	"allegro5/events.h"
+	"allegro5/file.h"
+	"allegro5/fixed.h"
+	"allegro5/fmaths.h"
+	"allegro5/fshook.h"
+	"allegro5/fullscreen_mode.h"
+	"allegro5/joystick.h"
+	"allegro5/keyboard.h"
+	"allegro5/memory.h"
+	"allegro5/monitor.h"
+	"allegro5/mouse.h"
+	"allegro5/mouse_cursor.h"
+	"allegro5/path.h"
+	"allegro5/system.h"
+	"allegro5/threads.h"
+	"allegro5/timer.h"
+	"allegro5/tls.h"
+	"allegro5/transformations.h"
+	"allegro5/utf8.h"
+	"allegro5/alcompat.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\base.h
+	<errno.h>
+	<limits.h>
+	<limits.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<sys/types.h>
+	<fortify/fortify.h>
+	<dmalloc.h>
+	"allegro5/internal/alconfig.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\internal\alconfig.h
+	"allegro5/platform/alplatf.h"
+	"allegro5/platform/alwatcom.h"
+	"allegro5/platform/almngw32.h"
+	"allegro5/platform/albcc32.h"
+	"allegro5/platform/almsvc.h"
+	"allegro5/platform/aliphonecfg.h"
+	"allegro5/platform/alosxcfg.h"
+	"allegro5/platform/alucfg.h"
+	"allegro5/platform/astdint.h"
+	"allegro5/platform/astdbool.h"
+
+1372625928 d:\dev\cpp\library\allegro\include\allegro5\platform\alplatf.h
+
+1368966308 d:\dev\cpp\library\allegro\include\allegro5\platform\alwatcom.h
+	<io.h>
+	<i86.h>
+	<conio.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1368966308 d:\dev\cpp\library\allegro\include\allegro5\platform\almngw32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+	"allegro5/platform/alplatf.h"
+
+1368966308 d:\dev\cpp\library\allegro\include\allegro5\platform\albcc32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1368966308 d:\dev\cpp\library\allegro\include\allegro5\platform\almsvc.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+	"allegro5/platform/alplatf.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\platform\aliphonecfg.h
+	<fcntl.h>
+	<unistd.h>
+
+1368966308 d:\dev\cpp\library\allegro\include\allegro5\platform\alosxcfg.h
+	"allegro5/platform/alplatf.h"
+
+1368966308 d:\dev\cpp\library\allegro\include\allegro5\platform\alucfg.h
+	<fcntl.h>
+	<unistd.h>
+	"alunix.h"
+	"allegro5/platform/alplatf.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\platform\alunix.h
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\platform\astdint.h
+	<inttypes.h>
+	<stdint.h>
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\platform\astdbool.h
+	<stdbool.h>
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\altime.h
+	"allegro5/base.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\bitmap.h
+	"allegro5/color.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\color.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\bitmap_draw.h
+	"allegro5/bitmap.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\bitmap_io.h
+	"allegro5/bitmap.h"
+	"allegro5/file.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\file.h
+	"allegro5/base.h"
+	"allegro5/path.h"
+	"allegro5/utf8.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\path.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\utf8.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\bitmap_lock.h
+	"allegro5/bitmap.h"
+
+1372624684 d:\dev\cpp\library\allegro\include\allegro5\blender.h
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\config.h
+	"allegro5/file.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\debug.h
+	<assert.h>
+	"allegro5/base.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\display.h
+	"allegro5/bitmap.h"
+	"allegro5/color.h"
+	"allegro5/events.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\events.h
+	"allegro5/altime.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\drawing.h
+	"allegro5/color.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\error.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\fixed.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\fmaths.h
+	"allegro5/base.h"
+	"allegro5/fixed.h"
+	"allegro5/inline/fmaths.inl"
+
+1368966308 d:\dev\cpp\library\allegro\include\allegro5\inline\fmaths.inl
+	"allegro5/error.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\fshook.h
+	"allegro5/base.h"
+	"allegro5/file.h"
+	"allegro5/path.h"
+	<sys/types.h>
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\fullscreen_mode.h
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\joystick.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\keyboard.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+	"allegro5/keycodes.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\keycodes.h
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\memory.h
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\monitor.h
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\mouse.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\mouse_cursor.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\system.h
+	"allegro5/config.h"
+	"allegro5/path.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\threads.h
+	"allegro5/altime.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\timer.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\tls.h
+	"allegro5/base.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\transformations.h
+	"allegro5/display.h"
+
+1372624732 d:\dev\cpp\library\allegro\include\allegro5\alcompat.h
+
+1362327500 d:\dev\cpp\library\allegro\include\allegro5\allegro_image.h
+
+1435174037 d:\dev\projects\flappybirdproject\cobject.h
+	<iostream>
+	<string>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cPoint.h"
+
+1435174057 d:\dev\projects\flappybirdproject\cpoint.h
+	<iostream>
+
+1435173938 source:d:\dev\projects\flappybirdproject\cobstacle.cpp
+	<iostream>
+	<cstdlib>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<ctime>
+	<random>
+	"cObstacle.h"
+
+1435159916 d:\dev\projects\flappybirdproject\cobstacle.h
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cPipe.h"
+
+1435147418 d:\dev\projects\flappybirdproject\cpipe.h
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cObject.h"
+	"cPoint.h"
+
+1435103310 d:\dev\projects\flappybirdproject\header_const.h
+	<string>
+	<iostream>
+
+1435174019 source:d:\dev\projects\flappybirdproject\cpipe.cpp
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cPipe.h"
+
+1435174432 source:d:\dev\projects\flappybirdproject\cpoint.cpp
+	<iostream>
+	"cPoint.h"
+
+1435174677 source:d:\dev\projects\flappybirdproject\ctetris.cpp
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cTetris.h"
+
+1435160114 d:\dev\projects\flappybirdproject\ctetris.h
+	<string>
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cObject.h"
+	"cObstacle.h"
+
+1435174628 source:d:\dev\projects\flappybirdproject\main.cpp
+	<iostream>
+	<math.h>
+	<vector>
+	<string>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+	<allegro5/allegro_native_dialog.h>
+	"cPoint.h"
+	"cObject.h"
+	"cPipe.h"
+	"cTetris.h"
+	"cObstacle.h"
+
+1435103761 d:\dev\projects\flappybirdproject\mainfunctions.h
+	<iostream>
+	<string>
+
+1435102894 source:d:\dev\projects\flappybirdproject\header_const.cpp
+	<string>
+	<iostream>
+
+1435101630 source:c:\studia\projektzaliczeniezpk\flappybirdproject\cobject.cpp
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cObject.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\allegro.h
+	"allegro5/base.h"
+	"allegro5/altime.h"
+	"allegro5/bitmap.h"
+	"allegro5/bitmap_draw.h"
+	"allegro5/bitmap_io.h"
+	"allegro5/bitmap_lock.h"
+	"allegro5/blender.h"
+	"allegro5/color.h"
+	"allegro5/config.h"
+	"allegro5/debug.h"
+	"allegro5/display.h"
+	"allegro5/drawing.h"
+	"allegro5/error.h"
+	"allegro5/events.h"
+	"allegro5/file.h"
+	"allegro5/fixed.h"
+	"allegro5/fmaths.h"
+	"allegro5/fshook.h"
+	"allegro5/fullscreen_mode.h"
+	"allegro5/joystick.h"
+	"allegro5/keyboard.h"
+	"allegro5/memory.h"
+	"allegro5/monitor.h"
+	"allegro5/mouse.h"
+	"allegro5/mouse_cursor.h"
+	"allegro5/path.h"
+	"allegro5/system.h"
+	"allegro5/threads.h"
+	"allegro5/timer.h"
+	"allegro5/tls.h"
+	"allegro5/transformations.h"
+	"allegro5/utf8.h"
+	"allegro5/alcompat.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\base.h
+	<errno.h>
+	<limits.h>
+	<limits.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<sys/types.h>
+	<fortify/fortify.h>
+	<dmalloc.h>
+	"allegro5/internal/alconfig.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\internal\alconfig.h
+	"allegro5/platform/alplatf.h"
+	"allegro5/platform/alwatcom.h"
+	"allegro5/platform/almngw32.h"
+	"allegro5/platform/albcc32.h"
+	"allegro5/platform/almsvc.h"
+	"allegro5/platform/aliphonecfg.h"
+	"allegro5/platform/alosxcfg.h"
+	"allegro5/platform/alucfg.h"
+	"allegro5/platform/astdint.h"
+	"allegro5/platform/astdbool.h"
+
+1372622328 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\platform\alplatf.h
+
+1368962708 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\platform\alwatcom.h
+	<io.h>
+	<i86.h>
+	<conio.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1368962708 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\platform\almngw32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+	"allegro5/platform/alplatf.h"
+
+1368962708 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\platform\albcc32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1368962708 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\platform\almsvc.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+	"allegro5/platform/alplatf.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\platform\aliphonecfg.h
+	<fcntl.h>
+	<unistd.h>
+
+1368962708 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\platform\alosxcfg.h
+	"allegro5/platform/alplatf.h"
+
+1368962708 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\platform\alucfg.h
+	<fcntl.h>
+	<unistd.h>
+	"alunix.h"
+	"allegro5/platform/alplatf.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\platform\alunix.h
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\platform\astdint.h
+	<inttypes.h>
+	<stdint.h>
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\platform\astdbool.h
+	<stdbool.h>
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\altime.h
+	"allegro5/base.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\bitmap.h
+	"allegro5/color.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\color.h
+	"allegro5/base.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\bitmap_draw.h
+	"allegro5/bitmap.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\bitmap_io.h
+	"allegro5/bitmap.h"
+	"allegro5/file.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\file.h
+	"allegro5/base.h"
+	"allegro5/path.h"
+	"allegro5/utf8.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\path.h
+	"allegro5/base.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\utf8.h
+	"allegro5/base.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\bitmap_lock.h
+	"allegro5/bitmap.h"
+
+1372621084 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\blender.h
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\config.h
+	"allegro5/file.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\debug.h
+	<assert.h>
+	"allegro5/base.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\display.h
+	"allegro5/bitmap.h"
+	"allegro5/color.h"
+	"allegro5/events.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\events.h
+	"allegro5/altime.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\drawing.h
+	"allegro5/color.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\error.h
+	"allegro5/base.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\fixed.h
+	"allegro5/base.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\fmaths.h
+	"allegro5/base.h"
+	"allegro5/fixed.h"
+	"allegro5/inline/fmaths.inl"
+
+1368962708 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\inline\fmaths.inl
+	"allegro5/error.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\fshook.h
+	"allegro5/base.h"
+	"allegro5/file.h"
+	"allegro5/path.h"
+	<sys/types.h>
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\fullscreen_mode.h
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\joystick.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\keyboard.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+	"allegro5/keycodes.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\keycodes.h
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\memory.h
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\monitor.h
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\mouse.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\mouse_cursor.h
+	"allegro5/base.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\system.h
+	"allegro5/config.h"
+	"allegro5/path.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\threads.h
+	"allegro5/altime.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\timer.h
+	"allegro5/base.h"
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\tls.h
+	"allegro5/base.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\transformations.h
+	"allegro5/display.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\alcompat.h
+
+1362327500 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\allegro_image.h
+
+1435101624 c:\studia\projektzaliczeniezpk\flappybirdproject\cobject.h
+	<iostream>
+	<string>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cPoint.h"
+
+1435097704 c:\studia\projektzaliczeniezpk\flappybirdproject\cpoint.h
+	<iostream>
+
+1435143834 source:c:\studia\projektzaliczeniezpk\flappybirdproject\cpipe.cpp
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cPipe.h"
+
+1435143816 c:\studia\projektzaliczeniezpk\flappybirdproject\cpipe.h
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cObject.h"
+	"cPoint.h"
+
+1435097690 source:c:\studia\projektzaliczeniezpk\flappybirdproject\cpoint.cpp
+	<iostream>
+	"cPoint.h"
+
+1435155617 source:c:\studia\projektzaliczeniezpk\flappybirdproject\ctetris.cpp
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cTetris.h"
+
+1435156512 c:\studia\projektzaliczeniezpk\flappybirdproject\ctetris.h
+	<string>
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cObject.h"
+	"cObstacle.h"
+
+1435156315 c:\studia\projektzaliczeniezpk\flappybirdproject\cobstacle.h
+	<iostream>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	"cPipe.h"
+
+1435154305 source:c:\studia\projektzaliczeniezpk\flappybirdproject\cobstacle.cpp
+	<iostream>
+	<cstdlib>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<ctime>
+	<random>
+	"cObstacle.h"
+
+1435157649 source:c:\studia\projektzaliczeniezpk\flappybirdproject\main.cpp
+	<iostream>
+	<math.h>
+	<vector>
+	<string>
+	<allegro5/allegro.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_native_dialog.h>
+	"cPoint.h"
+	"cObject.h"
+	"cPipe.h"
+	"cTetris.h"
+	"cObstacle.h"
+
+1372621132 c:\studia\projektzaliczeniezpk\allegro\include\allegro5\allegro_native_dialog.h
+	"allegro5/allegro.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\allegro.h
+	"allegro5/base.h"
+	"allegro5/altime.h"
+	"allegro5/bitmap.h"
+	"allegro5/bitmap_draw.h"
+	"allegro5/bitmap_io.h"
+	"allegro5/bitmap_lock.h"
+	"allegro5/blender.h"
+	"allegro5/color.h"
+	"allegro5/config.h"
+	"allegro5/debug.h"
+	"allegro5/display.h"
+	"allegro5/drawing.h"
+	"allegro5/error.h"
+	"allegro5/events.h"
+	"allegro5/file.h"
+	"allegro5/fixed.h"
+	"allegro5/fmaths.h"
+	"allegro5/fshook.h"
+	"allegro5/fullscreen_mode.h"
+	"allegro5/joystick.h"
+	"allegro5/keyboard.h"
+	"allegro5/memory.h"
+	"allegro5/monitor.h"
+	"allegro5/mouse.h"
+	"allegro5/mouse_cursor.h"
+	"allegro5/path.h"
+	"allegro5/system.h"
+	"allegro5/threads.h"
+	"allegro5/timer.h"
+	"allegro5/tls.h"
+	"allegro5/transformations.h"
+	"allegro5/utf8.h"
+	"allegro5/alcompat.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\base.h
+	<errno.h>
+	<limits.h>
+	<limits.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<sys/types.h>
+	<fortify/fortify.h>
+	<dmalloc.h>
+	"allegro5/internal/alconfig.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\internal\alconfig.h
+	"allegro5/platform/alplatf.h"
+	"allegro5/platform/alwatcom.h"
+	"allegro5/platform/almngw32.h"
+	"allegro5/platform/albcc32.h"
+	"allegro5/platform/almsvc.h"
+	"allegro5/platform/aliphonecfg.h"
+	"allegro5/platform/alosxcfg.h"
+	"allegro5/platform/alucfg.h"
+	"allegro5/platform/astdint.h"
+	"allegro5/platform/astdbool.h"
+
+1372625928 d:\dev\projects\flappybirdproject\allegro\include\allegro5\platform\alplatf.h
+
+1368966308 d:\dev\projects\flappybirdproject\allegro\include\allegro5\platform\alwatcom.h
+	<io.h>
+	<i86.h>
+	<conio.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1368966308 d:\dev\projects\flappybirdproject\allegro\include\allegro5\platform\almngw32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+	"allegro5/platform/alplatf.h"
+
+1368966308 d:\dev\projects\flappybirdproject\allegro\include\allegro5\platform\albcc32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1368966308 d:\dev\projects\flappybirdproject\allegro\include\allegro5\platform\almsvc.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+	"allegro5/platform/alplatf.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\platform\aliphonecfg.h
+	<fcntl.h>
+	<unistd.h>
+
+1368966308 d:\dev\projects\flappybirdproject\allegro\include\allegro5\platform\alosxcfg.h
+	"allegro5/platform/alplatf.h"
+
+1368966308 d:\dev\projects\flappybirdproject\allegro\include\allegro5\platform\alucfg.h
+	<fcntl.h>
+	<unistd.h>
+	"alunix.h"
+	"allegro5/platform/alplatf.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\platform\alunix.h
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\platform\astdint.h
+	<inttypes.h>
+	<stdint.h>
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\platform\astdbool.h
+	<stdbool.h>
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\altime.h
+	"allegro5/base.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\bitmap.h
+	"allegro5/color.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\color.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\bitmap_draw.h
+	"allegro5/bitmap.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\bitmap_io.h
+	"allegro5/bitmap.h"
+	"allegro5/file.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\file.h
+	"allegro5/base.h"
+	"allegro5/path.h"
+	"allegro5/utf8.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\path.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\utf8.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\bitmap_lock.h
+	"allegro5/bitmap.h"
+
+1372624684 d:\dev\projects\flappybirdproject\allegro\include\allegro5\blender.h
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\config.h
+	"allegro5/file.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\debug.h
+	<assert.h>
+	"allegro5/base.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\display.h
+	"allegro5/bitmap.h"
+	"allegro5/color.h"
+	"allegro5/events.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\events.h
+	"allegro5/altime.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\drawing.h
+	"allegro5/color.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\error.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\fixed.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\fmaths.h
+	"allegro5/base.h"
+	"allegro5/fixed.h"
+	"allegro5/inline/fmaths.inl"
+
+1368966308 d:\dev\projects\flappybirdproject\allegro\include\allegro5\inline\fmaths.inl
+	"allegro5/error.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\fshook.h
+	"allegro5/base.h"
+	"allegro5/file.h"
+	"allegro5/path.h"
+	<sys/types.h>
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\fullscreen_mode.h
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\joystick.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\keyboard.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+	"allegro5/keycodes.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\keycodes.h
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\memory.h
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\monitor.h
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\mouse.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\mouse_cursor.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\system.h
+	"allegro5/config.h"
+	"allegro5/path.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\threads.h
+	"allegro5/altime.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\timer.h
+	"allegro5/base.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\tls.h
+	"allegro5/base.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\transformations.h
+	"allegro5/display.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\alcompat.h
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\allegro_image.h
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\allegro_native_dialog.h
+	"allegro5/allegro.h"
+
+1372624732 d:\dev\projects\flappybirdproject\allegro\include\allegro5\allegro_font.h
+	"allegro5/allegro.h"
+
+1362327500 d:\dev\projects\flappybirdproject\allegro\include\allegro5\allegro_ttf.h
+	"allegro5/allegro.h"
+	"allegro5/allegro_font.h"
+
