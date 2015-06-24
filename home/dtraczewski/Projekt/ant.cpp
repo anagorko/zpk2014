@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include <set>
-#include <math.h>
 #include <algorithm>
 
 using namespace std;
@@ -12,6 +11,9 @@ using namespace std;
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
+
+#define M_PI 3.14159265358979323846264338327
+
 
 const int screen_w = 800;
 const int screen_h = 600;
@@ -82,6 +84,7 @@ class Ant {
 
     Point p;
     unsigned short kierunek;
+    ALLEGRO_BITMAP* bitmapa;
 
 public:
 
@@ -91,17 +94,21 @@ public:
         p.setX(_x);
         p.setY(_y);
         kierunek = north;
+        bitmapa = al_load_bitmap("mrowka.png");
     }
 
     Ant(Point _p) {
         p.setX(_p.getX());
         p.setY(_p.getY());
         kierunek = north;
+        bitmapa = al_load_bitmap("mrowka.png");
     }
 
     Point getPosition() const {
         return p;
     }
+
+    ALLEGRO_BITMAP* getBitmap() const { return bitmapa; }
 
     unsigned short getDirection() const {
         return kierunek;
@@ -183,29 +190,21 @@ void ruch(set<Point> &czarne, vector<Ant> &mrowki) {
 }
 
 void rysujPole (const Point &lg, const Point &p, float rozmiar) {
+
     al_draw_filled_rectangle(rozmiar * (p.getX() - lg.getX()), rozmiar * (p.getY()  - lg.getY()), rozmiar * (p.getX()  - lg.getX()) + rozmiar, rozmiar * (p.getY() - lg.getY()) + rozmiar ,al_map_rgb(0,0,0));
+
 }
+
 void rysujMrowke (const Point &lg, const Ant &a, float rozmiar) {
-    switch (a.getDirection()){
-        case north:
-            al_draw_ellipse(rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2, rozmiar / 4, rozmiar / 2 - ((5 * rozmiar) / (40 * 2)), al_map_rgb(0,0,255), ((5 * rozmiar) / 40));
-            break;
-        case east:
-            al_draw_ellipse(rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2, rozmiar / 2 - ((5 * rozmiar) / (40 * 2)), rozmiar / 4 , al_map_rgb(0,0,255), ((5 * rozmiar) / 40));
-            break;
-        case south:
-            al_draw_ellipse(rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2, rozmiar / 4, rozmiar / 2 - ((5 * rozmiar) / (40 * 2)), al_map_rgb(0,0,255), ((5 * rozmiar) / 40));
-            break;
-        case west:
-            al_draw_ellipse(rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2, rozmiar / 2 - ((5 * rozmiar) / (40 * 2)), rozmiar / 4 , al_map_rgb(0,0,255), ((5 * rozmiar) / 40));
-            break;
-    }
+
+    al_draw_scaled_rotated_bitmap(a.getBitmap(),40, 40, rozmiar * (a.getPosition().getX() - lg.getX()) + rozmiar / 2, rozmiar * (a.getPosition().getY()  - lg.getY()) + rozmiar / 2,  rozmiar / 80, rozmiar / 80, (M_PI * (a.getDirection() - 1)) / 2, 0);
+
 }
 
 Point lg(const set<Point> &czarne, const vector<Ant> &mrowki) {
 
-    int x_min = 1000000000;
-    int y_min = 1000000000;
+    int x_min = 0;
+    int y_min = 0;
 
     for (Point p: czarne) {
         if (p.getX() < x_min)
@@ -228,8 +227,8 @@ Point lg(const set<Point> &czarne, const vector<Ant> &mrowki) {
 
 Point pg (const set<Point> &czarne, const vector<Ant> &mrowki) {
 
-    int x_max = -1000000000;
-    int y_max = -1000000000;
+    int x_max = 0;
+    int y_max = 0;
 
     for (Point p: czarne) {
 
@@ -264,39 +263,29 @@ float rozmiar (const set<Point> &czarne, const vector<Ant> &mrowki) {
 
     float roz = 30.0;
 
-    if (screen_w / (x_max - x_min + 1) < roz) {
-        roz = (float) (screen_w - 200) / (x_max - x_min + 1);
+    if ((screen_w - 170) / (x_max - x_min + 1) < roz) {
+        roz = (float) (screen_w - 170) / (x_max - x_min + 1);
     }
-    if (screen_h / (y_max - y_min + 1) < roz) {
-        roz = (float) (screen_h - 50) / (y_max - y_min + 1);
+    if ((screen_h - 20)/ (y_max - y_min + 1) < roz) {
+        roz = (float) (screen_h - 20) / (y_max - y_min + 1);
     }
 
     return roz;
 
 }
 
-void rysuj (const set<Point> &czarne, const vector<Ant> &mrowki) {
+void rysuj (set<Point> &czarne, const vector<Ant> &mrowki) {
 
     Point lewyGorny = lg(czarne, mrowki);
 
-    int x_min = lewyGorny.getX();
-    int y_min = lewyGorny.getY();
-
-
     float roz = rozmiar(czarne, mrowki);
 
-    /*Point start (0.0, 0.0);
-    if (x_min < start.getX())
-        start.setX(x_min);
-    if (y_min < start.getY())
-        start.setY(y_min);
-    */
-
     for(Point p: czarne) {
-        rysujPole(Point(x_min, y_min), p, roz);
+        rysujPole(lewyGorny, p, roz);
     }
+
     for(Ant a: mrowki) {
-        rysujMrowke(Point(x_min, y_min), a, roz);
+        rysujMrowke(lewyGorny, a, roz);
     }
 }
 
