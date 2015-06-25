@@ -14,14 +14,11 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
-					<Add directory="../../../../../../../../../Allegro/allegro-5.0.10-mingw-4.7.0/include" />
-					<Add directory="C:/Users/Drygas/Documents/GitHub/zpk2014/home/MichalDrygala/Sokoban/Gra/include" />
-					<Add directory="C:/Users/mdrygala/Documents/GitHub/zpk2014/home/MichalDrygala/Sokoban/Gra/include" />
-					<Add directory="D:/allegro.code_blocks/include" />
-					<Add directory="C:/Users/Piotrek/Documents/GitHub/zpk2014/home/MichalDrygala/Sokoban/Gra/include" />
+					<Add directory="include" />
+					<Add directory="allegro-5.0.10-mingw-4.7.0/include" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\..\..\..\..\allegro\allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-mt-debug.a" />
+					<Add library="allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-mt-debug.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -31,11 +28,14 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++11" />
 					<Add directory="include" />
+					<Add directory="allegro-5.0.10-mingw-4.7.0/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="..\..\..\..\..\..\..\..\..\allegro\allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-mt.a" />
+					<Add library="bin\Release\liballegro-5.0.10-monolith-mt.a" />
+					<Add library="allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-mt.a" />
 				</Linker>
 			</Target>
 		</Build>
@@ -44,6 +44,7 @@
 			<Add directory="C:/Users/Piotrek/Documents/GitHub/zpk2014/home/MichalDrygala/Sokoban/Gra/include" />
 			<Add directory="D:/allegro.code_blocks/include" />
 		</Compiler>
+		<Unit filename="bin/Release/allegro-5.0.10-monolith-mt.dll" />
 		<Unit filename="include/clsLudzik.h" />
 		<Unit filename="include/clsMenu.h" />
 		<Unit filename="include/clsPlansza.h" />
