@@ -4,10 +4,10 @@ Point::Point()
 {
     setX(0.0);
     setY(0.0);
-    setZ(0.0)
+    setZ(0.0);
 }
 
-Point::Point(double _x, double _y)
+Point::Point(double _x, double _y, double _z)
 {
     setX(_x);
     setY(_y);
@@ -63,4 +63,9 @@ istream& operator>>(istream &i, Point &p)
     i >> p.z;
 
     return i;
+}
+
+int main() {
+    Point punkt(4, 5, 6);
+    cout << punkt.getZ();
 }
