@@ -12,6 +12,7 @@
 #include <iomanip>
 #include <random>
 #include<ctime>
+
 using namespace std;
 
 #include<allegro5/allegro.h>
