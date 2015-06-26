@@ -22,6 +22,7 @@ using namespace std;
 const int screen_w = 800; // szerokosc okna
 const int screen_h = 600; // wysokosc okna
 const float FPS = 60.0;
+const int level_end=3; //liczba poziomow
 
 
 class Vect
@@ -207,6 +208,8 @@ class SpaceInvader : public Moving
 
     int getPoints()const { return points; }
     void setPoints(const int _points) { points= _points; }
+
+    void setSpeed(float s) { speed = s; }
 
     void changeDirection() {
         direction *= -1;
@@ -405,10 +408,21 @@ int RandomElement(int i, int j)
 
 
 // utworzenie poczatkowego ukladu najezdzcow
-void create_space_invader()
+void create_space_invader(int level)
 {
 
     int odleglosc, wysokosc;
+    float speed;
+
+    if(level==1)
+    speed=20;
+    else
+    speed=15*level;
+
+    if(level==1)
+        speed=20;
+    else if(level==2)
+        speed=40;
 
    wysokosc = 0;
 
@@ -422,18 +436,21 @@ void create_space_invader()
                 s -> setPosition(Vect(odleglosc + screen_w / 5, wysokosc + ((screen_h+400) / 10)));
                 s -> setVelocity(Vect(0, 0));
                 s -> setPoints(50);
+                s -> setSpeed(speed);
                 invaders.push_back(s); // doklada nowy element do naszej tablicy
             } else if (i==2 || i== 3) {
                 SpaceInvader01 *s = new SpaceInvader01();
                 s -> setPosition(Vect(odleglosc + screen_w / 5, wysokosc + ((screen_h+400) / 10)));
                 s -> setVelocity(Vect(0, 0));
                 s -> setPoints(30);
+                s -> setSpeed(speed);
                 invaders.push_back(s);
             } else if (i==4 || i== 5) {
                 SpaceInvader03 *s = new SpaceInvader03();
                 s -> setPosition(Vect(odleglosc + screen_w / 5, wysokosc + ((screen_h+400) / 10)));
                 s -> setVelocity(Vect(0, 0));
                 s -> setPoints(10);
+                s -> setSpeed(speed);
                 invaders.push_back(s);
             }
             odleglosc = odleglosc + 50;
@@ -697,7 +714,7 @@ void tank_vs_invaders_collision()
 }
 
 
-void game_start()
+void game_start(int level)
 {
 
     srand (time(NULL));
@@ -719,14 +736,22 @@ void game_start()
     create_life();
     create_explosion();
     //rysowanie najezdzcow
-    create_space_invader();
+    create_space_invader(level);
     create_mother();
 
 
 
 }
 
-int game_logic(float time) {
+void change_level(int &level, float &time_l)
+{
+    level++;
+    time_l=0;
+    game_start(level);
+
+}
+
+int game_logic(float time, int level) {
     for (Moving* entity: tanks) { entity -> move(time); }
     for (Moving* entity: invaders) { entity -> move(time); }
     for (Moving* entity: missiles) { entity -> move(time); }
@@ -779,12 +804,12 @@ int game_logic(float time) {
     }
 
     float fraction_life = float(life_invaders)/float(all_invaders);
-    float one_per_time = 4.0; // srednio jeden wrog na okreslony czas
+    float one_per_time = 5.0/(float)level; // srednio jeden wrog na okreslony czas (w zaleznosci od poziomu; im wyzej tym czesciej)
 
     if (fraction_life > 0.5) {
-        one_per_time = 1.5; // jak duzo wrogow to czesciej strzelamy
+        one_per_time = 1; // jak duzo wrogow to czesciej strzelaja
     } else if (fraction_life > 0.1) {
-        one_per_time = 3.0; // rzadziej strzelamy ale czesciej niz domyslnie
+        one_per_time = 4.0/(float)level; // rzadziej strzelaja, ale czesciej niz domyslnie
     }
     liczba_prob=int((1/time)*life_invaders*one_per_time)+1;
 
@@ -926,6 +951,7 @@ int main(int, char**)
     const int WIN=6;
     int screen = 0;// 1- menu glowne, 2 - gra, 3 - rules, 4 - they are coming, 5 - gameover, 6 - win
     int switch_to_screen = 1;
+    int level=1;
 
     int redraw_count = 0;
     bool redraw = true;
@@ -945,9 +971,11 @@ int main(int, char**)
     ALLEGRO_BITMAP *win_bitmap=NULL;
     win_bitmap=al_load_bitmap("win.png");
 
-    int score=0;
+    int score=0;//wynik ogolny
+    int score_level=0; //wynik po poziomie
     float time_m=0;
-    float time_sm=0;
+    float time_sm=0; // space mother
+    float time_level=0; //czas wyswietlenia informującego o poziomie
 
     int life_invaders=55;
 
@@ -983,17 +1011,32 @@ int main(int, char**)
 
                 time_sm = time_sm + 1.0/FPS;
 
+                if (ev.type == ALLEGRO_EVENT_TIMER) {
+                    time_level++;
+                }
+                if (time_level < FPS*3) {
+                al_draw_textf( font2, al_map_rgb( 255, 255, 255 ), screen_w/2, (screen_h+100)/2, ALLEGRO_ALIGN_CENTRE, "LEVEL %i", level);
+                }
+
 
                 if(tanks[0] -> getLife() == 0)
                 {
-                    score=tanks[0]->getScore();
+                    score_level=tanks[0]->getScore();
                     clean_game();
                     switch_to_screen = GAMEOVER;
+
                 }else if(life_invaders==0){
-                    score=tanks[0]->getScore();
+                    score_level=tanks[0]->getScore();
                     clean_game();
                     life_invaders=55;
-                    switch_to_screen = WIN;
+                    if(level==level_end)
+                    {
+                        switch_to_screen = WIN;
+                    }else{
+                        score+=score_level;
+                        change_level(level, time_level);
+                    }
+;
                 }
                 else if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
                     switch (ev.keyboard.keycode) {
@@ -1012,7 +1055,7 @@ int main(int, char**)
                             break;
                         case ALLEGRO_KEY_ESCAPE:
                             clean_game();
-                            score=0;
+                            score_level=0;
                             life_invaders=55;
                             switch_to_screen = MENU;
                             break;
@@ -1037,12 +1080,15 @@ int main(int, char**)
 
                 }
             } else if (screen == THEYARECOMING) {
+                level=1;
+                score=0;
+                time_level=0;
                 if (ev.type == ALLEGRO_EVENT_TIMER) {
                     redraw_count++;
                 }
                 if (redraw_count > FPS*3) {
                     switch_to_screen = GAME;
-                    game_start();
+                    game_start(level);
                 }
             } else if (screen == GAMEOVER){
                 if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
@@ -1080,13 +1126,16 @@ int main(int, char**)
                 al_draw_bitmap(menu_bitmap, 0, 0, 0);
                 break;
             case GAME:
-                score=tanks[0] -> getScore();
+
+                score_level=tanks[0] -> getScore();
+
                 al_draw_text( font, al_map_rgb( 255, 255, 255 ), 20, 5, ALLEGRO_ALIGN_LEFT, "SCORE: ");
-                al_draw_textf( font, al_map_rgb( 255, 255, 255 ), 250, 5, ALLEGRO_ALIGN_RIGHT, "%i", score );
+                al_draw_textf( font, al_map_rgb( 255, 255, 255 ), 250, 5, ALLEGRO_ALIGN_RIGHT, "%i", score_level+score );
+
                 // wykonujemy wszystkie operacje na obiektach:
                 // ruchy, wykrywamy kolizje itp.
 
-                life_invaders=game_logic(1.0/FPS);
+                life_invaders=game_logic(1.0/FPS, level);
 
                 missile_collision();
                 tank_vs_invaders_collision();
@@ -1103,12 +1152,12 @@ int main(int, char**)
             case GAMEOVER:
                 al_draw_bitmap(gameover_bitmap, 0, 0, 0);
                 al_draw_text( font2, al_map_rgb( 255, 0, 0), screen_w/2, (screen_h+200)/2, ALLEGRO_ALIGN_CENTRE, "YOUR SCORE: ");
-                al_draw_textf( font2, al_map_rgb( 255, 0, 0 ), screen_w/2 , (screen_h+300)/2, ALLEGRO_ALIGN_CENTRE, "%i", score );
+                al_draw_textf( font2, al_map_rgb( 255, 0, 0 ), screen_w/2 , (screen_h+300)/2, ALLEGRO_ALIGN_CENTRE, "%i", score_level + score);
                 break;
             case WIN:
                 al_draw_bitmap(win_bitmap, 175, 0, 0);
                 al_draw_text( font2, al_map_rgb( 255, 0, 0), screen_w/2, (screen_h+100)/2, ALLEGRO_ALIGN_CENTRE, "YOUR SCORE: ");
-                al_draw_textf( font2, al_map_rgb( 255, 0, 0 ), screen_w/2 , (screen_h+200)/2, ALLEGRO_ALIGN_CENTRE, "%i", score );
+                al_draw_textf( font2, al_map_rgb( 255, 0, 0 ), screen_w/2 , (screen_h+200)/2, ALLEGRO_ALIGN_CENTRE, "%i", score_level + score);
                 break;
         }
         // wyswietlamy to co namalowalismy na ukrytym widoku
