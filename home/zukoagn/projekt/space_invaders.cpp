@@ -1024,6 +1024,7 @@ int main(int, char**)
                 {
                     score_level=tanks[0]->getScore();
                     clean_game();
+                    score+=score_level;
                     switch_to_screen = GAMEOVER;
 
                 }else if(life_invaders==0){
@@ -1032,6 +1033,7 @@ int main(int, char**)
                     life_invaders=55;
                     if(level==level_end)
                     {
+                        score+=score_level;
                         switch_to_screen = WIN;
                     }else{
                         score+=score_level;
@@ -1153,12 +1155,12 @@ int main(int, char**)
             case GAMEOVER:
                 al_draw_bitmap(gameover_bitmap, 0, 0, 0);
                 al_draw_text( font2, al_map_rgb( 255, 0, 0), screen_w/2, (screen_h+200)/2, ALLEGRO_ALIGN_CENTRE, "YOUR SCORE: ");
-                al_draw_textf( font2, al_map_rgb( 255, 0, 0 ), screen_w/2 , (screen_h+300)/2, ALLEGRO_ALIGN_CENTRE, "%i", score_level + score);
+                al_draw_textf( font2, al_map_rgb( 255, 0, 0 ), screen_w/2 , (screen_h+300)/2, ALLEGRO_ALIGN_CENTRE, "%i", score);
                 break;
             case WIN:
                 al_draw_bitmap(win_bitmap, 175, 0, 0);
                 al_draw_text( font2, al_map_rgb( 255, 0, 0), screen_w/2, (screen_h+100)/2, ALLEGRO_ALIGN_CENTRE, "YOUR SCORE: ");
-                al_draw_textf( font2, al_map_rgb( 255, 0, 0 ), screen_w/2 , (screen_h+200)/2, ALLEGRO_ALIGN_CENTRE, "%i", score_level + score);
+                al_draw_textf( font2, al_map_rgb( 255, 0, 0 ), screen_w/2 , (screen_h+200)/2, ALLEGRO_ALIGN_CENTRE, "%i", score);
                 break;
         }
         // wyswietlamy to co namalowalismy na ukrytym widoku
