@@ -3,11 +3,18 @@
 #include <fstream>
 #include <time.h>
 #include <unistd.h>
-using namespace std;
-/* GAME OF LIFE
 
-zak³adam, ¿e jednostka czasu to rok
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
+using namespace std;
+/* 
+GAME OF LIFE
+zakladam, ze jednostka czasu to rok
  */
+const int Ekran_X = 600;
+const int Ekran_Y = 600;
 class Plansza
 {
 	private:
@@ -25,7 +32,7 @@ class Plansza
 	bool dodajZywa(int x,int y);
 
 };
-/* dodaje ¿ywa komorke we wskazanym miejscu*/
+/* dodaje zywa komorke we wskazanym miejscu*/
 bool Plansza::dodajZywa(int x,int y)
 {
 	if(x<0||y<0||x>=szer||y>=wys)
@@ -37,7 +44,7 @@ bool Plansza::dodajZywa(int x,int y)
 
 }
 
-/* funkcja wykorzystana w konstruktorach do stworzenia tablic o zadanych wymiarach (tablicaBuf u³atwia przejscie do kolejnego roku) */
+/* funkcja wykorzystana w konstruktorach do stworzenia tablic o zadanych wymiarach (tablicaBuf ulatwia przejscie do kolejnego roku) */
 void Plansza::tworzTablice()
 	{
 		tablica=new int*[szer];
@@ -54,19 +61,31 @@ void Plansza::tworzTablice()
 		}
 
 	}
+ALLEGRO_BITMAP*  potworek;
 /* konstruktor pustej planszy z podanymi wymiarami */
+int pixSzer,pixWys;
 Plansza::Plansza(int szer,int wys)
 	{
+		potworek=al_load_bitmap("/home/meti/smieci/cell.png");
 		this->szer=szer;
 		this->wys=wys;
+		pixSzer=Ekran_X/szer;
+		pixWys=Ekran_Y/wys;
+		if(potworek==NULL)
+			cout<<"brak bitmapy potworka";
 		tworzTablice();
 	}
 /* konstruktor wczytujacy gotowa plansze poczatkowa, wczytuje plik txt i tworzy 'tablica' oraz 'tablicaBuf' */
 Plansza::Plansza(string nazwaPliku)
 	{
+		potworek=al_load_bitmap("/home/meti/smieci/cell.png");
 		ifstream plik;
+		if(potworek==NULL)
+			cout<<"brak bitmapy potworka";
 		plik.open(nazwaPliku.c_str());
 		plik>>szer>>wys;
+		pixSzer=Ekran_X/szer;
+		pixWys=Ekran_Y/wys;
 		tworzTablice();
 			for(int j=0;j<wys;j++)
 				for(int i=0;i<szer;i++)
@@ -78,7 +97,7 @@ Plansza::Plansza(string nazwaPliku)
 		plik.close();
 	}
 
-/* funkcja zape³niajaca plansze w sposob losowy */
+/* funkcja zapelniajaca plansze w sposob losowy */
 void Plansza::generujLos(int ile)
 	{
 		for(int i=0;i<ile;i++)
@@ -88,14 +107,19 @@ void Plansza::generujLos(int ile)
 			tablicaBuf[x][y]=1;
 		}
 	}
-/* funkcja wypisujaca plansze na ekran, gdzie komorki ¿ywe (przyjmujace wartosc 1) sa oznaczone jako #, a komorki martwe (o wartosci 0) oznaczone sa spacja */
+/* funkcja wypisujaca plansze na ekran, gdzie komorki zywe (przyjmujace wartosc 1) sa oznaczone jako #, a komorki martwe (o wartosci 0) oznaczone sa spacja */
 void Plansza::wypisz()
 	{
-		for(int j=0;j<wys+2;j++)
+		al_clear_to_color(al_map_rgb(250, 250, 250));
+		for(int j=0;j<wys;j++)
 
 		{
-			for(int i=0;i<szer+2;i++)
-				if(i==0||j==0||i==szer+1||j==wys+1)
+			for(int i=0;i<szer;i++)
+			{
+					if(tablica[i][j]!=0)
+						al_draw_scaled_bitmap(potworek,0,0,500,500,pixSzer*j, pixWys*i,pixSzer,pixWys,  0);
+			}
+/*				if(i==0||j==0||i==szer+1||j==wys+1)
 					cout<<"*";
 				else
 				{
@@ -104,10 +128,10 @@ void Plansza::wypisz()
 					else
 						cout<<"#";
 				}
-			cout<<endl;
+			cout<<endl;*/
 		}
 	}
-/* funkcja zliczajaca i zwracajaca liczbe sasiadow danej komorki. Aby ka¿da komorka mia³a 8 sasiadow, trzeba umiescic je na torusie, w tym celu wykorzysta³em modulo  */
+/* funkcja zliczajaca i zwracajaca liczbe sasiadow danej komorki. Aby kazda komorka miala 8 sasiadow, trzeba umiescic je na torusie, w tym celu wykorzystalem modulo  */
 int Plansza::ileSasiadow(int x,int y)
 	{
 		int licznik=0;
@@ -126,9 +150,9 @@ int Plansza::ileSasiadow(int x,int y)
 
 		return licznik;
 	}
-/* funkcja tworzaca nowa plansze, ktora powstaje po roku wed³ug regu³:
-    -Martwa komorka, ktora ma dok³adnie 3 ¿ywych sasiadow, staje sie ¿ywa
-    -¿ywa komorka z 2 albo 3 ¿ywymi sasiadami pozostaje nadal ¿ywa; przy innej liczbie sasiadow umiera
+/* funkcja tworzaca nowa plansze, ktora powstaje po roku wedlug regul:
+    -Martwa komorka, ktora ma dokladnie 3 zywych sasiadow, staje sie zywa
+    -zywa komorka z 2 albo 3 zywymi sasiadami pozostaje nadal zywa; przy innej liczbie sasiadow umiera
 */
 
 void Plansza::jedenKrokSymulacji()
@@ -159,13 +183,18 @@ void Plansza::jedenKrokSymulacji()
 
 	}
 
-
 int main(int, char**)
 {
-/* ileLat pozwala u¿ytkownikowi wybrac ile kolenych lat plansza ma sie zmieniac, natomiast ileLatCicho pozwala wybrac od ktorego roku zmiany maja byc obserwowane na ekranie*/
+/* ileLat pozwala uzytkownikowi wybrac ile kolenych lat plansza ma sie zmieniac, natomiast ileLatCicho pozwala wybrac od ktorego roku zmiany maja byc obserwowane na ekranie*/
 	int ileLat,ileLatCicho;
 	char znak,znak2;
+	
 		srand(time(NULL));
+		 if (!al_init() || !al_init_image_addon())
+		{
+		cout << "Initialization error!" << endl;
+		return 1;
+		}
 	do
 	{
 		cout<<endl<<"Witaj!"<<endl;
@@ -219,30 +248,30 @@ int main(int, char**)
 					}while(true);
 				}
 
-
-
 				if(p!=NULL)
 				{
-
-
 					cout << "Ile okresow (lat) ma trwac symulacja? ";
 					cin>>ileLat;
 					cout << "Po ilu okresach (latach) chcesz rozpoczac obserwacje symulacji? ";
 					cin>>ileLatCicho;
 
-
-
+					 ALLEGRO_DISPLAY *Show_Display = al_create_display(Ekran_X, Ekran_Y);
+						al_set_window_title(Show_Display, "Game of Life");
+						al_clear_to_color(al_map_rgb(230, 230, 230));
 					for(int i=0;i<ileLat;i++)
 					{
 						/* dopiero bo wybranej liczbie lat wyswietlane sa plansze */
-						if(i>ileLatCicho)
+						if(i>=ileLatCicho)
 						{
+
 						/* dla czytelnosci miedzy wyswietleniami kolejnych plansz nastepuje sekundowa przerwa, a poprzednia plansza jest kasowana z ekranu) */
-							usleep(1000);
+							usleep(1000000);
 							p->wypisz();
 						}
 						p->jedenKrokSymulacji();
+						al_flip_display();
 					}
+					 al_destroy_display(Show_Display);
 					break;
 				}
 			}while(znak2!='c');
@@ -259,4 +288,6 @@ int main(int, char**)
 	}while(znak!='w');
 	return 0;
 }
+
+
 
