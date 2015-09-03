@@ -66,7 +66,7 @@ ALLEGRO_BITMAP*  potworek;
 int pixSzer,pixWys;
 Plansza::Plansza(int szer,int wys)
 	{
-		potworek=al_load_bitmap("/home/meti/smieci/cell.png");
+		potworek=al_load_bitmap(cell.png);
 		this->szer=szer;
 		this->wys=wys;
 		pixSzer=Ekran_X/szer;
@@ -78,7 +78,7 @@ Plansza::Plansza(int szer,int wys)
 /* konstruktor wczytujacy gotowa plansze poczatkowa, wczytuje plik txt i tworzy 'tablica' oraz 'tablicaBuf' */
 Plansza::Plansza(string nazwaPliku)
 	{
-		potworek=al_load_bitmap("/home/meti/smieci/cell.png");
+		potworek=al_load_bitmap(cell.png);
 		ifstream plik;
 		if(potworek==NULL)
 			cout<<"brak bitmapy potworka";
