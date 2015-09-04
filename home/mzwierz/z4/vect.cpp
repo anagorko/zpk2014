@@ -6,7 +6,7 @@ using namespace std;
 #include "vect.h"
 
 
-    // konstruktor kopiuj¹cy
+    // konstruktor kopiujacy
 Vect::Vect(const Vect &w)
 {
     dim = w.getDimension();
@@ -33,14 +33,14 @@ void Vect::setCoordinate(int n,double c)
 
     v[n] = c;
 };
-    // Metoda pobieraj¹ca wartoœæ wspó³rzêdnej
+    // Metoda pobieraj¹ca wartosc wspólrzednej
 double Vect::getCoordinate(int n) const
 {
     assert(n > -1 && n < getDimension());
     return v[n];
 };
 
-    // Metoda zwracaj¹ca wymiar przestrzeni
+    // Metoda zwracajaca wymiar przestrzeni
 int Vect::getDimension() const
 {
     return dim;
@@ -73,7 +73,7 @@ double Vect::norm() const
     return sqrt( *this * *this );
 };
 
-    // Metoda normalizuj¹ca wektor
+    // Metoda normalizujaca wektor
 void Vect::normalize()
 {
     double norma = norm();
@@ -117,7 +117,7 @@ double operator*(const Vect &p1, const Vect &p2)
     return wynik;
 };
 
-// Mno¿enie wektora przez skalar
+// Mnozenie wektora przez skalar
 Vect operator*(const Vect &p, double d)
 {
     Vect z(p.getDimension());

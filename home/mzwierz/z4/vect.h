@@ -9,10 +9,10 @@ using namespace std;
 class Vect
 {
     int dim;       // wymiar przestrzeni
-    double* v;     // tablica wspó³rzêdnych
+    double* v;     // tablica wspólrzednych
 
 public:
-    // Konstruktor domyœlnie przyjmuje wymiar = 3
+    // Konstruktor domyslnie przyjmuje wymiar = 3
     Vect(int _dim = 3)
     {
         dim = _dim;

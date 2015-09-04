@@ -1,16 +1,21 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-int main()
-{
-int a, b;
-cin >> a;
+int main() {
 
-while(a!=0) {
-        b=a%10;
-        cout << b;
-        a=(a-b)/10;
+    unsigned int n;
+    cin >> n;
 
+    while(n%10 == 0)
+    {
+        n /=10;
     }
 
-}
+    while(n!=0)
+        {
+            cout << n%10;
+            n = (n-n%10)/10;
+        }
+
+  }
+

@@ -1,0 +1,51 @@
+# depslib dependency file v1.0
+1434049876 source:c:\cpp\tetris\main.cpp
+	<iostream>
+	"TetrisModel.h"
+
+1434049814 c:\cpp\tetris\include\tetrismodel.h
+	<array>
+	<memory>
+	<vector>
+	"BlockValue.h"
+	"Tetromino.h"
+
+1434048280 c:\cpp\tetris\include\tetromino.h
+	<array>
+	<functional>
+	"BlockValue.h"
+
+1434050078 source:c:\cpp\tetris\src\tetrismodel.cpp
+	"tetrisModel.h"
+	"tetromino.h"
+
+1434049939 source:c:\cpp\tetris\src\tetromino.cpp
+	"Tetromino.h"
+	<algorithm>
+	"TetrisModel.h"
+
+1434047836 c:\cpp\tetris\include\blockvalue.h
+
+1434046480 source:d:\tetris\src\tetrismodel.cpp
+	"tetrisModel.h"
+	"tetromino.h"
+
+1434046216 d:\tetris\include\tetrismodel.h
+	<array>
+	<memory>
+	<vector>
+	"BlockValue.h"
+	"Tetromino.h"
+
+1434044238 d:\tetris\include\blockvalue.h
+
+1434044682 d:\tetris\include\tetromino.h
+	<array>
+	<functional>
+	"BlockValue.h"
+
+1434046340 source:d:\tetris\src\tetromino.cpp
+	"Tetromino.h"
+	<algorithm>
+	"TetrisModel.h"
+
