@@ -895,6 +895,7 @@ int main()
 
                 al_draw_tinted_rotated_bitmap(lose_word_b, al_map_rgba_f( 1.0, 1.0, 1.0, 1.0),150, 110, 250, 150,0,0);
                 al_flip_display();
+                al_rest(5.0);
                 break;
             }
 
@@ -903,6 +904,7 @@ int main()
                 al_clear_to_color(black);
                 al_draw_rotated_bitmap(win_b, 400, 300,400 ,300,0,0);
                 al_flip_display();
+                al_rest(3.0);
                 break;
             }
 
